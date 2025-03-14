@@ -1,66 +1,196 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎬 Movie Ticket Booking System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 📌 Project Overview
+The **Movie Ticket Booking System** is a **Laravel 12** web application that allows users to book movie tickets, manage theaters, and handle payments. It includes **Filament v3** for an intuitive admin panel and supports **coupons** for ticket discounts.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ⚙️ Tech Stack
+- **Laravel 12** – Backend Framework
+- **Filament v3** – Admin Panel
+- **MySQL** – Database
+- **Spatie Permissions** – Role-based access control
+- **Bootstrap/Tailwind** – Frontend Styling
+- **Livewire/Alpine.js** – Interactive UI
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 📂 Database Design
+The database consists of the following tables:
 
-## Learning Laravel
+### **1️⃣ Users**
+| Column       | Type     | Description        |
+|-------------|---------|--------------------|
+| id          | BIGINT  | Primary Key        |
+| name        | STRING  | User's Name        |
+| avatar      | STRING  | User's Image       |
+| email       | STRING  | Unique Email       |
+| password    | STRING  | Hashed Password    |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### **2️⃣ Theaters**
+| Column       | Type     | Description            |
+|-------------|---------|------------------------|
+| id          | BIGINT  | Primary Key            |
+| name        | STRING  | Theater Name           |
+| address     | TEXT    | Theater Address        |
+| city        | STRING  | Location               |
+| manager_id  | BIGINT  | FK -> users (Manager)  |
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### **3️⃣ Screens**
+| Column       | Type     | Description             |
+|-------------|---------|-------------------------|
+| id          | BIGINT  | Primary Key             |
+| theater_id  | BIGINT  | FK -> theaters          |
+| name        | STRING  | Screen Name             |
+| capacity    | INT     | Number of Seats         |
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### **4️⃣ Movies**
+| Column        | Type    | Description               |
+|--------------|--------|---------------------------|
+| id           | BIGINT | Primary Key               |
+| title        | STRING | Movie Title               |
+| description  | TEXT   | Movie Synopsis            |
+| duration     | INT    | Duration (minutes)        |
+| release_date | DATE   | Release Date              |
+| poster_url   | STRING | Poster Image URL          |
 
-## Laravel Sponsors
+### **5️⃣ Showtimes**
+| Column      | Type    | Description           |
+|------------|--------|-----------------------|
+| id         | BIGINT | Primary Key           |
+| movie_id   | BIGINT | FK -> movies          |
+| screen_id  | BIGINT | FK -> screens         |
+| start_time | DATETIME | Show Start Time      |
+| end_time   | DATETIME | Show End Time        |
+| ticket_price | DECIMAL | Ticket Price (NPR) |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### **6️⃣ Seats**
+| Column      | Type    | Description         |
+|------------|--------|---------------------|
+| id         | BIGINT | Primary Key         |
+| screen_id  | BIGINT | FK -> screens       |
+| row        | STRING | Row Identifier      |
+| number     | STRING | Seat Number         |
+| seat_type  | ENUM   | (Regular/VIP)       |
 
-### Premium Partners
+### **7️⃣ Bookings**
+| Column      | Type    | Description                  |
+|------------|--------|------------------------------|
+| id         | BIGINT | Primary Key                  |
+| user_id    | BIGINT | FK -> users (Booked By)      |
+| showtime_id | BIGINT | FK -> showtimes             |
+| total_amount | DECIMAL | Total Cost                 |
+| discount   | DECIMAL | Discount Applied            |
+| coupon_id  | BIGINT | FK -> coupons (Nullable)     |
+| status     | ENUM   | (pending/confirmed/cancelled) |
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### **8️⃣ Booking Seats**
+| Column      | Type    | Description         |
+|------------|--------|---------------------|
+| id         | BIGINT | Primary Key         |
+| booking_id | BIGINT | FK -> bookings      |
+| seat_id    | BIGINT | FK -> seats         |
 
-## Contributing
+### **9️⃣ Payments**
+| Column        | Type    | Description           |
+|--------------|--------|-----------------------|
+| id           | BIGINT | Primary Key           |
+| booking_id   | BIGINT | FK -> bookings        |
+| amount       | DECIMAL | Paid Amount          |
+| payment_method | STRING | (Esewa/Khalti/COD) |
+| transaction_id | STRING | Unique Transaction  |
+| status       | ENUM   | (pending/success/failed) |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### **🔟 Coupons**
+| Column        | Type    | Description           |
+|--------------|--------|-----------------------|
+| id           | BIGINT | Primary Key           |
+| code         | STRING | Unique Coupon Code   |
+| discount_amount | DECIMAL | Fixed Discount    |
+| discount_percentage | DECIMAL | Percentage Discount |
+| valid_from   | DATETIME | Start Date          |
+| valid_until  | DATETIME | Expiry Date         |
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🚀 Installation Guide
 
-## Security Vulnerabilities
+### **Step 1: Clone the Repository**
+```sh
+https://github.com/your-repo/movie-ticket-booking.git
+cd movie-ticket-booking
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### **Step 2: Install Dependencies**
+```sh
+composer install
+npm install
+```
 
-## License
+### **Step 3: Configure Environment**
+```sh
+cp .env.example .env
+php artisan key:generate
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### **Step 4: Set Up Database**
+Update `.env` with your **MySQL credentials**:
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=movie_booking
+DB_USERNAME=root
+DB_PASSWORD=
+```
+Then, migrate tables:
+```sh
+php artisan migrate --seed
+```
+
+### **Step 5: Install Filament & Setup Admin Panel**
+```sh
+composer require filament/filament
+php artisan filament:install
+```
+Create an Admin User:
+```sh
+php artisan make:filament-user
+```
+
+### **Step 6: Start the Server**
+```sh
+php artisan serve
+```
+
+---
+
+## 🔐 User Roles & Permissions
+We use **Spatie Permissions** for role management.
+```sh
+composer require spatie/laravel-permission
+```
+### Roles:
+- **Admin** → Manage Theaters, Movies, Bookings
+- **User** → Book Tickets, View Showtimes
+- **Theater Manager** → Add Screens, Manage Showtimes
+
+---
+
+## 🎫 Booking Flow
+1️⃣ **User logs in** → Selects Movie & Showtime
+2️⃣ **Selects Seats** → Applies Coupon (if any)
+3️⃣ **Proceeds to Payment** (Esewa/Khalti)
+4️⃣ **Receives Ticket Confirmation** 🎟️
+
+---
+
+## 📜 License
+This project is **open-source** under the MIT license.
+
+---
+
+## 🙌 Contributing
+Pull requests are welcome! Feel free to open an issue if you find a bug.
+
+
