@@ -14,8 +14,11 @@ A movie ticket booking system made using laravel and filament,
 
 
 generate super admin:
-# generate policy at once
+# generate policy for all resource at once
+php artisan shield:generate --all
+
+# generate policy for specific resource
+php artisan shield:generate --resource=User
+
+# create new filament shield admin user
 php artisan shield:super-admin
-
-
-
