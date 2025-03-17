@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('avatar')->nullable();
+            $table->enum('organization', ['superadmin', 'theater_manager', 'customer'])->default('customer');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -13,4 +13,9 @@ https://filamentphp.com/plugins/bezhansalleh-shield
 A movie ticket booking system made using laravel and filament,
 
 
+generate super admin:
+# generate policy at once
+php artisan shield:super-admin
+
+
 
