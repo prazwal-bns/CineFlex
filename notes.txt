@@ -1,0 +1,16 @@
+CineFlex:
+Model Desgin
+https://v0.dev/chat/laravel-movie-ticket-system-cO8UMlqfN6j
+
+Filament Docs
+https://filamentphp.com/docs/3.x/panels/installation
+
+
+FIlament-Shield Docs:
+https://filamentphp.com/plugins/bezhansalleh-shield
+
+
+A movie ticket booking system made using laravel and filament,
+
+
+
