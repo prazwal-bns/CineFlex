@@ -24,37 +24,17 @@ class ListUsers extends ListRecords
     public function table(Table $table): Table
     {
         return $table
-            // ->columns([
-                // Tables\Columns\TextColumn::make('name')
-                //     ->searchable(),
-                // Tables\Columns\TextColumn::make('email')
-                //     ->searchable(),
-                // Tables\Columns\TextColumn::make('email_verified_at')
-                //     ->dateTime()
-                //     ->sortable(),
-                // Tables\Columns\TextColumn::make('avatar')
-                //     ->searchable(),
-                // Tables\Columns\TextColumn::make('organization')
-                //     ->searchable(),
-                // Tables\Columns\TextColumn::make('created_at')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
-                // Tables\Columns\TextColumn::make('updated_at')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
-            // ])
             ->columns(UserResourceTable::getFields())
             ->filters([
                 //
             ])
             ->actions([
+                Impersonate::make()
+                    ->icon('heroicon-s-user-plus')
+                    ->color('secondary')
+                    ->redirectTo(route('filament.admin.pages.dashboard')),
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Impersonate::make()
-                    ->icon('heroicon-o-cursor-arrow-rays')
-                    ->redirectTo(route('filament.admin.pages.dashboard')),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

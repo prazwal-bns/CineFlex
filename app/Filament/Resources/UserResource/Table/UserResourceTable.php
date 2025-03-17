@@ -23,17 +23,30 @@ final class UserResourceTable implements ResourceFieldContract
     public static function getFields(): array
     {
         return [
-            Tables\Columns\TextColumn::make('avatar')
-                ->searchable(),
+            Tables\Columns\ImageColumn::make('avatar')
+                ->circular()
+                ->label('User Image')
+                ->sortable()
+                // ->url(fn ($record) => asset('storage/' . $record->avatar))
+                ->url(fn ($record) => $record->avatar
+                    ? asset('storage/' . $record->avatar)
+                    : asset('storage/avatar.jpg'))
+                ->default(asset('storage/avatar.jpg'))
+                ->size(70),
             Tables\Columns\TextColumn::make('name')
                 ->searchable(),
             Tables\Columns\TextColumn::make('email')
                 ->searchable(),
-            Tables\Columns\TextColumn::make('email_verified_at')
-                ->dateTime()
-                ->sortable(),
-            Tables\Columns\TextColumn::make('organization')
+            Tables\Columns\TextColumn::make('roles.name')
+                ->formatStateUsing(fn (string $state): string => ucwords(str_replace('_', ' ', $state)))
+                ->sortable()
+                ->badge()
+                ->color('secondary')
                 ->searchable(),
+            Tables\Columns\TextColumn::make('organization')
+                ->searchable()
+                ->badge()
+                ->color('secondary'),
             Tables\Columns\TextColumn::make('created_at')
                 ->dateTime()
                 ->sortable()
