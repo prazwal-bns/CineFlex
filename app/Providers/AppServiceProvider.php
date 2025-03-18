@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
+use App\Livewire\EditProfileForm;
+use App\Livewire\EditPasswordForm;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Livewire::component('edit-profile-form', EditProfileForm::class);
+        Livewire::component('edit-password-form', EditPasswordForm::class);
     }
 }
