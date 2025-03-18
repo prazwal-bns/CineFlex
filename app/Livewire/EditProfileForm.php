@@ -55,7 +55,7 @@ class EditProfileForm extends Component implements HasForms
     {
         return
             Action::make('save')
-                ->label('Update Password')
+                ->label('Update Profile}')
                 ->submit('save');
     }
 

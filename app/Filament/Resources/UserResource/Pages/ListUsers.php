@@ -30,7 +30,9 @@ class ListUsers extends ListRecords
             ])
             ->actions([
                 Impersonate::make()
-                    ->icon('heroicon-s-user-plus')
+                    // ->icon('heroicon-s-user-plus')
+                    ->icon('fluentui-person-sync-28-o')
+                    // ->label('Impersonate')
                     ->color('secondary')
                     ->redirectTo(route('filament.admin.pages.dashboard')),
                 Tables\Actions\ViewAction::make(),
