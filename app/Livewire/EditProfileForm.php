@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Filament\Actions\Action;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Livewire\Component;
@@ -48,6 +49,14 @@ class EditProfileForm extends Component implements HasForms
                     ]),
             ])
             ->statePath('data');
+    }
+
+    public function getSaveAction(): Action
+    {
+        return
+            Action::make('save')
+                ->label('Update Password')
+                ->submit('save');
     }
 
     public function update(): void

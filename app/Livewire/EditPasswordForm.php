@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Filament\Actions\Action;
 use Livewire\Component;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -34,7 +35,10 @@ class EditPasswordForm extends Component implements HasForms
                         ->label('Current Password')
                         ->password()
                         ->required()
-                        ->rule('current_password'),
+                        ->rule('current_password')
+                        ->validationMessages([
+                            'current_password' => 'Incorrect Current Password',
+                        ]),
                     TextInput::make('password')
                         ->label('New Password')
                         ->password()
@@ -72,6 +76,14 @@ class EditPasswordForm extends Component implements HasForms
             ->send();
 
         $this->form->fill();
+    }
+
+    public function getSaveAction(): Action
+    {
+        return
+            Action::make('save')
+                ->label('Update Password')
+                ->submit('save');
     }
 
     public function render()

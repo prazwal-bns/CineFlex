@@ -3,9 +3,9 @@
         <form wire:submit.prevent="update" class="space-y-4 flex flex-col">
             {{ $this->form }}
 
-            <x-filament::button type="submit" color="primary" class="ml-auto">
-                Update Profile
-            </x-filament::button>
+            <div>
+                {{ $this->getSaveAction() }}
+            </div>
         </form>
     </div>
 </div>

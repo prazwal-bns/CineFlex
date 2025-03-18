@@ -3,9 +3,10 @@
         <form wire:submit.prevent="updatePassword" class="space-y-4 flex flex-col">
             {{ $this->form }}
 
-            <x-filament::button type="submit" color="danger" class="ml-auto">
-                Update Password
-            </x-filament::button>
+            <div>
+                {{ $this->getSaveAction() }}
+            </div>
+
         </form>
     </div>
 </div>

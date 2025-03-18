@@ -38,10 +38,14 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-user'),
             ])
             ->colors([
-                'primary' => Color::Amber,
-                'secondary' => '#106681',
-                'danger' => Color::Red,
+                'primary' => '#136683',
+                'secondary' => '#1E293B',
+                'success' => Color::Emerald,
+                'danger' => Color::Rose,
+                'warning' => Color::Amber,
+                'info' => Color::Sky,
             ])
+
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([

@@ -32,7 +32,8 @@ final class UserResourceTable implements ResourceFieldContract
                     ? asset('storage/' . $record->avatar)
                     : asset('storage/avatar.jpg'))
                 ->default(asset('storage/avatar.jpg'))
-                ->size(70),
+                ->size(70)
+                ->openUrlInNewTab(true),
             Tables\Columns\TextColumn::make('name')
                 ->searchable(),
             Tables\Columns\TextColumn::make('email')
