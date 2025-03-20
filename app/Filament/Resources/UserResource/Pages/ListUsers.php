@@ -28,7 +28,7 @@ class ListUsers extends ListRecords
             ->filters([
                 //
             ])
-            ->actions([
+            ->actions([ 
                 Impersonate::make()
                     // ->icon('heroicon-s-user-plus')
                     ->icon('fluentui-person-sync-28-o')
