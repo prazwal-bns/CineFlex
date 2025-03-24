@@ -13,9 +13,10 @@ use Filament\Resources\Resource;
 
 class UserResource extends Resource
 {
+    protected static ?string $navigationGroup = 'Manage Users';
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-user';
 
     public static function form(Form $form): Form
     {
