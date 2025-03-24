@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Forms\UserResourceForm;
 use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\UserResource\Pages\Forms\UserResourceForm;
 use App\Models\User;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 
 
@@ -21,6 +23,12 @@ class UserResource extends Resource
             ->schema(UserResourceForm::getFields());
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+            ]);
+    }
 
 
     public static function getRelations(): array

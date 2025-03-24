@@ -71,6 +71,7 @@ class AdminPanelProvider extends PanelProvider
                 FilamentShieldPlugin::make(),
             ])
             // ->darkMode(false)
+            ->favicon('https://img.icons8.com/?size=100&id=anF7eeFKrvTG&format=png&color=000000')
             ->authMiddleware([
                 Authenticate::class,
             ]);
