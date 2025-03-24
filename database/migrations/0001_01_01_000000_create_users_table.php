@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('avatar')->nullable();
             $table->enum('organization', ['superadmin', 'theater_manager', 'customer'])->default('customer');
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

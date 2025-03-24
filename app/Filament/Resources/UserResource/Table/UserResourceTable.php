@@ -38,7 +38,7 @@ final class UserResourceTable implements ResourceFieldContract
                 ->size(70)
                 ->openUrlInNewTab(true),
             LinkColumn::make('name')
-                ->url(fn ($record) => route('filament.admin.resources.users.view', ['record' => $record->id]))
+                ->url(fn ($record) => route('filament.admin.resources.users.edit', ['record' => $record->id]))
                 ->searchable(),
             Tables\Columns\TextColumn::make('email')
                 ->searchable(),
