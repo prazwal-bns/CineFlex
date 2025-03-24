@@ -12,6 +12,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -26,13 +27,19 @@ class ListUsers extends ListRecords
         return $table
             ->columns(UserResourceTable::getFields())
             ->filters([
-                //
+                SelectFilter::make('id')
+                    ->options(
+                        User::query()
+                            ->pluck('name', 'id')
+                            ->toArray()
+                    )
+                    ->searchable()
+                    ->label('Name'),
+
             ])
-            ->actions([ 
+            ->actions([
                 Impersonate::make()
-                    // ->icon('heroicon-s-user-plus')
                     ->icon('fluentui-person-sync-28-o')
-                    // ->label('Impersonate')
                     ->color('secondary')
                     ->redirectTo(route('filament.admin.pages.dashboard')),
                 Tables\Actions\ViewAction::make(),
