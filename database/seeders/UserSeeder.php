@@ -17,6 +17,9 @@ class UserSeeder extends Seeder
             'name' => 'Admin User',
             'email' => 'admin@gmail.com',
             'password' => '@admin123',
+            'avatar' => 'admin.png',
+            'phone' => '+977 9800000000',
+            'address' => 'Kathmandu, Nepal',
         ]);
 
         $admin->assignRole('super_admin');
@@ -25,6 +28,9 @@ class UserSeeder extends Seeder
             'name' => 'Theater Manager User',
             'email' => 'theater_manager@gmail.com',
             'password' => '@user123',
+            'avatar' => 'theater_manager.jpg',
+            'phone' => '+977 9878451254',
+            'address' => 'Pokhara, Nepal',
         ]);
 
         $theaterManager->assignRole('theater_manager');
@@ -33,6 +39,9 @@ class UserSeeder extends Seeder
             'name' => 'Customer User',
             'email' => 'customer@gmail.com',
             'password' => '@user123',
+            'avatar' => 'customer.jpg',
+            'phone' => '+977 9874512547',
+            'address' => 'Biratnagar, Nepal',
         ]);
 
         $customer->assignRole('customer');
