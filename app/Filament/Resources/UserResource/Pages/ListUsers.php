@@ -2,12 +2,14 @@
 
 namespace App\Filament\Resources\UserResource\Pages;
 
+use App\Filament\Imports\UserImporter;
 use App\Filament\Resources\UserResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Filament\Resources\UserResource\Table\UserResourceTable;
 use App\Models\User;
+use Filament\Actions\ImportAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -58,6 +60,17 @@ class ListUsers extends ListRecords
             Actions\CreateAction::make()
                 ->label('Add New User')
                 ->icon('heroicon-s-user-plus'),
+
+                Tables\Actions\ActionGroup::make([
+                    ImportAction::make('Nexus User Import')
+                    ->modalHeading('Import Nexus User')
+                    ->tooltip('Import Nexus Users')
+                    ->importer(UserImporter::class)
+                    ->label('Import Users')
+                    ->color('primary'),
+            ])->label('Imports Users')
+                ->icon('heroicon-o-document-plus')
+                ->button(),
         ];
     }
 }
