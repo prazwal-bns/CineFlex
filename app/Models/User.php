@@ -59,4 +59,15 @@ class User extends Authenticatable implements HasAvatar
     {
         return $this->avatar ? asset('storage/' .$this->avatar) : asset('storage/avatar.jpg');
     }
+
+
+    public function theaters()
+    {
+        return $this->hasMany(Theater::class, 'manager_id');
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }
