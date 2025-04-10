@@ -1,0 +1,57 @@
+/**
+ * CineFlex Admin Theme
+ * Custom styling for the Filament admin panel
+ */
+
+/* Active navigation item styling */
+.fi-sidebar-nav .fi-sidebar-item.fi-sidebar-item-active .fi-sidebar-item-button {
+    background-color: rgba(245, 158, 11, 0.1) !important; /* Amber background with opacity */
+    border-left: 3px solid #F59E0B !important; /* Amber accent */
+}
+
+/* Dark mode active item */
+.dark .fi-sidebar-nav .fi-sidebar-item.fi-sidebar-item-active .fi-sidebar-item-button {
+    background-color: rgba(245, 158, 11, 0.15) !important; /* Slightly stronger amber for dark mode */
+    border-left: 3px solid #F59E0B !important; /* Amber accent */
+}
+
+/* Hover state for non-active items */
+.fi-sidebar-nav .fi-sidebar-item:not(.fi-sidebar-item-active) .fi-sidebar-item-button:hover {
+    background-color: rgba(245, 158, 11, 0.05) !important; /* Very light amber */
+    border-left: 2px solid rgba(245, 158, 11, 0.3) !important; /* Semi-transparent amber */
+}
+
+/* Dark mode hover */
+.dark .fi-sidebar-nav .fi-sidebar-item:not(.fi-sidebar-item-active) .fi-sidebar-item-button:hover {
+    background-color: rgba(245, 158, 11, 0.08) !important; /* Slightly darker amber for dark mode */
+    border-left: 3px solid rgba(245, 158, 11, 0.3) !important; /* Semi-transparent amber */
+}
+
+/* Group header styling */
+.fi-sidebar-group-headline {
+    color: #92400E !important; /* Darker amber for headers */
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+/* Dark mode group header */
+.dark .fi-sidebar-group-headline {
+    color: #FCD34D !important; /* Lighter amber for contrast in dark mode */
+}
+
+/* Sidebar brand section */
+.fi-sidebar-header {
+    border-bottom: 1px solid rgba(245, 158, 11, 0.2); /* Amber border */
+}
+
+/* Navigation item spacing */
+.fi-sidebar-item-button {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Custom focus styles */
+.fi-sidebar-item-button:focus {
+    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.5) !important; /* Amber focus ring */
+}

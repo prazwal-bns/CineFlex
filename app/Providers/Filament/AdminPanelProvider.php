@@ -39,7 +39,7 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-user'),
             ])
             ->colors([
-                'primary' => '#136683',
+                'primary' => Color::Amber,
                 'secondary' => '#106681',
                 'success' => Color::Emerald,
                 'danger' => Color::Rose,
@@ -74,7 +74,7 @@ class AdminPanelProvider extends PanelProvider
             ->databaseNotifications()
             ->databaseNotificationsPolling('30s')
             // ->darkMode(false)
-            ->favicon('https://img.icons8.com/?size=100&id=anF7eeFKrvTG&format=png&color=000000')
+            ->favicon('https://img.icons8.com/fluency/96/movie-projector.png')
             ->authMiddleware([
                 Authenticate::class,
             ]);
@@ -84,5 +84,11 @@ class AdminPanelProvider extends PanelProvider
     {
         parent::register();
         FilamentView::registerRenderHook('panels::body.end', fn(): string => Blade::render("@vite('resources/js/app.js')"));
+
+        // Add custom CSS for the admin panel
+        FilamentView::registerRenderHook(
+            'panels::head.end',
+            fn(): string => Blade::render("@vite('resources/css/admin.css')")
+        );
     }
 }
