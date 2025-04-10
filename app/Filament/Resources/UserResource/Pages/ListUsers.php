@@ -62,9 +62,9 @@ class ListUsers extends ListRecords
                 ->icon('heroicon-s-user-plus'),
 
                 Tables\Actions\ActionGroup::make([
-                    ImportAction::make('Nexus User Import')
-                    ->modalHeading('Import Nexus User')
-                    ->tooltip('Import Nexus Users')
+                    ImportAction::make('Import User')
+                    ->modalHeading('Import User')
+                    ->tooltip('Import New Users')
                     ->importer(UserImporter::class)
                     ->label('Import Users')
                     ->color('primary'),
