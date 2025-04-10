@@ -87,4 +87,14 @@ class TheaterResource extends Resource
             'edit' => Pages\EditTheater::route('/{record}/edit'),
         ];
     }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'info';
+    }
 }

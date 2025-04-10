@@ -81,4 +81,14 @@ class BookingSeatResource extends Resource
             'edit' => Pages\EditBookingSeat::route('/{record}/edit'),
         ];
     }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'gray';
+    }
 }

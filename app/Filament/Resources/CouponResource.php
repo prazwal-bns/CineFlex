@@ -113,4 +113,14 @@ class CouponResource extends Resource
             'edit' => Pages\EditCoupon::route('/{record}/edit'),
         ];
     }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'warning';
+    }
 }
