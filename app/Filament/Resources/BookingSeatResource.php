@@ -17,7 +17,9 @@ class BookingSeatResource extends Resource
 {
     protected static ?string $model = BookingSeat::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Sales & Bookings';
+
+    protected static ?string $navigationIcon = 'heroicon-s-ticket';
 
     public static function form(Form $form): Form
     {

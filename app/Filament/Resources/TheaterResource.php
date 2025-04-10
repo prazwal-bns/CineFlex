@@ -17,7 +17,9 @@ class TheaterResource extends Resource
 {
     protected static ?string $model = Theater::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-building-storefront';
+
+    protected static ?string $navigationGroup = 'Venue Management';
 
     public static function form(Form $form): Form
     {

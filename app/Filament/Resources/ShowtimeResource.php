@@ -17,7 +17,9 @@ class ShowtimeResource extends Resource
 {
     protected static ?string $model = Showtime::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-clock';
+
+    protected static ?string $navigationGroup = 'Scheduling';
 
     public static function form(Form $form): Form
     {
