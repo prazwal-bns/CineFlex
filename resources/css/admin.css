@@ -55,3 +55,20 @@
 .fi-sidebar-item-button:focus {
     box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.5) !important; /* Amber focus ring */
 }
+
+/* Simple, slim scrollbar */
+::-webkit-scrollbar {
+    width: 4px !important;
+    height: 4px !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc !important;
+    border-radius: 2px !important;
+}
+
+/* Firefox scrollbar */
+* {
+    scrollbar-width: thin !important;
+    scrollbar-color: #ccc transparent !important;
+}
