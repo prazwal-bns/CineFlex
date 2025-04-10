@@ -70,4 +70,20 @@ class User extends Authenticatable implements HasAvatar
     {
         return $this->hasMany(Booking::class);
     }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->roles->contains('name', 'super_admin');
+    }
+
+    public function isTheaterManager(): bool
+    {
+        return $this->roles->contains('name', 'theater_manager');
+    }
+
+
+    public function isCustomer(): bool
+    {
+        return $this->roles->contains('name', 'customer');
+    }
 }

@@ -67,7 +67,9 @@ class ListUsers extends ListRecords
                     ->tooltip('Import New Users')
                     ->importer(UserImporter::class)
                     ->label('Import Users')
-                    ->color('primary'),
+                    ->color('primary')
+                    ->visible(function(){return auth()->user()->isSuperAdmin();
+                }),
             ])->label('Imports Users')
                 ->icon('heroicon-o-document-plus')
                 ->button(),
