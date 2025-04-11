@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('screens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('theater_id')->constrained()->onDelete('cascade');
+            $table->foreignId('theater_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
             $table->string('name');
             $table->integer('capacity');
             $table->timestamps();

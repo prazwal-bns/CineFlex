@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('showtimes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('movie_id')->constrained()->onDelete('cascade');
+            $table->foreignId('movie_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
             $table->foreignId('screen_id')->constrained()->onDelete('cascade');
             $table->dateTime('start_time');
             $table->dateTime('end_time');

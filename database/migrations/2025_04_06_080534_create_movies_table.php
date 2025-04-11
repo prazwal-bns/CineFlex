@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('release_date');
             $table->string('poster_url')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
