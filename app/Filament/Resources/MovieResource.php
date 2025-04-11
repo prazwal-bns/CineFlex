@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MovieResource\Pages;
-use App\Filament\Resources\MovieResource\RelationManagers;
+use App\Filament\Resources\MovieResource\Pages\Forms\MovieResourceForm;
 use App\Models\Movie;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class MovieResource extends Resource
 {
@@ -24,19 +21,7 @@ class MovieResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required(),
-                Forms\Components\Textarea::make('description')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('duration')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\DatePicker::make('release_date')
-                    ->required(),
-                Forms\Components\TextInput::make('poster_url'),
-            ]);
+            ->schema(MovieResourceForm::getFields());
     }
 
     public static function table(Table $table): Table
