@@ -29,6 +29,7 @@ final class MovieResourceForm implements ResourceFieldContract
                             TextInput::make('duration')
                                 ->required()
                                 ->numeric()
+                                ->mask('999')
                                 ->minValue(1)
                                 ->maxValue(300)
                                 ->suffix('minutes')
