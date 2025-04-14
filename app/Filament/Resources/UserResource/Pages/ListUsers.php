@@ -6,18 +6,12 @@ use App\Filament\Imports\UserImporter;
 use App\Filament\Resources\UserResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
-use App\Filament\Resources\UserResource\RelationManagers;
 use App\Filament\Resources\UserResource\Table\UserResourceTable;
 use App\Models\User;
 use Filament\Actions\ImportAction;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 
 class ListUsers extends ListRecords
