@@ -37,7 +37,8 @@ class ListUsers extends ListRecords
                 Impersonate::make()
                     ->icon('fluentui-person-sync-28-o')
                     ->color('secondary')
-                    ->redirectTo(route('filament.admin.pages.dashboard')),
+                    ->redirectTo(route('filament.admin.pages.dashboard'))
+                    ->visible(function(){return auth()->user()->isSuperAdmin();}),
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
