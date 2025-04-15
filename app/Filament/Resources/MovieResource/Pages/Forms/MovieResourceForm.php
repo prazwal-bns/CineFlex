@@ -75,6 +75,10 @@ final class MovieResourceForm implements ResourceFieldContract
                         ->visibility('public')
                         ->preserveFilenames()
                         ->required()
+                        ->imageEditor()
+                        ->imageEditorAspectRatios([
+                            '2:3'
+                        ])
                         ->imageResizeMode('cover')
                         ->imageCropAspectRatio('2:3')
                         ->imageResizeTargetWidth('400')
