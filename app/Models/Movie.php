@@ -35,15 +35,6 @@ class Movie extends Model
         return $this->hasMany(Showtime::class);
     }
 
-    public function setPosterUrlAttribute($value)
-    {
-        if (request()->hasFile('poster_file')) {
-            $this->attributes['poster_url'] = request()->file('poster_file')->store('posters', 'public');
-        } else {
-            $this->attributes['poster_url'] = $value;
-        }
-    }
-
     public function getPosterUrlAttribute($value)
     {
         if (empty($value)) {
