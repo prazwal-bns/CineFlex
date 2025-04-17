@@ -15,9 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->integer('duration');
+            $table->integer('duration'); // in minutes
             $table->date('release_date');
-            $table->string('poster_url')->nullable();
+            $table->string('poster_url');
+            $table->string('director');
+            $table->string('genre');
+            $table->decimal('rating', 3, 1)->nullable(); // e.g., 8.5
+            $table->string('language')->default('English');
+            $table->string('country')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -10,6 +10,7 @@
         "bezhansalleh/filament-shield": "^3.3",
         "codeat3/blade-fluentui-system-icons": "^1.34",
         "filament/filament": "^3.2",
+        "guzzlehttp/guzzle": "^7.9",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "stechstudio/filament-impersonate": "^3.15"
