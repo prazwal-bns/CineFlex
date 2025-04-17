@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\MovieResource\Tables;
 
 use App\Filament\Contracts\ResourceFieldContract;
+use App\Support\Helper;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -29,17 +30,64 @@ final class MovieResourceTable implements ResourceFieldContract
                 ->size(TextColumn\TextColumnSize::Large)
                 ->wrap(),
 
-            TextColumn::make('duration')
-                ->label('Duration')
-                ->numeric()
+            TextColumn::make('genre')
+                ->label('Genre')
+                ->searchable()
                 ->sortable()
-                ->formatStateUsing(fn ($state) => "{$state} minutes")
+                ->badge()
+                ->color('secondary')
+                ->formatStateUsing(fn ($state) => Helper::capitalizeString($state))
                 ->alignCenter(),
 
             TextColumn::make('release_date')
                 ->label('Release Date')
                 ->date('d M Y')
                 ->sortable()
+                ->alignCenter(),
+
+            TextColumn::make('duration')
+                ->label('Duration')
+                ->numeric()
+                ->sortable()
+                ->badge()
+                ->color('success')
+                ->formatStateUsing(fn ($state) => Str::title("{$state} min"))
+                ->toggleable(isToggledHiddenByDefault: true)
+                ->alignCenter(),
+
+            TextColumn::make('director')
+                ->label('Director')
+                ->searchable()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true)
+                ->alignCenter(),
+
+            TextColumn::make('language')
+                ->label('Language')
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true)
+                ->alignCenter(),
+
+            TextColumn::make('country')
+                ->label('Country')
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true)
+                ->alignCenter(),
+
+            TextColumn::make('rating')
+                ->label('Rating')
+                ->sortable()
+                ->badge()
+                ->color(fn (string $state): string => match ($state) {
+                    'G' => 'success',
+                    'PG' => 'info',
+                    'PG-13' => 'warning',
+                    'R' => 'danger',
+                    'NC-17' => 'gray',
+                    default => 'secondary',
+                })
+                ->formatStateUsing(fn ($state) => Str::upper($state))
+                ->toggleable(isToggledHiddenByDefault: true)
                 ->alignCenter(),
 
             TextColumn::make('created_at')

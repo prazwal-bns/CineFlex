@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\MovieResource\Pages\Forms;
 
+use App\Enums\Genre;
 use App\Filament\Contracts\ResourceFieldContract;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
@@ -12,6 +13,7 @@ use Filament\Forms\Components\Grid;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Filament\Forms\Components\BaseFileUpload;
+use Filament\Forms\Components\Select;
 
 final class MovieResourceForm implements ResourceFieldContract
 {
@@ -45,9 +47,34 @@ final class MovieResourceForm implements ResourceFieldContract
                         ]),
                 ]),
 
-            Section::make('Movie Description')
-                ->description('Provide a detailed description of the movie')
+            Section::make('Movie Details and Description')
+                ->description('Provide few movie details and a detailed description of the movie')
                 ->schema([
+
+                    Grid::make(2)
+                        ->schema([
+                            TextInput::make('director')
+                                ->required()
+                                ->maxLength(255)
+                                ->placeholder('Enter movie director'),
+
+                            Select::make('genre')
+                                ->required()
+                                ->options(Genre::class)
+                                ->searchable()
+                                ->placeholder('Select movie genre'),
+
+                            TextInput::make('language')
+                                ->required()
+                                ->maxLength(255)
+                                ->placeholder('Enter movie language'),
+
+                            TextInput::make('country')
+                                ->required()
+                                ->maxLength(255)
+                                ->placeholder('Enter movie country'),
+                        ]),
+
                     RichEditor::make('description')
                         ->required()
                         ->minLength(50)
@@ -89,7 +116,6 @@ final class MovieResourceForm implements ResourceFieldContract
                         ->placeholder('Upload poster image (recommended size: 400x600px)')
                         ->helperText('Upload a high-quality poster image. Supported formats: JPG, PNG, WebP. Max size: 5MB')
 
-                        // 👇 Handles display of seeded/existing values (e.g., from URL or DB)
                         ->afterStateHydrated(static function (BaseFileUpload $component, string|array|null $state) {
                             if (blank($state)) {
                                 $component->state([]);
@@ -112,6 +138,7 @@ final class MovieResourceForm implements ResourceFieldContract
                                 'url' => $isExternal ? $file : Storage::disk('public')->url($file),
                             ];
                         })
+
 
                 ]),
         ];

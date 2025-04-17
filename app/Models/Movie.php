@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Genre;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
@@ -17,7 +18,6 @@ class Movie extends Model
         'duration',
         'release_date',
         'poster_url',
-        'poster_file',
         'director',
         'genre',
         'rating',
@@ -27,7 +27,7 @@ class Movie extends Model
 
     protected $casts = [
         'release_date' => 'date',
-        'rating' => 'decimal:1',
+        'rating' => 'decimal:1'
     ];
 
     public function showtimes()
