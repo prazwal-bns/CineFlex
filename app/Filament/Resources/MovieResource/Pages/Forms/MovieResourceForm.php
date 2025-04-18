@@ -89,6 +89,7 @@ final class MovieResourceForm implements ResourceFieldContract
 
                             DatePicker::make('release_date')
                                 ->required()
+                                ->native(false)
                                 ->displayFormat('d M Y')
                                 ->placeholder('Select release date'),
                         ]),
@@ -107,7 +108,23 @@ final class MovieResourceForm implements ResourceFieldContract
 
                             Select::make('genre')
                                 ->required()
-                                ->options(Genre::class)
+                                ->options([
+                                    'action' => 'Action',
+                                    'adventure' => 'Adventure',
+                                    'animation' => 'Animation',
+                                    'comedy' => 'Comedy',
+                                    'documentary' => 'Documentary',
+                                    'drama' => 'Drama',
+                                    'fantasy' => 'Fantasy',
+                                    'horror' => 'Horror',
+                                    'mystery' => 'Mystery',
+                                    'romance' => 'Romance',
+                                    'sci-fi' => 'Sci-Fi',
+                                    'thriller' => 'Thriller',
+                                    'western' => 'Western',
+                                    'crime' => 'Crime',
+                                ])
+                                ->multiple()
                                 ->searchable()
                                 ->placeholder('Select movie genre'),
 
@@ -124,7 +141,7 @@ final class MovieResourceForm implements ResourceFieldContract
 
                     RichEditor::make('description')
                         ->required()
-                        ->minLength(50)
+                        ->minLength(3)
                         ->maxLength(10000)
                         ->toolbarButtons([
                             'bold',

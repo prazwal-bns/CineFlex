@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('release_date');
             $table->string('poster_url');
             $table->string('director');
-            $table->string('genre');
+            $table->json('genre');
             $table->decimal('rating', 3, 1)->nullable(); // e.g., 8.5
             $table->string('language')->default('English');
             $table->string('country')->nullable();

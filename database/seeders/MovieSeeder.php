@@ -50,7 +50,7 @@ class MovieSeeder extends Seeder
                 // Get genres
                 $genres = collect($movieDetails['genres'] ?? [])
                     ->pluck('name')
-                    ->implode(', ');
+                    ->toArray();
 
                 Movie::firstOrCreate(
                     ['title' => $movieData['title']],

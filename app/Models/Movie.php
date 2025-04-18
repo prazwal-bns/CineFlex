@@ -27,7 +27,8 @@ class Movie extends Model
 
     protected $casts = [
         'release_date' => 'date',
-        'rating' => 'decimal:1'
+        'rating' => 'decimal:1',
+        'genre' => 'array',
     ];
 
     public function showtimes()
