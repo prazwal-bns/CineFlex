@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             ShieldSeeder::class,
             UserSeeder::class,
             MovieSeeder::class,
+            CountrySeeder::class,
         ]);
     }
 }

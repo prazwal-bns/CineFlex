@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Filament\Forms\Components\BaseFileUpload;
 use Filament\Forms\Components\Select;
+use Illuminate\Support\Facades\Http;
+use App\Models\Country;
 
 final class MovieResourceForm implements ResourceFieldContract
 {
@@ -133,10 +135,11 @@ final class MovieResourceForm implements ResourceFieldContract
                                 ->maxLength(255)
                                 ->placeholder('Enter movie language'),
 
-                            TextInput::make('country')
+                            Select::make('country')
                                 ->required()
-                                ->maxLength(255)
-                                ->placeholder('Enter movie country'),
+                                ->options(Country::pluck('name', 'name'))
+                                ->searchable()
+                                ->placeholder('Select a country'),
                         ]),
 
                     RichEditor::make('description')
