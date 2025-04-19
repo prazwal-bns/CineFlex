@@ -59,7 +59,7 @@ class User extends Authenticatable implements HasAvatar
 
     public function getFilamentAvatarUrl(): string
     {
-        return $this->avatar ? asset('storage/' .$this->avatar) : asset('storage/avatar.jpg');
+        return $this->avatar ? asset('storage/' . $this->avatar) : asset('storage/avatar.jpg');
     }
 
 
@@ -87,5 +87,12 @@ class User extends Authenticatable implements HasAvatar
     public function isCustomer(): bool
     {
         return $this->roles->contains('name', 'customer');
+    }
+
+    public static function getTheaterManagers()
+    {
+        return self::whereHas('roles', function ($query) {
+            $query->where('name', 'theater_manager');
+        })->pluck('name', 'id');
     }
 }

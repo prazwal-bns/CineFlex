@@ -3,8 +3,17 @@
 namespace App\Filament\Resources\TheaterResource\Pages;
 
 use App\Filament\Resources\TheaterResource;
+use App\Filament\Resources\TheaterResource\Table\TheaterResourceTable;
+use App\Models\User;
+use App\Models\Theater;
+use App\Support\Helper;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\Filter;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListTheaters extends ListRecords
 {
@@ -15,5 +24,39 @@ class ListTheaters extends ListRecords
         return [
             Actions\CreateAction::make(),
         ];
+    }
+
+    public function table(Table $table): Table
+    {
+        return $table
+            ->columns(TheaterResourceTable::getFields())
+            ->filters([
+                SelectFilter::make('city')
+                    ->label('City')
+                    ->options(fn() => Theater::distinct()->pluck('city', 'city')->toArray())
+                    ->searchable()
+                    ->preload(),
+
+                SelectFilter::make('manager')
+                    ->label('Theater Manager')
+                    ->relationship(
+                        'manager',
+                        'name',
+                        fn($query) => Helper::applyTheaterManagerFilter($query)
+                    )
+                    ->searchable()
+                    ->preload(),
+
+
+            ])
+            ->actions([
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 }
