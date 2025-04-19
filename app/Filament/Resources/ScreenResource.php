@@ -24,11 +24,6 @@ class ScreenResource extends Resource
             ->schema(ScreenResourceForm::getFields());
     }
 
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns(ScreenResourceTable::getFields());
-    }
 
     public static function getRelations(): array
     {
