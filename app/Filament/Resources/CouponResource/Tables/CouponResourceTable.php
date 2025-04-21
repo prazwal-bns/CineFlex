@@ -15,7 +15,7 @@ final class CouponResourceTable implements ResourceFieldContract
                 ->sortable()
                 ->label('Coupon Code')
                 ->badge()
-                ->color('primary')
+                ->color('accent')
                 ->formatStateUsing(fn($state) => strtoupper($state)),
 
             Tables\Columns\TextColumn::make('description')
@@ -38,9 +38,9 @@ final class CouponResourceTable implements ResourceFieldContract
                 ->numeric()
                 ->sortable()
                 ->label('Discount Value')
-                ->formatStateUsing(fn($state, $record) => $record->discount_type === 'percentage' ? "{$state}%" : "\${$state}")
+                ->formatStateUsing(fn($state, $record) => $record->discount_type === 'percentage' ? "{$state} %" : "\$ {$state}")
                 ->badge()
-                ->color('info'),
+                ->color(fn($state, $record) => $record->discount_type === 'percentage' ? 'success' : 'primary'),
 
             Tables\Columns\TextColumn::make('valid_until')
                 ->date('M d, Y')
