@@ -12,6 +12,10 @@ final class Helper
         return ucwords(str_replace(" ", "", $value));
     }
 
+    public static function upperString(string $value)
+    {
+        return strtoupper($value);
+    }
 
     public static function applyTheaterManagerFilter($query)
     {

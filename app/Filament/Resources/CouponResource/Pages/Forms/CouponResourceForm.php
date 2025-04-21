@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\CouponResource\Pages\Forms;
 
 use App\Filament\Contracts\ResourceFieldContract;
+use App\Support\Helper;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Grid;
@@ -29,7 +30,9 @@ final class CouponResourceForm implements ResourceFieldContract
                                         ->label('Coupon Code')
                                         ->placeholder('Enter coupon code')
                                         ->prefixIcon('heroicon-o-tag')
-                                        ->columnSpanFull(),
+                                        ->columnSpanFull()
+                                        ->dehydrateStateUsing(fn(string $state) => Helper::upperString($state)),
+
                                     RichEditor::make('description')
                                         ->required()
                                         ->maxLength(255)
@@ -56,6 +59,7 @@ final class CouponResourceForm implements ResourceFieldContract
                                             'percentage' => 'Percentage',
                                             'fixed' => 'Fixed Amount',
                                         ])
+                                        ->default('percentage')
                                         ->label('Discount Type')
                                         ->columnSpanFull(),
 
