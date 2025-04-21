@@ -51,6 +51,7 @@ final class CouponResourceForm implements ResourceFieldContract
                                 ->schema([
                                     Forms\Components\Select::make('discount_type')
                                         ->required()
+                                        ->selectablePlaceholder(false)
                                         ->options([
                                             'percentage' => 'Percentage',
                                             'fixed' => 'Fixed Amount',
