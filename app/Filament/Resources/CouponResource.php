@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CouponResource\Pages;
+use App\Filament\Resources\CouponResource\Pages\Forms\CouponResourceForm;
 use App\Filament\Resources\CouponResource\RelationManagers;
 use App\Models\Coupon;
 use Filament\Forms;
@@ -24,29 +25,7 @@ class CouponResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('code')
-                    ->required(),
-                Forms\Components\TextInput::make('description')
-                    ->required(),
-                Forms\Components\TextInput::make('discount_type')
-                    ->required(),
-                Forms\Components\TextInput::make('discount_value')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('usage_limit')
-                    ->numeric(),
-                Forms\Components\TextInput::make('times_used')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
-                Forms\Components\DatePicker::make('valid_from')
-                    ->required(),
-                Forms\Components\DatePicker::make('valid_until')
-                    ->required(),
-                Forms\Components\Toggle::make('is_active')
-                    ->required(),
-            ]);
+            ->schema(CouponResourceForm::getFields());
     }
 
     public static function table(Table $table): Table
