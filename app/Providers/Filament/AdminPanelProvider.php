@@ -22,6 +22,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Support\Facades\FilamentView;
 use Illuminate\Support\Facades\Blade;
+
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -35,7 +36,7 @@ class AdminPanelProvider extends PanelProvider
             ->userMenuItems([
                 MenuItem::make()
                     ->label('Profile')
-                    ->url(fn (): string => Profile::getUrl())
+                    ->url(fn(): string => Profile::getUrl())
                     ->icon('heroicon-o-user'),
             ])
             ->colors([
@@ -45,6 +46,10 @@ class AdminPanelProvider extends PanelProvider
                 'danger' => Color::Rose,
                 'warning' => Color::Amber,
                 'info' => Color::Sky,
+                'highlight' => Color::Fuchsia,
+                'accent'    => Color::Indigo,
+                'neutral'   => Color::Slate,
+                'positive'  => Color::Teal,
             ])
 
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
