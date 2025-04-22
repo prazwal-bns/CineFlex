@@ -24,16 +24,41 @@ class UserSeeder extends Seeder
 
         $admin->assignRole('super_admin');
 
-        $theaterManager = User::firstOrCreate([
-            'name' => 'Theater Manager User',
-            'email' => 'theater_manager@gmail.com',
-            'password' => '@user123',
-            'avatar' => 'theater_manager.jpg',
-            'phone' => '+977 9878451254',
-            'address' => 'Pokhara, Nepal',
-        ]);
+        // Create theater managers
+        $theaterManagers = [
+            [
+                'name' => 'Premium Theater Manager',
+                'email' => 'manager@cineflex.com',
+                'password' => '@manager123',
+                'avatar' => 'manager1.jpg',
+                'phone' => '+977 9812345678',
+                'address' => 'Kathmandu, Nepal',
+            ],
+            [
+                'name' => 'Classic Theater Manager',
+                'email' => 'manager2@cineflex.com',
+                'password' => '@manager123',
+                'avatar' => 'manager2.jpg',
+                'phone' => '+977 9823456789',
+                'address' => 'Lalitpur, Nepal',
+            ],
+            [
+                'name' => 'IMAX Theater Manager',
+                'email' => 'manager3@cineflex.com',
+                'password' => '@manager123',
+                'avatar' => 'manager3.jpg',
+                'phone' => '+977 9834567890',
+                'address' => 'Bhaktapur, Nepal',
+            ],
+        ];
 
-        $theaterManager->assignRole('theater_manager');
+        foreach ($theaterManagers as $manager) {
+            $user = User::firstOrCreate([
+                'email' => $manager['email'],
+            ], $manager);
+
+            $user->assignRole('theater_manager');
+        }
 
         $customer = User::firstOrCreate([
             'name' => 'Customer User',
