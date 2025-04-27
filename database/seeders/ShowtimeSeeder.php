@@ -26,16 +26,16 @@ class ShowtimeSeeder extends Seeder
             return;
         }
         
-        // Generate showtimes for the next 7 days
+        // Generate showtimes for the next 3 days
         $startDate = Carbon::now()->startOfDay();
         
-        for ($day = 0; $day < 7; $day++) {
+        for ($day = 0; $day < 3; $day++) {
             $currentDate = $startDate->copy()->addDays($day);
             
             foreach ($screens as $screen) {
-                // Generate 4-6 showtimes per screen per day
-                $showtimesCount = rand(4, 6);
-                $lastEndTime = $currentDate->copy()->setHour(10)->setMinute(0); // First show at 10 AM
+                // Generate 2-3 showtimes per screen per day
+                $showtimesCount = rand(2, 3);
+                $lastEndTime = $currentDate->copy()->setHour(12)->setMinute(0); // First show at 12 PM
                 
                 for ($i = 0; $i < $showtimesCount; $i++) {
                     // Random movie for this showtime
@@ -55,12 +55,12 @@ class ShowtimeSeeder extends Seeder
                     ]);
                     
                     // Update last end time for next showtime
-                    $lastEndTime = $endTime->copy()->addMinutes(30); // 30 minutes gap between shows
+                    $lastEndTime = $endTime->copy()->addMinutes(60); // 60 minutes gap between shows
                 }
             }
         }
         
-        $this->command->info('Successfully created showtimes for the next 7 days.');
+        $this->command->info('Successfully created showtimes for the next 3 days.');
     }
     
     private function calculateTicketPrice(Screen $screen, Movie $movie): float
