@@ -37,8 +37,10 @@ class EditProfileForm extends Component implements HasForms
                         FileUpload::make('avatar')
                             ->image()
                             ->avatar()
+                            ->disk('public')
                             ->directory('avatars')
                             ->maxSize(5048)
+                            ->visibility('public')
                             ->live()
                             ->columnSpanFull(),
                         TextInput::make('email')

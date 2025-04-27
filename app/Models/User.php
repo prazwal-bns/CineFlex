@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use App\Enums\OrganizationType;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements HasAvatar
 {
@@ -59,7 +60,11 @@ class User extends Authenticatable implements HasAvatar
 
     public function getFilamentAvatarUrl(): string
     {
-        return $this->avatar ? asset('storage/' . $this->avatar) : asset('storage/avatar.jpg');
+        if (!$this->avatar) {
+            return asset('storage/avatar.jpg');
+        }
+        
+        return asset('storage/' . $this->avatar);
     }
 
 
