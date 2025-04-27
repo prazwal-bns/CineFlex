@@ -25,7 +25,9 @@ class MovieSeeder extends Seeder
         }
 
         // Fetch popular movies
-        $response = Http::get("{$this->baseUrl}/movie/popular", [
+        $response = Http::withOptions([
+            'verify' => false
+        ])->get("{$this->baseUrl}/movie/popular", [
             'api_key' => $this->apiKey,
             'language' => 'en-US',
             'page' => 1,
@@ -36,7 +38,9 @@ class MovieSeeder extends Seeder
 
             foreach ($movies as $movieData) {
                 // Fetch movie details to get additional information
-                $movieDetails = Http::get("{$this->baseUrl}/movie/{$movieData['id']}", [
+                $movieDetails = Http::withOptions([
+                    'verify' => false
+                ])->get("{$this->baseUrl}/movie/{$movieData['id']}", [
                     'api_key' => $this->apiKey,
                     'language' => 'en-US',
                     'append_to_response' => 'credits',
