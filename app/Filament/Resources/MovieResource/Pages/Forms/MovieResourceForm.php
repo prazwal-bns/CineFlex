@@ -25,48 +25,53 @@ final class MovieResourceForm implements ResourceFieldContract
             Section::make('Movie Poster')
                 ->description('Upload the movie poster image')
                 ->schema([
-                    FileUpload::make('poster_url')
-                        ->label('Movie Poster Image')
-                        ->image()
-                        ->disk('public')
-                        ->directory('posters')
-                        ->imagePreviewHeight('600')
-                        ->visibility('public')
-                        ->preserveFilenames()
-                        ->required()
-                        ->imageEditor()
-                        ->imageEditorAspectRatios(['2:3'])
-                        ->imageResizeMode('cover')
-                        ->imageCropAspectRatio('2:3')
-                        ->imageResizeTargetWidth('400')
-                        ->imageResizeTargetHeight('600')
-                        ->maxSize(5120) // 5MB
-                        ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                        ->placeholder('Upload poster image (recommended size: 400x600px)')
-                        ->helperText('Upload a high-quality poster image. Supported formats: JPG, PNG, WebP. Max size: 5MB')
+                    Grid::make(2)
+                        ->schema([
+                            FileUpload::make('poster_url')
+                            ->label('Movie Poster Image')
+                            ->image()
+                            ->disk('public')
+                            ->directory('posters')
+                            ->imagePreviewHeight('600')
+                            ->visibility('public')
+                            ->preserveFilenames()
+                            ->required()
+                            ->imageEditor()
+                            ->imageEditorAspectRatios(['2:3'])
+                            ->imageResizeMode('cover')
+                            ->imageCropAspectRatio('2:3')
+                            ->imageResizeTargetWidth('400')
+                            ->imageResizeTargetHeight('600')
+                            ->maxSize(5120) // 5MB
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                            ->placeholder('Upload poster image (recommended size: 400x600px)')
+                            ->helperText('Upload a high-quality poster image. Supported formats: JPG, PNG, WebP. Max size: 5MB')
 
-                        ->afterStateHydrated(static function (BaseFileUpload $component, string|array|null $state) {
-                            if (blank($state)) {
-                                $component->state([]);
-                                return;
-                            }
+                            ->afterStateHydrated(static function (BaseFileUpload $component, string|array|null $state) {
+                                if (blank($state)) {
+                                    $component->state([]);
+                                    return;
+                                }
 
-                            // This ensures FileUpload gets the correct state format (uuid => path/url)
-                            $component->state([Str::uuid()->toString() => $state]);
-                        })
+                                // This ensures FileUpload gets the correct state format (uuid => path/url)
+                                $component->state([Str::uuid()->toString() => $state]);
+                            })
 
-                        // 👇 Controls how the uploaded file's data is stored
-                        ->getUploadedFileUsing(static function (BaseFileUpload $component, string $file, string|array|null $storedFileNames): ?array {
-                            // Check if the path is an external URL
-                            $isExternal = str_starts_with($file, 'http://') || str_starts_with($file, 'https://');
+                            // 👇 Controls how the uploaded file's data is stored
+                            ->getUploadedFileUsing(static function (BaseFileUpload $component, string $file, string|array|null $storedFileNames): ?array {
+                                // Check if the path is an external URL
+                                $isExternal = str_starts_with($file, 'http://') || str_starts_with($file, 'https://');
 
-                            return [
-                                'name' => basename($file),
-                                'size' => $isExternal ? null : Storage::disk('public')->size($file),
-                                'type' => $isExternal ? null : Storage::disk('public')->mimeType($file),
-                                'url' => $isExternal ? $file : Storage::disk('public')->url($file),
-                            ];
-                        })
+                                return [
+                                    'name' => basename($file),
+                                    'size' => $isExternal ? null : Storage::disk('public')->size($file),
+                                    'type' => $isExternal ? null : Storage::disk('public')->mimeType($file),
+                                    'url' => $isExternal ? $file : Storage::disk('public')->url($file),
+                                ];
+                            })
+                    ])
+                    ->columnSpan(1)
+
                 ]),
 
             Section::make('Basic Information')

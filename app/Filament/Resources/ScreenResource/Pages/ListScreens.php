@@ -7,7 +7,7 @@ use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use App\Filament\Resources\ScreenResource\Table\ScreenResourceTable;
 use Filament\Tables\Table;
-
+use Filament\Tables;
 
 class ListScreens extends ListRecords
 {
@@ -23,6 +23,11 @@ class ListScreens extends ListRecords
     public  function table(Table $table): Table
     {
         return $table
-            ->columns(ScreenResourceTable::getFields());
+            ->columns(ScreenResourceTable::getFields())
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);;
     }
 }
