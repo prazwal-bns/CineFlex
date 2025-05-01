@@ -29,9 +29,12 @@ class ScreenResourceForm implements ResourceFieldContract
                             TextInput::make('capacity')
                                 ->required()
                                 ->numeric()
+                                ->minValue(1)
+                                ->maxValue(100)
                                 ->columnSpan(1)
                                 ->label('Seating Capacity')
-                                ->placeholder('Enter number of seats'),
+                                ->placeholder('Enter number of seats (max 100)')
+                                ->helperText('Maximum capacity is 100 seats'),
                         ]),
 
                     Select::make('theater_id')

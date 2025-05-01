@@ -16,23 +16,23 @@ class ScreenSeeder extends Seeder
             // Premium theater has 3 screens
             if ($theater->name === 'CineFlex Premium') {
                 $screens = [
-                    ['name' => 'Screen 1 - IMAX', 'capacity' => 300],
-                    ['name' => 'Screen 2 - Premium', 'capacity' => 200],
-                    ['name' => 'Screen 3 - Standard', 'capacity' => 150],
+                    ['name' => 'Screen 1 - IMAX', 'capacity' => 100],
+                    ['name' => 'Screen 2 - Premium', 'capacity' => 80],
+                    ['name' => 'Screen 3 - Standard', 'capacity' => 60],
                 ];
             }
             // Classic theater has 2 screens
             elseif ($theater->name === 'CineFlex Classic') {
                 $screens = [
-                    ['name' => 'Screen 1 - Standard', 'capacity' => 150],
-                    ['name' => 'Screen 2 - Standard', 'capacity' => 150],
+                    ['name' => 'Screen 1 - Standard', 'capacity' => 60],
+                    ['name' => 'Screen 2 - Standard', 'capacity' => 60],
                 ];
             }
             // IMAX theater has 2 screens
             else {
                 $screens = [
-                    ['name' => 'Screen 1 - IMAX', 'capacity' => 400],
-                    ['name' => 'Screen 2 - Premium', 'capacity' => 200],
+                    ['name' => 'Screen 1 - IMAX', 'capacity' => 100],
+                    ['name' => 'Screen 2 - Premium', 'capacity' => 80],
                 ];
             }
 
