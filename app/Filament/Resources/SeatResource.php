@@ -52,6 +52,11 @@ class SeatResource extends Resource
         return static::getModel()::count();
     }
 
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
     public static function getNavigationBadgeColor(): ?string
     {
         return 'gray';
