@@ -12,22 +12,6 @@ class Screen extends Model
         'capacity',
     ];
 
-    protected static function booted()
-    {
-        static::created(function ($screen) {
-            $screen->generateSeats();
-        });
-
-        static::updated(function ($screen) {
-            if ($screen->isDirty('capacity')) {
-                // Delete existing seats
-                $screen->seats()->delete();
-                // Generate new seats
-                $screen->generateSeats();
-            }
-        });
-    }
-
     public function generateSeats()
     {
         $rows = range('A', 'J');
