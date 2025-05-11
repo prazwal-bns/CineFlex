@@ -8,6 +8,7 @@ use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Table;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 
 class ListBookings extends ListRecords
 {
@@ -17,12 +18,16 @@ class ListBookings extends ListRecords
     {
         return $table
             ->columns(BookingResourceTable::getFields())
-            ->filters([
-
-            ])
+            ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->requiresConfirmation(),
+                ]),
             ]);
     }
 

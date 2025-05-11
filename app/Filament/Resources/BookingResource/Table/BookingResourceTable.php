@@ -1,8 +1,12 @@
 <?php
 
 namespace App\Filament\Resources\BookingResource\Pages\Table;
+
 use App\Filament\Contracts\ResourceFieldContract;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
 
 final class BookingResourceTable implements ResourceFieldContract
 {
@@ -14,31 +18,94 @@ final class BookingResourceTable implements ResourceFieldContract
     public static function getFields(): array
     {
         return [
-            Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('showtime_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('coupon_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('total_price')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('discounted_price')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+            ImageColumn::make('showtime.movie.poster_url')
+                ->label('Poster')
+                ->square()
+                ->size(120)
+                ->extraImgAttributes(['class' => 'rounded-lg shadow-md'])
+                ->alignLeft(),
+
+            TextColumn::make('showtime.movie.title')
+                ->label('Movie Title')
+                ->searchable()
+                ->sortable()
+                ->weight('bold')
+                ->size(TextColumn\TextColumnSize::Large)
+                ->wrap(),
+
+            TextColumn::make('showtime.start_time')
+                ->label('Showtime')
+                ->dateTime('F j, Y h:i A')
+                ->sortable()
+                ->badge()
+                ->color('info')
+                ->icon('heroicon-o-clock')
+                ->alignCenter(),
+
+            TextColumn::make('showtime.movie.duration')
+                ->label('Duration')
+                ->formatStateUsing(fn($state) => $state . ' mins')
+                ->sortable()
+                ->icon('heroicon-o-film')
+                ->alignCenter(),
+
+            TextColumn::make('user.name')
+                ->label('Booked By')
+                ->searchable()
+                ->badge()
+                ->color('info')
+                ->sortable()
+                ->alignCenter(),
+
+            TextColumn::make('status')
+                ->badge()
+                ->color(fn(string $state): string => match ($state) {
+                    'confirmed' => 'success',
+                    'pending' => 'warning',
+                    'cancelled' => 'danger',
+                })
+                ->icon(fn(string $state): string => match ($state) {
+                    'confirmed' => 'heroicon-o-check-circle',
+                    'pending' => 'heroicon-o-clock',
+                    'cancelled' => 'heroicon-o-x-circle',
+                })
+                ->searchable()
+                ->alignCenter(),
+
+            TextColumn::make('total_price')
+                ->label('Price')
+                ->money('NPR', true)
+                ->sortable()
+                ->color('success')
+                ->icon('heroicon-o-currency-dollar')
+                ->alignCenter(),
+
+            TextColumn::make('created_at')
+                ->label('Booked On')
+                ->dateTime('d M, Y h:i A')
+                ->sortable()
+                ->icon('heroicon-o-calendar')
+                ->alignCenter()
+                ->toggleable(isToggledHiddenByDefault: true),
+        ];
+    }
+
+    /**
+     * Get the table actions for the resource.
+     *
+     * @return array<int, mixed>
+     */
+    public static function getActions(): array
+    {
+        return [
+            Action::make('book')
+                ->label('Book Now')
+                ->icon('heroicon-o-ticket')
+                ->color('success')
+                ->url(fn($record) => route('bookings.create', ['showtime' => $record->showtime_id]))
+                ->visible(fn($record) => $record->status === 'pending')
+                ->button()
+                ->size('sm'),
         ];
     }
 }
