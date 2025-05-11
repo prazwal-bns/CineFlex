@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\BookingResource\Pages;
+use App\Filament\Resources\BookingResource\Pages\Forms\BookingResourceForm;
 use App\Filament\Resources\BookingResource\RelationManagers;
 use App\Models\Booking;
 use Filament\Forms;
@@ -24,68 +25,7 @@ class BookingResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('showtime_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('coupon_id')
-                    ->numeric(),
-                Forms\Components\TextInput::make('status')
-                    ->required(),
-                Forms\Components\TextInput::make('total_price')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('discounted_price')
-                    ->required()
-                    ->numeric(),
-            ]);
-    }
-
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('showtime_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('coupon_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('total_price')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('discounted_price')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->schema(BookingResourceForm::getFields());
     }
 
     public static function getRelations(): array
