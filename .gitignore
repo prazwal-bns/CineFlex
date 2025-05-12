@@ -22,3 +22,7 @@ yarn-error.log
 /.vscode
 /.zed
 notes.txt
+
+**/caddy
+frankenphp
+frankenphp-worker.php
