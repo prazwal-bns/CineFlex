@@ -16,7 +16,7 @@ final class CouponResourceTable implements ResourceFieldContract
                 ->label('Coupon Code')
                 ->badge()
                 ->color('accent')
-                ->formatStateUsing(fn($state) => strtoupper($state)),
+                ->formatStateUsing(fn ($state) => strtoupper($state)),
 
             Tables\Columns\TextColumn::make('description')
                 ->searchable()
@@ -30,17 +30,17 @@ final class CouponResourceTable implements ResourceFieldContract
                 ->searchable()
                 ->sortable()
                 ->label('Discount Type')
-                ->formatStateUsing(fn($state) => ucfirst($state))
+                ->formatStateUsing(fn ($state) => ucfirst($state))
                 ->badge()
-                ->color(fn($state) => $state === 'percentage' ? 'success' : 'primary'),
+                ->color(fn ($state) => $state === 'percentage' ? 'success' : 'primary'),
 
             Tables\Columns\TextColumn::make('discount_value')
                 ->numeric()
                 ->sortable()
                 ->label('Discount Value')
-                ->formatStateUsing(fn($state, $record) => $record->discount_type === 'percentage' ? "{$state} %" : "\$ {$state}")
+                ->formatStateUsing(fn ($state, $record) => $record->discount_type === 'percentage' ? "{$state} %" : "\$ {$state}")
                 ->badge()
-                ->color(fn($state, $record) => $record->discount_type === 'percentage' ? 'success' : 'primary'),
+                ->color(fn ($state, $record) => $record->discount_type === 'percentage' ? 'success' : 'primary'),
 
             Tables\Columns\TextColumn::make('valid_until')
                 ->date('M d, Y')
@@ -53,11 +53,10 @@ final class CouponResourceTable implements ResourceFieldContract
                 ->numeric()
                 ->sortable()
                 ->label('Usage')
-                ->formatStateUsing(fn($state, $record) => "{$record->times_used}/" . ($state ?? '∞'))
+                ->formatStateUsing(fn ($state, $record) => "{$record->times_used}/".($state ?? '∞'))
                 ->badge()
                 ->color(
-                    fn($state, $record) =>
-                    $record->usage_limit && $record->times_used >= $record->usage_limit ? 'danger' : 'success'
+                    fn ($state, $record) => $record->usage_limit && $record->times_used >= $record->usage_limit ? 'danger' : 'success'
                 ),
 
             Tables\Columns\IconColumn::make('is_active')

@@ -4,8 +4,8 @@ namespace App\Providers\Filament;
 
 use App\Filament\Pages\Profile;
 use App\Filament\Widgets\CustomAccountWidget;
-use Filament\Http\Middleware\Authenticate;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -14,14 +14,14 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Facades\FilamentView;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Filament\Support\Facades\FilamentView;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -36,7 +36,7 @@ class AdminPanelProvider extends PanelProvider
             ->userMenuItems([
                 MenuItem::make()
                     ->label('Profile')
-                    ->url(fn(): string => Profile::getUrl())
+                    ->url(fn (): string => Profile::getUrl())
                     ->icon('heroicon-o-user'),
             ])
             ->colors([
@@ -47,9 +47,9 @@ class AdminPanelProvider extends PanelProvider
                 'warning' => Color::Amber,
                 'info' => Color::Sky,
                 'highlight' => Color::Fuchsia,
-                'accent'    => Color::Indigo,
-                'neutral'   => Color::Slate,
-                'positive'  => Color::Teal,
+                'accent' => Color::Indigo,
+                'neutral' => Color::Slate,
+                'positive' => Color::Teal,
             ])
 
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
@@ -88,12 +88,12 @@ class AdminPanelProvider extends PanelProvider
     public function register(): void
     {
         parent::register();
-        FilamentView::registerRenderHook('panels::body.end', fn(): string => Blade::render("@vite('resources/js/app.js')"));
+        FilamentView::registerRenderHook('panels::body.end', fn (): string => Blade::render("@vite('resources/js/app.js')"));
 
         // Add custom CSS for the admin panel
         FilamentView::registerRenderHook(
             'panels::head.end',
-            fn(): string => Blade::render("@vite('resources/css/admin.css')")
+            fn (): string => Blade::render("@vite('resources/css/admin.css')")
         );
     }
 }

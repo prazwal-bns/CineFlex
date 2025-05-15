@@ -4,11 +4,11 @@ namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Imports\UserImporter;
 use App\Filament\Resources\UserResource;
-use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
 use App\Filament\Resources\UserResource\Table\UserResourceTable;
 use App\Models\User;
+use Filament\Actions;
 use Filament\Actions\ImportAction;
+use Filament\Resources\Pages\ListRecords;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -38,7 +38,9 @@ class ListUsers extends ListRecords
                     ->icon('fluentui-person-sync-28-o')
                     ->color('secondary')
                     ->redirectTo(route('filament.admin.pages.dashboard'))
-                    ->visible(function(){return auth()->user()->isSuperAdmin();}),
+                    ->visible(function () {
+                        return auth()->user()->isSuperAdmin();
+                    }),
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
@@ -56,15 +58,16 @@ class ListUsers extends ListRecords
                 ->label('Add New User')
                 ->icon('heroicon-s-user-plus'),
 
-                Tables\Actions\ActionGroup::make([
-                    ImportAction::make('Import User')
+            Tables\Actions\ActionGroup::make([
+                ImportAction::make('Import User')
                     ->modalHeading('Import User')
                     ->tooltip('Import New Users')
                     ->importer(UserImporter::class)
                     ->label('Import Users')
                     ->color('primary')
-                    ->visible(function(){return auth()->user()->isSuperAdmin();
-                }),
+                    ->visible(function () {
+                        return auth()->user()->isSuperAdmin();
+                    }),
             ])->label('Imports Users')
                 ->icon('heroicon-o-document-plus')
                 ->button(),

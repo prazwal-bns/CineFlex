@@ -45,4 +45,4 @@ class ScreenSeeder extends Seeder
             }
         }
     }
-} 
+}

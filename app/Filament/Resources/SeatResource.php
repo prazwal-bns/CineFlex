@@ -4,16 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SeatResource\Pages;
 use App\Filament\Resources\SeatResource\Pages\Forms\SeatResourceForm;
-use App\Filament\Resources\SeatResource\Table\SeatResourceTable;
-use App\Filament\Resources\SeatResource\RelationManagers;
 use App\Models\Seat;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SeatResource extends Resource
 {
@@ -28,7 +21,6 @@ class SeatResource extends Resource
         return $form
             ->schema(SeatResourceForm::getFields());
     }
-
 
     public static function getRelations(): array
     {

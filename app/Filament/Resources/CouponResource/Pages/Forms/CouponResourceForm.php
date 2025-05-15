@@ -5,9 +5,9 @@ namespace App\Filament\Resources\CouponResource\Pages\Forms;
 use App\Filament\Contracts\ResourceFieldContract;
 use App\Support\Helper;
 use Filament\Forms;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 
 final class CouponResourceForm implements ResourceFieldContract
 {
@@ -31,7 +31,7 @@ final class CouponResourceForm implements ResourceFieldContract
                                         ->placeholder('Enter coupon code')
                                         ->prefixIcon('heroicon-o-tag')
                                         ->columnSpanFull()
-                                        ->dehydrateStateUsing(fn(string $state) => Helper::upperString($state)),
+                                        ->dehydrateStateUsing(fn (string $state) => Helper::upperString($state)),
 
                                     RichEditor::make('description')
                                         ->required()
@@ -116,7 +116,7 @@ final class CouponResourceForm implements ResourceFieldContract
                                     Forms\Components\DatePicker::make('valid_until')
                                         ->required()
                                         ->label('Valid Until')
-                                        ->minDate(fn(Forms\Get $get) => $get('valid_from') ?? now())
+                                        ->minDate(fn (Forms\Get $get) => $get('valid_from') ?? now())
                                         ->native(false)
                                         ->prefixIcon('heroicon-o-calendar')
                                         ->columnSpanFull(),

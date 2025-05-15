@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use App\Enums\Genre;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Movie extends Model
 {

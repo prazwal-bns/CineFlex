@@ -29,7 +29,7 @@ class CountrySeeder extends Seeder
             }
         } catch (\Exception $e) {
             // Log the error or handle it as needed
-            Log::error('Failed to fetch countries: ' . $e->getMessage());
+            Log::error('Failed to fetch countries: '.$e->getMessage());
         }
     }
 }

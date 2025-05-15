@@ -3,11 +3,11 @@
 namespace App\Filament\Resources\ShowtimeResource\Pages;
 
 use App\Filament\Resources\ShowtimeResource;
+use App\Filament\Resources\ShowtimeResource\Pages\Tables\ShowTimeResourceTable;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables;
 use Filament\Tables\Table;
-use App\Filament\Resources\ShowtimeResource\Pages\Tables\ShowTimeResourceTable;
 
 class ListShowtimes extends ListRecords
 {

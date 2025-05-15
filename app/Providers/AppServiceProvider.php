@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Livewire\Livewire;
-use App\Livewire\EditProfileForm;
 use App\Livewire\EditPasswordForm;
+use App\Livewire\EditProfileForm;
 use App\Models\Screen;
 use App\Observers\ScreenObserver;
+use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
 
 class AppServiceProvider extends ServiceProvider
 {

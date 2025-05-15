@@ -8,12 +8,11 @@ use Filament\Tables;
 
 final class TheaterResourceTable implements ResourceFieldContract
 {
-
     public static function getFields(): array
     {
         return [
             LinkColumn::make('name')
-                ->url(fn($record) => route('filament.admin.resources.theaters.view', ['record' => $record->id]))
+                ->url(fn ($record) => route('filament.admin.resources.theaters.view', ['record' => $record->id]))
                 ->searchable()
                 ->sortable()
                 ->badge()

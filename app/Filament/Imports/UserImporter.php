@@ -10,7 +10,6 @@ use Spatie\Permission\Models\Role;
 
 class UserImporter extends Importer
 {
-
     protected static ?string $model = User::class;
 
     public static function getColumns(): array
@@ -44,13 +43,13 @@ class UserImporter extends Importer
     {
         $user = User::where('email', $this->data['email'])->first();
 
-        if (!$user) {
-            $user = new User();
+        if (! $user) {
+            $user = new User;
         }
 
         $customerRole = Role::firstOrCreate(['name' => 'customer']);
 
-        if ($customerRole && !$user->hasRole('customer')) {
+        if ($customerRole && ! $user->hasRole('customer')) {
             $user->assignRole($customerRole);
         }
 
@@ -59,10 +58,10 @@ class UserImporter extends Importer
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Your user import has completed and ' . number_format($import->successful_rows) . ' ' . str('row')->plural($import->successful_rows) . ' imported.';
+        $body = 'Your user import has completed and '.number_format($import->successful_rows).' '.str('row')->plural($import->successful_rows).' imported.';
 
         if ($failedRowsCount = $import->getFailedRowsCount()) {
-            $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to import.';
+            $body .= ' '.number_format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to import.';
         }
 
         return $body;

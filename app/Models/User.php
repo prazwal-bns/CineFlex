@@ -4,19 +4,18 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Enums\OrganizationType;
 use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
-use App\Enums\OrganizationType;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements HasAvatar
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles, SoftDeletes;
+    use HasFactory, HasRoles, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -60,13 +59,12 @@ class User extends Authenticatable implements HasAvatar
 
     public function getFilamentAvatarUrl(): string
     {
-        if (!$this->avatar) {
+        if (! $this->avatar) {
             return asset('storage/avatar.jpg');
         }
-        
-        return asset('storage/' . $this->avatar);
-    }
 
+        return asset('storage/'.$this->avatar);
+    }
 
     public function theaters()
     {
@@ -87,7 +85,6 @@ class User extends Authenticatable implements HasAvatar
     {
         return $this->roles->contains('name', 'theater_manager');
     }
-
 
     public function isCustomer(): bool
     {

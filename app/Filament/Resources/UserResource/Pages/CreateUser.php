@@ -4,7 +4,6 @@ namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Resources\UserResource;
 use App\Models\User;
-use Filament\Actions;
 use Filament\Notifications\Events\DatabaseNotificationsSent;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
@@ -14,7 +13,8 @@ class CreateUser extends CreateRecord
 {
     protected static string $resource = UserResource::class;
 
-    public function handleRecordCreation(array $data): Model{
+    public function handleRecordCreation(array $data): Model
+    {
         $record = parent::handleRecordCreation($data);
 
         // $admin = User::where('email', 'admin@gmail.com')->first();
@@ -26,7 +26,7 @@ class CreateUser extends CreateRecord
             Notification::make()
                 ->title('New User Created !')
                 ->icon('heroicon-o-calendar')
-                ->body("A new user has been successfully created!")
+                ->body('A new user has been successfully created!')
                 ->success()
                 ->sendToDatabase($admin);
 

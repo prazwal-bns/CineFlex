@@ -7,8 +7,6 @@ use App\Filament\Resources\MovieResource\Pages\Forms\MovieResourceForm;
 use App\Models\Movie;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
 
 class MovieResource extends Resource
 {
@@ -23,8 +21,6 @@ class MovieResource extends Resource
         return $form
             ->schema(MovieResourceForm::getFields());
     }
-
-
 
     public static function getRelations(): array
     {

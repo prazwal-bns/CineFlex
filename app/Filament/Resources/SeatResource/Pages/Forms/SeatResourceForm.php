@@ -3,11 +3,10 @@
 namespace App\Filament\Resources\SeatResource\Pages\Forms;
 
 use App\Filament\Contracts\ResourceFieldContract;
-use App\Models\Screen;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Grid;
 
 class SeatResourceForm implements ResourceFieldContract
 {

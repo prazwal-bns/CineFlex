@@ -3,18 +3,10 @@
 namespace App\Filament\Resources\UserResource\Table;
 
 use App\Filament\Contracts\ResourceFieldContract;
-use App\Filament\Resources\UserResource;
-use App\Filament\Resources\UserResource\RelationManagers;
 use App\Filament\Tables\Columns\LinkColumn;
-use App\Models\User;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 final class UserResourceTable implements ResourceFieldContract
 {
@@ -32,7 +24,7 @@ final class UserResourceTable implements ResourceFieldContract
                 ->sortable()
                 // ->url(fn ($record) => asset('storage/' . $record->avatar))
                 ->url(fn ($record) => $record->avatar
-                    ? asset('storage/' . $record->avatar)
+                    ? asset('storage/'.$record->avatar)
                     : asset('storage/avatar.jpg'))
                 ->default(asset('storage/avatar.jpg'))
                 ->size(70)
@@ -62,5 +54,4 @@ final class UserResourceTable implements ResourceFieldContract
                 ->toggleable(isToggledHiddenByDefault: true),
         ];
     }
-
 }

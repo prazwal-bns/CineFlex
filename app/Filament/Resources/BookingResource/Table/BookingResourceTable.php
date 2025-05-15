@@ -3,10 +3,9 @@
 namespace App\Filament\Resources\BookingResource\Pages\Table;
 
 use App\Filament\Contracts\ResourceFieldContract;
-use Filament\Tables;
 use Filament\Tables\Actions\Action;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 
 final class BookingResourceTable implements ResourceFieldContract
 {
@@ -44,7 +43,7 @@ final class BookingResourceTable implements ResourceFieldContract
 
             TextColumn::make('showtime.movie.duration')
                 ->label('Duration')
-                ->formatStateUsing(fn($state) => $state . ' mins')
+                ->formatStateUsing(fn ($state) => $state.' mins')
                 ->sortable()
                 ->icon('heroicon-o-film')
                 ->alignCenter(),
@@ -59,12 +58,12 @@ final class BookingResourceTable implements ResourceFieldContract
 
             TextColumn::make('status')
                 ->badge()
-                ->color(fn(string $state): string => match ($state) {
+                ->color(fn (string $state): string => match ($state) {
                     'confirmed' => 'success',
                     'pending' => 'warning',
                     'cancelled' => 'danger',
                 })
-                ->icon(fn(string $state): string => match ($state) {
+                ->icon(fn (string $state): string => match ($state) {
                     'confirmed' => 'heroicon-o-check-circle',
                     'pending' => 'heroicon-o-clock',
                     'cancelled' => 'heroicon-o-x-circle',
@@ -102,8 +101,8 @@ final class BookingResourceTable implements ResourceFieldContract
                 ->label('Book Now')
                 ->icon('heroicon-o-ticket')
                 ->color('success')
-                ->url(fn($record) => route('bookings.create', ['showtime' => $record->showtime_id]))
-                ->visible(fn($record) => $record->status === 'pending')
+                ->url(fn ($record) => route('bookings.create', ['showtime' => $record->showtime_id]))
+                ->visible(fn ($record) => $record->status === 'pending')
                 ->button()
                 ->size('sm'),
         ];

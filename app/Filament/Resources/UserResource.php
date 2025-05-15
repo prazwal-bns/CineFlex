@@ -6,14 +6,13 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\Pages\Forms\UserResourceForm;
 use App\Models\User;
 use Filament\Forms\Form;
-use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
-
 
 class UserResource extends Resource
 {
     protected static ?string $navigationGroup = 'User Management';
+
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-s-users';
@@ -30,7 +29,6 @@ class UserResource extends Resource
             ->schema([
             ]);
     }
-
 
     public static function getRelations(): array
     {

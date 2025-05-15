@@ -4,16 +4,13 @@ namespace App\Filament\Resources\TheaterResource\Pages;
 
 use App\Filament\Resources\TheaterResource;
 use App\Filament\Resources\TheaterResource\Table\TheaterResourceTable;
-use App\Models\User;
 use App\Models\Theater;
 use App\Support\Helper;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables;
-use Filament\Tables\Table;
 use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Filters\Filter;
-use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Table;
 
 class ListTheaters extends ListRecords
 {
@@ -33,7 +30,7 @@ class ListTheaters extends ListRecords
             ->filters([
                 SelectFilter::make('city')
                     ->label('City')
-                    ->options(fn() => Theater::distinct()->pluck('city', 'city')->toArray())
+                    ->options(fn () => Theater::distinct()->pluck('city', 'city')->toArray())
                     ->searchable()
                     ->preload(),
 
@@ -42,11 +39,10 @@ class ListTheaters extends ListRecords
                     ->relationship(
                         'manager',
                         'name',
-                        fn($query) => Helper::applyTheaterManagerFilter($query)
+                        fn ($query) => Helper::applyTheaterManagerFilter($query)
                     )
                     ->searchable()
                     ->preload(),
-
 
             ])
             ->actions([

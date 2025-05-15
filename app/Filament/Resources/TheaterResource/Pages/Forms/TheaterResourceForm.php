@@ -3,15 +3,12 @@
 namespace App\Filament\Resources\TheaterResource\Pages\Forms;
 
 use App\Filament\Contracts\ResourceFieldContract;
-use App\Models\Theater;
 use App\Models\User;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Get;
-use Spatie\Permission\Models\Role;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 
 class TheaterResourceForm implements ResourceFieldContract
 {

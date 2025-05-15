@@ -7,8 +7,6 @@ use App\Filament\Resources\ShowtimeResource\Pages\Forms\ShowTimeResourceForm;
 use App\Models\Showtime;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
 
 class ShowtimeResource extends Resource
 {
@@ -23,8 +21,6 @@ class ShowtimeResource extends Resource
         return $form
             ->schema(ShowTimeResourceForm::getFields());
     }
-
-
 
     public static function getRelations(): array
     {

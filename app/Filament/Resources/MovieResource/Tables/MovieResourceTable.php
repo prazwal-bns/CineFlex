@@ -6,8 +6,6 @@ use App\Filament\Contracts\ResourceFieldContract;
 use App\Support\Helper;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
-use Filament\Tables\Columns\Layout\Stack;
 use Illuminate\Support\Str;
 
 final class MovieResourceTable implements ResourceFieldContract

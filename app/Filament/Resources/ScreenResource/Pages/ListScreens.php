@@ -3,11 +3,11 @@
 namespace App\Filament\Resources\ScreenResource\Pages;
 
 use App\Filament\Resources\ScreenResource;
+use App\Filament\Resources\ScreenResource\Table\ScreenResourceTable;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
-use App\Filament\Resources\ScreenResource\Table\ScreenResourceTable;
-use Filament\Tables\Table;
 use Filament\Tables;
+use Filament\Tables\Table;
 
 class ListScreens extends ListRecords
 {
@@ -20,7 +20,7 @@ class ListScreens extends ListRecords
         ];
     }
 
-    public  function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns(ScreenResourceTable::getFields())
@@ -32,6 +32,6 @@ class ListScreens extends ListRecords
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);;
+            ]);
     }
 }

@@ -6,8 +6,8 @@ use App\Filament\Resources\SeatResource;
 use App\Filament\Resources\SeatResource\Table\SeatResourceTable;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Tables\Table;
 use Filament\Tables;
+use Filament\Tables\Table;
 
 class ListSeats extends ListRecords
 {
@@ -19,7 +19,6 @@ class ListSeats extends ListRecords
             Actions\CreateAction::make(),
         ];
     }
-
 
     public function table(Table $table): Table
     {

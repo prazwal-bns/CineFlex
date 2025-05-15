@@ -6,9 +6,8 @@ use App\Filament\Resources\BookingResource;
 use App\Filament\Resources\BookingResource\Pages\Table\BookingResourceTable;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Tables\Table;
 use Filament\Tables;
-use Filament\Tables\Actions\Action;
+use Filament\Tables\Table;
 
 class ListBookings extends ListRecords
 {

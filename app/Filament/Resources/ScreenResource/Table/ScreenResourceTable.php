@@ -12,7 +12,7 @@ final class ScreenResourceTable implements ResourceFieldContract
     {
         return [
             LinkColumn::make('name')
-                ->url(fn($record) => route('filament.admin.resources.screens.view', ['record' => $record->id]))
+                ->url(fn ($record) => route('filament.admin.resources.screens.view', ['record' => $record->id]))
                 ->searchable()
                 ->sortable()
                 ->badge()

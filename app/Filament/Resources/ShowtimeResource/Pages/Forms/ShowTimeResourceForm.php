@@ -49,7 +49,7 @@ final class ShowTimeResourceForm implements ResourceFieldContract
                         ->step(0.01)
                         ->label('Ticket Price'),
                 ])
-                ->columns(1)
+                ->columns(1),
         ];
     }
 }

@@ -35,4 +35,4 @@ class TheaterSeeder extends Seeder
             Theater::create($theater);
         }
     }
-} 
+}

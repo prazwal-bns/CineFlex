@@ -34,4 +34,4 @@ class SeatSeeder extends Seeder
             }
         }
     }
-} 
+}

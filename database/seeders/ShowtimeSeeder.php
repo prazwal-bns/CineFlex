@@ -14,37 +14,39 @@ class ShowtimeSeeder extends Seeder
     {
         $movies = Movie::all();
         $screens = Screen::all();
-        
+
         // Check if there are movies and screens available
         if ($movies->isEmpty()) {
             $this->command->warn('No movies found. Please run MovieSeeder first.');
+
             return;
         }
-        
+
         if ($screens->isEmpty()) {
             $this->command->warn('No screens found. Please run ScreenSeeder first.');
+
             return;
         }
-        
+
         // Generate showtimes for the next 3 days
         $startDate = Carbon::now()->startOfDay();
-        
+
         for ($day = 0; $day < 3; $day++) {
             $currentDate = $startDate->copy()->addDays($day);
-            
+
             foreach ($screens as $screen) {
                 // Generate 2-3 showtimes per screen per day
                 $showtimesCount = rand(2, 3);
                 $lastEndTime = $currentDate->copy()->setHour(12)->setMinute(0); // First show at 12 PM
-                
+
                 for ($i = 0; $i < $showtimesCount; $i++) {
                     // Random movie for this showtime
                     $movie = $movies->random();
-                    
+
                     // Calculate start and end times
                     $startTime = $lastEndTime->copy();
                     $endTime = $startTime->copy()->addMinutes($movie->duration + 30); // Add 30 minutes for cleaning/preparation
-                    
+
                     // Create showtime
                     Showtime::create([
                         'movie_id' => $movie->id,
@@ -53,20 +55,20 @@ class ShowtimeSeeder extends Seeder
                         'end_time' => $endTime,
                         'ticket_price' => $this->calculateTicketPrice($screen, $movie),
                     ]);
-                    
+
                     // Update last end time for next showtime
                     $lastEndTime = $endTime->copy()->addMinutes(60); // 60 minutes gap between shows
                 }
             }
         }
-        
+
         $this->command->info('Successfully created showtimes for the next 3 days.');
     }
-    
+
     private function calculateTicketPrice(Screen $screen, Movie $movie): float
     {
         $basePrice = 500.00; // Base price in NPR
-        
+
         // Adjust price based on screen type
         if (str_contains($screen->name, 'IMAX')) {
             $basePrice *= 1.5;
@@ -75,10 +77,10 @@ class ShowtimeSeeder extends Seeder
         } elseif (str_contains($screen->name, 'VIP')) {
             $basePrice *= 2.0;
         }
-        
+
         // Adjust price based on movie rating (higher rated movies cost more)
         $basePrice *= (1 + ($movie->rating / 10));
-        
+
         return round($basePrice, 2);
     }
-} 
+}

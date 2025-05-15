@@ -4,11 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ScreenResource\Pages;
 use App\Filament\Resources\ScreenResource\Pages\Forms\ScreenResourceForm;
-use App\Filament\Resources\ScreenResource\Table\ScreenResourceTable;
 use App\Models\Screen;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 
 class ScreenResource extends Resource
 {
@@ -23,7 +21,6 @@ class ScreenResource extends Resource
         return $form
             ->schema(ScreenResourceForm::getFields());
     }
-
 
     public static function getRelations(): array
     {

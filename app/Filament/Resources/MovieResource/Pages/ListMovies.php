@@ -8,13 +8,9 @@ use App\Models\Movie;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables;
-use Filament\Tables\Table;
 use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Filters\Filter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Forms;
-use Filament\Actions\Action;
 
 class ListMovies extends ListRecords
 {

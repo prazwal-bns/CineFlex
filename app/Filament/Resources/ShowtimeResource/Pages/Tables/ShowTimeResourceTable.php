@@ -3,12 +3,10 @@
 namespace App\Filament\Resources\ShowtimeResource\Pages\Tables;
 
 use App\Filament\Contracts\ResourceFieldContract;
-use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 
 final class ShowTimeResourceTable implements ResourceFieldContract
 {
-
     public static function getFields(): array
     {
         return [
@@ -17,7 +15,7 @@ final class ShowTimeResourceTable implements ResourceFieldContract
                 ->searchable()
                 ->sortable()
                 ->limit(25)
-                ->tooltip(fn($record) => $record->movie->title),
+                ->tooltip(fn ($record) => $record->movie->title),
 
             TextColumn::make('screen.name')
                 ->label('Screen')

@@ -10,6 +10,7 @@ use Filament\Resources\Pages\EditRecord;
 class EditMovie extends EditRecord
 {
     use ResourceTrait;
+
     protected static string $resource = MovieResource::class;
 
     protected function getHeaderActions(): array

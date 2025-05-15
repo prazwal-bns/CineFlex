@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\BookingResource\Pages\Forms;
 
-use Filament\Forms;
 use App\Filament\Contracts\ResourceFieldContract;
 use App\Filament\Resources\UserResource\Pages\Forms\UserResourceForm;
+use Filament\Forms;
 
 final class BookingResourceForm implements ResourceFieldContract
 {
@@ -76,7 +76,7 @@ final class BookingResourceForm implements ResourceFieldContract
                                 ->prefix('NPR')
                                 ->label('Discounted Price')
                                 ->helperText('Final amount after discount')
-                                ->visible(fn(Forms\Get $get) => filled($get('coupon_id'))),
+                                ->visible(fn (Forms\Get $get) => filled($get('coupon_id'))),
                         ]),
                 ])
                 ->columns(2),
@@ -92,14 +92,14 @@ final class BookingResourceForm implements ResourceFieldContract
                         ->label('Select Seats')
                         ->placeholder('Choose seats')
                         ->options(function (Forms\Get $get) {
-                            if (!$get('showtime_id')) {
+                            if (! $get('showtime_id')) {
                                 return [];
                             }
 
                             $showtime = \App\Models\Showtime::with(['screen.seats', 'bookings.seats'])
                                 ->find($get('showtime_id'));
 
-                            if (!$showtime) {
+                            if (! $showtime) {
                                 return [];
                             }
 
