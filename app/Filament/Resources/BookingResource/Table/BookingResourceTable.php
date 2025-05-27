@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\BookingResource\Pages\Table;
+namespace App\Filament\Resources\BookingResource\Table;
 
 use App\Filament\Contracts\ResourceFieldContract;
 use Filament\Tables\Actions\Action;
