@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Theater;
 use App\Models\User;
+use App\Models\Theater;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TheaterPolicy
