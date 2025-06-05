@@ -7,13 +7,77 @@
             <p class="text-blue-100">Choose from our latest movies with upcoming showtimes</p>
         </div>
 
+        <!-- Search, Filter, and Sort Section -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <!-- Search -->
+                <div class="md:col-span-2">
+                    <label for="search" class="block text-sm font-medium text-gray-700 mb-2">Search Movies</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </div>
+                        <input type="text" id="search" placeholder="Search by movie title, description..."
+                               class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                    </div>
+                </div>
+
+                <!-- Genre Filter -->
+                <div>
+                    <label for="genre-filter" class="block text-sm font-medium text-gray-700 mb-2">Filter by Genre</label>
+                    <select id="genre-filter" class="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                        <option value="">All Genres</option>
+                        <option value="action">Action</option>
+                        <option value="comedy">Comedy</option>
+                        <option value="drama">Drama</option>
+                        <option value="horror">Horror</option>
+                        <option value="romance">Romance</option>
+                        <option value="sci-fi">Sci-Fi</option>
+                        <option value="thriller">Thriller</option>
+                        <option value="adventure">Adventure</option>
+                    </select>
+                </div>
+
+                <!-- Sort Options -->
+                <div>
+                    <label for="sort-by" class="block text-sm font-medium text-gray-700 mb-2">Sort by</label>
+                    <select id="sort-by" class="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                        <option value="title">Movie Title</option>
+                        <option value="rating">Rating (High to Low)</option>
+                        <option value="rating-low">Rating (Low to High)</option>
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="duration">Duration</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Filter Tags -->
+            <div class="mt-4 flex flex-wrap gap-2">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2"/>
+                    </svg>
+                    {{ $this->movies->count() }} Movies Found
+                </span>
+                <button class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    Clear Filters
+                </button>
+            </div>
+        </div>
+
         <!-- Movies Table -->
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead class="bg-gray-50 border-b border-gray-200">
                         <tr>
-                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-20">
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider poster-column">
                                 Poster
                             </th>
                             <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -37,11 +101,11 @@
                         @forelse ($this->movies as $movie)
                             <tr class="hover:bg-gray-50 transition-colors duration-200">
                                 <!-- Movie Poster -->
-                                <td class="px-6 py-4">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-20 w-16 rounded-lg object-cover shadow-md"
-                                             src="{{ $movie->poster_url ?? '/placeholder.svg?height=80&width=64' }}"
-                                             alt="{{ $movie->title }}">
+                                <td class="px-6 py-4 poster-column">
+                                    <div class="poster-container">
+                                        <img class="movie-poster"
+                                            src="{{ $movie->poster_url ?? '/placeholder.svg?height=180&width=135' }}"
+                                            alt="{{ $movie->title }}">
                                     </div>
                                 </td>
 
@@ -134,11 +198,11 @@
                                 <!-- Action Button -->
                                 <td class="px-6 py-4">
                                     @if($movie->showtimes->count() > 0)
-                                        <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg text-sm">
+                                        <button class="book-now-button">
                                             Book Now
                                         </button>
                                     @else
-                                        <button disabled class="w-full bg-gray-300 text-gray-500 font-semibold py-2 px-4 rounded-lg text-sm cursor-not-allowed">
+                                        <button disabled class="no-shows-button">
                                             No Shows
                                         </button>
                                     @endif
@@ -217,4 +281,96 @@
             </div>
         @endif
     </div>
+
+    <style>
+        .action-cell {
+            padding: 1.5rem 1rem;
+        }
+
+        .book-now-button {
+            width: 100%;
+            background: linear-gradient(to right, #2563eb, #1d4ed8);
+            color: white;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .book-now-button:hover {
+            background: linear-gradient(to right, #1d4ed8, #1e40af);
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .no-shows-button {
+            width: 100%;
+            background-color: #d1d5db;
+            color: #6b7280;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            border: none;
+            cursor: not-allowed;
+        }
+
+        /* Enhanced movie poster styling with !important to override any conflicts */
+        .movie-poster {
+            height: 180px !important;
+            width: 135px !important;
+            min-height: 180px !important;
+            min-width: 135px !important;
+            max-height: 180px !important;
+            max-width: 135px !important;
+            border-radius: 0.75rem !important;
+            object-fit: cover !important;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+            transition: transform 0.2s ease-in-out !important;
+            display: block !important;
+        }
+
+        .movie-poster:hover {
+            transform: scale(1.05) !important;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .poster-container {
+            flex-shrink: 0 !important;
+            width: 135px !important;
+            min-width: 135px !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: flex-start !important;
+        }
+
+        /* Enhanced table styling for larger posters */
+        tbody tr {
+            height: auto !important;
+            min-height: 200px !important;
+        }
+
+        tbody td {
+            vertical-align: top !important;
+            padding-top: 1.5rem !important;
+            padding-bottom: 1.5rem !important;
+        }
+
+        /* Ensure poster column has enough width */
+        .poster-column {
+            width: 160px !important;
+            min-width: 160px !important;
+        }
+
+        /* Override any Filament default image styles */
+        .movie-poster,
+        .poster-container img {
+            height: 180px !important;
+            width: 135px !important;
+        }
+    </style>
 </x-filament-panels::page>
