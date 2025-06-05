@@ -1,244 +1,220 @@
 <x-filament-panels::page>
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <div class="space-y-8">
-        <!-- Hero Header -->
-        <div
-            class="relative overflow-hidden bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 dark:from-blue-700 dark:via-indigo-800 dark:to-purple-900 rounded-2xl shadow-2xl">
-            <div class="absolute inset-0 bg-black/10"></div>
-            <div class="relative p-8 lg:p-12">
-                <div class="flex items-center justify-between">
-                    <div class="max-w-2xl">
-                        <h1 class="text-4xl lg:text-5xl font-extrabold text-white mb-4 tracking-tight">
-                            Book Your Movie Tickets
-                        </h1>
-                        <p class="text-xl text-blue-100 dark:text-blue-200 leading-relaxed">
-                            Discover the latest blockbusters and reserve your perfect seats for an unforgettable cinema
-                            experience
-                        </p>
-                    </div>
-                    <div class="hidden lg:block">
-                        <div class="bg-white/15 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                            <i class="fas fa-film text-6xl text-white"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    @vite(['resources/css/app.css'])
+    <div class="space-y-6">
+        <!-- Header Section -->
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white">
+            <h1 class="text-3xl font-bold mb-2">Book Your Movie Tickets</h1>
+            <p class="text-blue-100">Choose from our latest movies with upcoming showtimes</p>
         </div>
 
-        <!-- Search and Filters -->
-        <div
-            class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 lg:p-8">
-            <div class="flex flex-col lg:flex-row gap-6 items-center justify-between">
-                <div class="flex-1 max-w-lg">
-                    <div class="relative">
-                        <i
-                            class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"></i>
-                        <input type="text" placeholder="Search movies, directors, or genres..."
-                            class="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-all duration-200">
-                    </div>
-                </div>
-                <div class="flex flex-wrap gap-4">
-                    <select
-                        class="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 min-w-[120px] transition-all duration-200">
-                        <option>All Genres</option>
-                        <option>Action</option>
-                        <option>Drama</option>
-                        <option>Comedy</option>
-                        <option>Horror</option>
-                        <option>Sci-Fi</option>
-                    </select>
-                    <select
-                        class="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 min-w-[120px] transition-all duration-200">
-                        <option>All Languages</option>
-                        <option>English</option>
-                        <option>Hindi</option>
-                        <option>Spanish</option>
-                        <option>French</option>
-                    </select>
-                    <button
-                        class="px-6 py-3 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-black rounded-xl font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                        Filter
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Movies Grid -->
-        <div class="space-y-6">
-            @foreach ($this->movies as $movie)
-                <div
-                    class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg hover:shadow-2xl dark:shadow-gray-900/50 border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:-translate-y-1">
-                    <div class="p-6 lg:p-8">
-                        <div class="flex flex-col lg:flex-row gap-8">
-
-                            <!-- Movie Poster and Basic Info -->
-                            <div class="flex-shrink-0">
-                                <div class="relative group">
-                                    <img src="{{ $movie->poster_url ?: 'https://via.placeholder.com/300x450/e5e7eb/6b7280?text=No+Poster' }}"
-                                        alt="{{ $movie->title }}"
-                                        class="w-48 h-72 lg:w-56 lg:h-84 object-cover rounded-xl shadow-lg group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-105">
-                                    <div
-                                        class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <!-- Movies Table -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-20">
+                                Poster
+                            </th>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Movie Details
+                            </th>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Genre & Language
+                            </th>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Rating
+                            </th>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Upcoming Showtimes
+                            </th>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @forelse ($this->movies as $movie)
+                            <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                <!-- Movie Poster -->
+                                <td class="px-6 py-4">
+                                    <div class="flex-shrink-0">
+                                        <img class="h-20 w-16 rounded-lg object-cover shadow-md"
+                                             src="{{ $movie->poster_url ?? '/placeholder.svg?height=80&width=64' }}"
+                                             alt="{{ $movie->title }}">
                                     </div>
-                                </div>
-                            </div>
+                                </td>
 
-                            <!-- Movie Details -->
-                            <div class="flex-1 space-y-6">
-                                <!-- Title and Rating -->
-                                <div class="space-y-3">
-                                    <h2
-                                        class="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white leading-tight">
-                                        {{ $movie->title }}
-                                    </h2>
-                                    <div class="flex items-center flex-wrap gap-3">
-                                        <div
-                                            class="flex items-center space-x-1 bg-amber-200 dark:bg-amber-900/50 text-amber-900 dark:text-amber-200 px-3 py-1 rounded-full border border-amber-300 dark:border-amber-700">
-                                            <i class="fas fa-star text-amber-600 dark:text-amber-400"></i>
-                                            <span class="font-semibold">{{ $movie->rating }}/10</span>
-                                        </div>
-                                        <span
-                                            class="bg-blue-200 dark:bg-blue-900/50 text-blue-900 dark:text-blue-200 px-3 py-1 rounded-full font-medium border border-blue-300 dark:border-blue-700">
-                                            {{ $movie->language }}
-                                        </span>
-                                        <span class="text-gray-600 dark:text-gray-400 flex items-center">
-                                            <i class="fas fa-clock mr-1"></i>{{ $movie->duration }} min
-                                        </span>
-                                        <span class="text-gray-600 dark:text-gray-400 flex items-center">
-                                            <i class="fas fa-user-tie mr-1"></i>{{ $movie->director }}
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- Description -->
-                                <p class="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
-                                    {{ Str::limit($movie->description, 180) }}
-                                </p>
-
-                                <!-- Genres -->
-                                @if ($movie->genre)
-                                    <div class="flex flex-wrap gap-2">
-                                        @foreach ($movie->genre as $index => $genre)
-                                            @php
-                                                $genreColors = [
-                                                    'bg-red-200 text-red-900 dark:bg-red-900/50 dark:text-red-200 border-red-300 dark:border-red-700',
-                                                    'bg-green-200 text-green-900 dark:bg-green-900/50 dark:text-green-200 border-green-300 dark:border-green-700',
-                                                    'bg-blue-200 text-blue-900 dark:bg-blue-900/50 dark:text-blue-200 border-blue-300 dark:border-blue-700',
-                                                    'bg-purple-200 text-purple-900 dark:bg-purple-900/50 dark:text-purple-200 border-purple-300 dark:border-purple-700',
-                                                    'bg-yellow-200 text-yellow-900 dark:bg-yellow-900/50 dark:text-yellow-200 border-yellow-300 dark:border-yellow-700',
-                                                    'bg-pink-200 text-pink-900 dark:bg-pink-900/50 dark:text-pink-200 border-pink-300 dark:border-pink-700',
-                                                ];
-                                                $colorClass = $genreColors[$index % count($genreColors)];
-                                            @endphp
-                                            <span
-                                                class="{{ $colorClass }} px-3 py-1 rounded-full text-sm font-medium border transition-transform hover:scale-105 cursor-default">
-                                                {{ $genre }}
+                                <!-- Movie Details -->
+                                <td class="px-6 py-4">
+                                    <div class="space-y-1">
+                                        <h3 class="text-lg font-semibold text-gray-900">{{ $movie->title }}</h3>
+                                        <p class="text-sm text-gray-600 max-w-xs">
+                                            {{ Str::limit($movie->description ?? 'No description available', 80) }}
+                                        </p>
+                                        <div class="flex items-center space-x-2 text-xs text-gray-500">
+                                            <span class="bg-gray-100 px-2 py-1 rounded-full">
+                                                {{ $movie->duration ?? 'N/A' }} min
                                             </span>
-                                        @endforeach
+                                        </div>
                                     </div>
-                                @endif
+                                </td>
 
-                                <!-- Release Date -->
-                                <div class="flex items-center text-gray-600 dark:text-gray-400">
-                                    <i class="fas fa-calendar-alt mr-2 text-blue-500 dark:text-blue-400"></i>
-                                    <span class="font-medium">Released:
-                                        {{ $movie->release_date ? $movie->release_date->format('M d, Y') : 'Coming Soon' }}</span>
-                                </div>
-                            </div>
+                                <!-- Genre & Language -->
+                                <td class="px-6 py-4">
+                                    <div class="space-y-2">
+                                        <div class="flex flex-wrap gap-1">
+                                            @if(is_array($movie->genre))
+                                                @foreach(array_slice($movie->genre, 0, 2) as $genre)
+                                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                        {{ $genre }}
+                                                    </span>
+                                                @endforeach
+                                                @if(count($movie->genre) > 2)
+                                                    <span class="text-xs text-gray-500">+{{ count($movie->genre) - 2 }} more</span>
+                                                @endif
+                                            @else
+                                                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                    {{ $movie->genre ?? 'N/A' }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <div class="text-sm text-gray-600">
+                                            <span class="font-medium">Language:</span> {{ $movie->language ?? 'N/A' }}
+                                        </div>
+                                    </div>
+                                </td>
 
-                            <!-- Showtimes Section -->
-                            <div class="lg:w-96">
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
-                                    <i class="fas fa-clock mr-2 text-blue-500 dark:text-blue-400"></i>
-                                    Available Showtimes
-                                </h3>
+                                <!-- Rating -->
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center space-x-1">
+                                        <div class="flex items-center">
+                                            <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                                                <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                            </svg>
+                                            <span class="ml-1 text-sm font-semibold text-gray-900">
+                                                {{ number_format($movie->rating ?? 0, 1) }}
+                                            </span>
+                                        </div>
+                                        <span class="text-xs text-gray-500">/10</span>
+                                    </div>
+                                </td>
 
-                                <div class="space-y-3 max-h-80 overflow-y-auto">
-                                    @forelse ($movie->showtimes->take(4) as $showtime)
-                                        <div
-                                            class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-200 group">
-                                            <div class="flex items-center justify-between">
-                                                <div class="flex items-center space-x-4">
-                                                    <div
-                                                        class="bg-blue-600 dark:bg-blue-700 text-white rounded-lg px-3 py-2 text-center min-w-[70px]">
-                                                        <div class="text-lg font-bold">
-                                                            {{ $showtime->start_time->format('H:i') }}</div>
-                                                        <div class="text-xs opacity-90">
-                                                            {{ $showtime->start_time->format('M d') }}</div>
+                                <!-- Showtimes -->
+                                <td class="px-6 py-4">
+                                    <div class="space-y-1 max-h-20 overflow-y-auto">
+                                        @forelse ($movie->showtimes->take(3) as $showtime)
+                                            <div class="flex items-center justify-between bg-gray-50 rounded-lg px-3 py-2">
+                                                <div class="text-sm">
+                                                    <div class="font-medium text-gray-900">
+                                                        {{ $showtime->start_time->format('M d') }}
                                                     </div>
-                                                    <div>
-                                                        <div class="flex items-center space-x-2 mb-1">
-                                                            <span
-                                                                class="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-2 py-1 rounded-full text-sm font-medium">
-                                                                ${{ $showtime->ticket_price }}
-                                                            </span>
-                                                            <span
-                                                                class="inline-flex items-center justify-center w-16 h-12 bg-gradient-to-br from-gray-300 to-gray-200 dark:from-gray-600 dark:to-gray-700 text-gray-800 dark:text-gray-100 border border-gray-400 dark:border-gray-600 rounded-md text-sm font-semibold shadow-inner">
-                                                                Screen {{ $showtime->screen_id }}
-                                                            </span>
-
-
-                                                        </div>
-                                                        <div class="text-sm text-gray-600 dark:text-gray-400">
-                                                            {{ $showtime->start_time->format('l') }}
-                                                        </div>
+                                                    <div class="text-xs text-gray-600">
+                                                        {{ $showtime->start_time->format('H:i A') }}
                                                     </div>
                                                 </div>
                                                 <button
-                                                    class="bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-700 dark:hover:bg-blue-600 px-5 py-2.5 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 group-hover:scale-105 border border-blue-700 dark:border-blue-600">
-                                                    Book
+                                                    wire:click="selectShowtime({{ $movie->id }}, {{ $showtime->id }})"
+                                                    class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full hover:bg-green-200 transition-colors duration-200 font-medium">
+                                                    Select
                                                 </button>
                                             </div>
-                                        </div>
-                                    @empty
-                                        <div
-                                            class="text-center py-8 bg-gray-50 dark:bg-gray-800 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600">
-                                            <i
-                                                class="fas fa-calendar-times text-4xl text-gray-400 dark:text-gray-500 mb-3"></i>
-                                            <p class="text-gray-600 dark:text-gray-400 font-medium">No showtimes
-                                                available</p>
-                                            <p class="text-sm text-gray-500 dark:text-gray-500 mt-1">Check back later
-                                                for updates</p>
-                                        </div>
-                                    @endforelse
+                                        @empty
+                                            <div class="text-xs text-gray-400 italic">No upcoming shows</div>
+                                        @endforelse
 
-                                    @if ($movie->showtimes->count() > 4)
-                                        <button
-                                            class="w-full text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 py-3 rounded-xl font-medium transition-all duration-200 border border-blue-200 dark:border-blue-800 hover:border-blue-300 dark:hover:border-blue-600">
-                                            <i class="fas fa-chevron-down mr-2"></i>
-                                            Show {{ $movie->showtimes->count() - 4 }} more showtimes
+                                        @if($movie->showtimes->count() > 3)
+                                            <div class="text-xs text-blue-600 font-medium">
+                                                +{{ $movie->showtimes->count() - 3 }} more times
+                                            </div>
+                                        @endif
+                                    </div>
+                                </td>
+
+                                <!-- Action Button -->
+                                <td class="px-6 py-4">
+                                    @if($movie->showtimes->count() > 0)
+                                        <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg text-sm">
+                                            Book Now
+                                        </button>
+                                    @else
+                                        <button disabled class="w-full bg-gray-300 text-gray-500 font-semibold py-2 px-4 rounded-lg text-sm cursor-not-allowed">
+                                            No Shows
                                         </button>
                                     @endif
-                                </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="px-6 py-12 text-center">
+                                    <div class="flex flex-col items-center space-y-3">
+                                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 110-2h4zM9 6v10h6V6H9z"/>
+                                        </svg>
+                                        <h3 class="text-lg font-medium text-gray-900">No Movies Available</h3>
+                                        <p class="text-gray-500">There are no movies with upcoming showtimes at the moment.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-                                <!-- Action Buttons -->
-                                {{-- <div class="mt-6 space-y-3">
-                                    <button
-                                        class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 dark:from-blue-700 dark:to-indigo-700 dark:hover:from-blue-600 dark:hover:to-indigo-600 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1">
-                                        <i class="fas fa-ticket-alt mr-2"></i>Book Tickets Now
-                                    </button>
-                                </div> --}}
+        <!-- Stats Section -->
+        @if($this->movies->count() > 0)
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2"/>
+                                </svg>
                             </div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Available Movies</p>
+                            <p class="text-2xl font-semibold text-gray-900">{{ $this->movies->count() }}</p>
                         </div>
                     </div>
                 </div>
-            @endforeach
-        </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Total Showtimes</p>
+                            <p class="text-2xl font-semibold text-gray-900">{{ $this->movies->sum(fn($movie) => $movie->showtimes->count()) }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Avg Rating</p>
+                            <p class="text-2xl font-semibold text-gray-900">
+                                {{ number_format($this->movies->avg('rating') ?? 0, 1) }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
-
-    <style>
-        /* Custom scrollbar for showtime sections */
-        .space-y-3::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .space-y-3::-webkit-scrollbar-track {
-            @apply bg-gray-100 dark:bg-gray-800 rounded-full;
-        }
-
-        .space-y-3::-webkit-scrollbar-thumb {
-            @apply bg-gray-300 dark:bg-gray-600 rounded-full hover:bg-gray-400 dark:hover:bg-gray-500;
-        }
-    </style>
 </x-filament-panels::page>
