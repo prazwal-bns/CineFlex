@@ -12,7 +12,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <!-- Search -->
                 <div class="md:col-span-2">
-                    <label for="search" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Search
+                    <label for="search" class="block text-sm font-medium text-gray-500 mb-2">Search
                         Movies</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -30,7 +30,7 @@
                 <!-- Genre Filter -->
                 <div>
                     <label for="genre-filter"
-                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Filter by Genre</label>
+                        class="block text-sm font-medium text-gray-500 mb-2">Filter by Genre</label>
                     <select id="genre-filter"
                         class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400 transition-colors duration-200">
                         <option value="">All Genres</option>
@@ -58,7 +58,7 @@
                     {{ $this->movies->count() }} Movies Found
                 </span>
                 <button
-                    class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors duration-200">
+                    class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100  text-gray-700  transition-colors duration-200">
                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -256,15 +256,18 @@
                             <div
                                 class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
                                 <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none"
-                                    stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2" />
+                                    stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 8l7-5 7 5" />
+                                    <rect x="3" y="8" width="18" height="13" rx="2" ry="2" />
+                                    <line x1="3" y1="12" x2="21" y2="12" />
                                 </svg>
+
                             </div>
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Available Movies</p>
-                            <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+                            <p class="text-2xl font-semibold">
                                 {{ $this->movies->count() }}</p>
                         </div>
                     </div>
@@ -284,7 +287,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Showtimes</p>
-                            <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+                            <p class="text-2xl font-semibold">
                                 {{ $this->movies->sum(fn($movie) => $movie->showtimes->count()) }}</p>
                         </div>
                     </div>
@@ -304,7 +307,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Avg Rating</p>
-                            <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+                            <p class="text-2xl font-semibold">
                                 {{ number_format($this->movies->avg('rating') ?? 0, 1) }}
                             </p>
                         </div>
