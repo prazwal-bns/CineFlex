@@ -34,14 +34,11 @@
                     <select id="genre-filter"
                         class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400 transition-colors duration-200">
                         <option value="">All Genres</option>
-                        <option value="action">Action</option>
-                        <option value="comedy">Comedy</option>
-                        <option value="drama">Drama</option>
-                        <option value="horror">Horror</option>
-                        <option value="romance">Romance</option>
-                        <option value="sci-fi">Sci-Fi</option>
-                        <option value="thriller">Thriller</option>
-                        <option value="adventure">Adventure</option>
+                        @foreach (\App\Enums\MovieGenres::cases() as $genre)
+                            <option value="{{ strtolower($genre->value) }}">
+                                {{ $genre->value }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
             </div>
