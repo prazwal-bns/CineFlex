@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\MovieResource\Tables;
 
 use App\Filament\Contracts\ResourceFieldContract;
-use App\Support\Helper;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Str;
@@ -32,9 +31,13 @@ final class MovieResourceTable implements ResourceFieldContract
                 ->label('Genre')
                 ->searchable()
                 ->sortable()
+                ->formatStateUsing(function ($state) {
+                    return collect($state)->map(function ($genre) {
+                        return $genre->value;
+                    })->join(', ');
+                })
                 ->badge()
-                ->color('secondary')
-                ->formatStateUsing(fn ($state) => Helper::capitalizeString($state))
+                ->color(fn ($state) => collect($state)->first()->getColor())
                 ->alignCenter(),
 
             TextColumn::make('release_date')

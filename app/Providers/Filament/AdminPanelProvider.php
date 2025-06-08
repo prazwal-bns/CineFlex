@@ -50,6 +50,17 @@ class AdminPanelProvider extends PanelProvider
                 'accent' => Color::Indigo,
                 'neutral' => Color::Slate,
                 'positive' => Color::Teal,
+                'orange' => Color::Amber,
+                'pink' => Color::Fuchsia,
+                'teal' => Color::Teal,
+                'yellow' => Color::Amber,
+                'gray' => Color::Slate,
+                'indigo' => Color::Indigo,
+                'rose' => Color::Rose,
+                'lime' => '#84cc16',
+                'purple' => '#8b5cf6',
+                'violet' => '#7c3aed',
+                'cyan' => '#06b6d4',
             ])
 
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')

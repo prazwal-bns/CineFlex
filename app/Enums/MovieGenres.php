@@ -25,9 +25,9 @@ enum MovieGenres: string
     case War = 'War';
     case Western = 'Western';
 
-    public function label(): string
+    public function getLabel(): string
     {
-        return match($this) {
+        return match ($this) {
             self::Action => 'Action',
             self::Adventure => 'Adventure',
             self::Animation => 'Animation',
@@ -51,29 +51,30 @@ enum MovieGenres: string
         };
     }
 
-    public function color(): string
+   public function getColor(): string
     {
-        return match($this) {
-            self::Action => 'red',
+        return match ($this) {
+            self::Action => 'danger',
             self::Adventure => 'orange',
             self::Animation => 'pink',
             self::Biography => 'teal',
             self::Comedy => 'yellow',
-            self::Crime => 'gray',
-            self::Documentary => 'blue',
-            self::Drama => 'indigo',
+            self::Crime => 'indigo',
+            self::Documentary => 'info',
+            self::Drama => 'cyan',
             self::Family => 'lime',
             self::Fantasy => 'purple',
-            self::History => 'amber',
-            self::Horror => 'black',
+            self::History => 'warning',
+            self::Horror => 'secondary',
             self::Musical => 'violet',
-            self::Mystery => 'slate',
+            self::Mystery => 'gray',
             self::Romance => 'rose',
-            self::SciFi => 'cyan',
-            self::Sport => 'green',
-            self::Thriller => 'fuchsia',
-            self::War => 'brown',
-            self::Western => 'stone',
+            self::SciFi => 'purple',
+            self::Sport => 'success',
+            self::Thriller => 'gray',
+            self::War => 'warning',
+            self::Western => 'secondary',
         };
     }
+
 }
