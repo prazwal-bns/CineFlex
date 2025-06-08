@@ -23,7 +23,7 @@
                             </svg>
                         </div>
                         <input type="text" id="search" placeholder="Search by movie title, description..."
-                            class="block w-full pl-12 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400 transition-colors duration-200">
+                            class="block w-full pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400 transition-colors duration-200">
                     </div>
                 </div>
 
@@ -47,9 +47,13 @@
             <div class="mt-4 flex flex-wrap gap-2">
                 <span
                     class="inline-flex items-center px-4 py-2 rounded-full text-base font-semibold bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 shadow-sm">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2" />
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 8l7-5 7 5" /> <!-- clapper top -->
+                        <rect x="3" y="8" width="18" height="13" rx="2" ry="2" />
+                        <!-- clapperboard body -->
+                        <line x1="3" y1="12" x2="21" y2="12" />
+                        <!-- clapperboard divide -->
                     </svg>
                     {{ $this->movies->count() }} Movies Found
                 </span>
@@ -431,6 +435,10 @@
         .showtime-container::-webkit-scrollbar-thumb {
             background-color: rgba(156, 163, 175, 0.5);
             border-radius: 20px;
+        }
+
+        #search {
+            padding-left: 38px;
         }
     </style>
 </x-filament-panels::page>
