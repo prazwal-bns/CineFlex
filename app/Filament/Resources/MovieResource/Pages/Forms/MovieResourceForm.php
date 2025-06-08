@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\MovieResource\Pages\Forms;
 
+use App\Enums\MovieGenres;
 use App\Filament\Contracts\ResourceFieldContract;
 use App\Models\Country;
 use Filament\Forms\Components\BaseFileUpload;
@@ -113,22 +114,13 @@ final class MovieResourceForm implements ResourceFieldContract
 
                             Select::make('genre')
                                 ->required()
-                                ->options([
-                                    'action' => 'Action',
-                                    'adventure' => 'Adventure',
-                                    'animation' => 'Animation',
-                                    'comedy' => 'Comedy',
-                                    'documentary' => 'Documentary',
-                                    'drama' => 'Drama',
-                                    'fantasy' => 'Fantasy',
-                                    'horror' => 'Horror',
-                                    'mystery' => 'Mystery',
-                                    'romance' => 'Romance',
-                                    'sci-fi' => 'Sci-Fi',
-                                    'thriller' => 'Thriller',
-                                    'western' => 'Western',
-                                    'crime' => 'Crime',
-                                ])
+                                ->options(
+                                    collect(MovieGenres::cases())
+                                        ->mapWithKeys(fn (MovieGenres $genre) => [
+                                            $genre->value => $genre->getLabel(),
+                                        ])
+                                        ->toArray()
+                                )
                                 ->multiple()
                                 ->searchable()
                                 ->placeholder('Select movie genre'),
