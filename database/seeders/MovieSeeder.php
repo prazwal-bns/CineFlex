@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\MovieGenres;
 use App\Models\Movie;
 use Illuminate\Database\Seeder;
 
@@ -17,7 +18,7 @@ class MovieSeeder extends Seeder
                 'release_date' => '2008-07-18',
                 'poster_url' => 'https://i1.sndcdn.com/artworks-000480914043-0a2fis-t500x500.jpg',
                 'director' => 'Christopher Nolan',
-                'genre' => ['Action', 'Crime', 'Drama'],
+                'genre' => [MovieGenres::Action, MovieGenres::Crime, MovieGenres::Drama],
                 'rating' => 9.0,
                 'language' => 'English',
                 'country' => 'United States',
@@ -29,7 +30,7 @@ class MovieSeeder extends Seeder
                 'release_date' => '2010-07-16',
                 'poster_url' => 'https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg',
                 'director' => 'Christopher Nolan',
-                'genre' => ['Action', 'Sci-Fi', 'Thriller'],
+                'genre' => [MovieGenres::Action, MovieGenres::SciFi, MovieGenres::Thriller],
                 'rating' => 8.8,
                 'language' => 'English',
                 'country' => 'United States',
@@ -41,7 +42,7 @@ class MovieSeeder extends Seeder
                 'release_date' => '1994-09-23',
                 'poster_url' => 'https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg',
                 'director' => 'Frank Darabont',
-                'genre' => ['Drama'],
+                'genre' => [MovieGenres::Drama],
                 'rating' => 9.3,
                 'language' => 'English',
                 'country' => 'United States',
@@ -53,7 +54,7 @@ class MovieSeeder extends Seeder
                 'release_date' => '1972-03-14',
                 'poster_url' => 'https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg',
                 'director' => 'Francis Ford Coppola',
-                'genre' => ['Crime', 'Drama'],
+                'genre' => [MovieGenres::Crime, MovieGenres::Drama],
                 'rating' => 9.2,
                 'language' => 'English',
                 'country' => 'United States',
@@ -65,13 +66,12 @@ class MovieSeeder extends Seeder
                 'release_date' => '1994-09-10',
                 'poster_url' => 'https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg',
                 'director' => 'Quentin Tarantino',
-                'genre' => ['Crime', 'Drama'],
+                'genre' => [MovieGenres::Crime, MovieGenres::Drama],
                 'rating' => 8.9,
                 'language' => 'English',
                 'country' => 'United States',
             ],
         ];
-
         foreach ($movies as $movie) {
             Movie::firstOrCreate(
                 ['title' => $movie['title']],

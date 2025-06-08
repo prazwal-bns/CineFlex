@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\MovieGenres;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
@@ -47,4 +48,21 @@ class Movie extends Model
 
         return Storage::disk('public')->url($value);
     }
+
+    public function getGenreAttribute($value): array
+    {
+        return collect(json_decode($value, true))
+            ->map(fn($genre) => MovieGenres::from($genre))
+            ->toArray();
+    }
+
+    public function setGenreAttribute(array $value): void
+    {
+        $this->attributes['genre'] = json_encode(
+            collect($value)->map(fn($genre) =>
+                $genre instanceof MovieGenres ? $genre->value : $genre
+            )
+        );
+    }
+
 }
