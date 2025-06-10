@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Scopes\TheaterManagerScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 
+#[ScopedBy([TheaterManagerScope::class])]
 class Screen extends Model
 {
     protected $fillable = [
