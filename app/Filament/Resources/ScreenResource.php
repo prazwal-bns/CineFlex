@@ -7,6 +7,8 @@ use App\Filament\Resources\ScreenResource\Pages\Forms\ScreenResourceForm;
 use App\Models\Screen;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class ScreenResource extends Resource
 {
@@ -20,6 +22,22 @@ class ScreenResource extends Resource
     {
         return $form
             ->schema(ScreenResourceForm::getFields());
+    }
+
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        $user = Auth::user();
+
+        if ($user && $user->isTheaterManager()) {
+            $query->whereHas('theater', function ($q) use ($user) {
+                $q->where('manager_id', $user->id);
+            });
+        }
+
+        return $query;
     }
 
     public static function getRelations(): array
