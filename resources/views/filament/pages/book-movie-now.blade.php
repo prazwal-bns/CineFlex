@@ -58,7 +58,7 @@
                     </svg>
                     {{ $this->movies->count() }} Movies Found
                 </span>
-                <button
+                <button wire:click="clearFilters"
                     class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100  text-gray-700  transition-colors duration-200">
                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -236,7 +236,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 110-2h4zM9 6v10h6V6H9z" />
                                         </svg>
-                                        <h3 class="text-lg font-medium text-gray-900">No Movies Available</h3>
+                                        <h3 class="text-lg font-medium text-gray-500">No Movies Available</h3>
                                         <p class="text-gray-500">There are no movies with upcoming showtimes at the
                                             moment.</p>
                                     </div>

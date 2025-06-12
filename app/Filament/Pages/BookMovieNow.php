@@ -37,6 +37,13 @@ class BookMovieNow extends Page
         $this->loadMovies();
     }
 
+    public function clearFilters(): void
+    {
+        $this->search = '';
+        $this->genre = '';
+        $this->loadMovies();
+    }
+
     protected function loadMovies(): void
     {
         $query = Movie::query();
