@@ -12,11 +12,35 @@ class TheaterManagerScope implements Scope
     {
         $user = Auth::user();
 
-        // Only apply scope if user is a theater manager
         if ($user && $user->isTheaterManager()) {
-            $builder->whereHas('theater', function ($query) use ($user) {
-                $query->where('manager_id', $user->id);
-            });
+            $table = $model->getTable();
+
+            switch ($table) {
+                case 'theaters':
+                    $builder->where('manager_id', $user->id);
+                    break;
+
+                case 'screens':
+                    if (method_exists($model, 'theater')) {
+                        $builder->whereHas('theater', function ($query) use ($user) {
+                            $query->where('manager_id', $user->id);
+                        });
+                    }
+                    break;
+
+                case 'seats':
+                    if (method_exists($model, 'screen')) {
+                        $builder->whereHas('screen.theater', function ($query) use ($user) {
+                            $query->where('manager_id', $user->id);
+                        });
+                    }
+                    break;
+
+                default:
+                    // Optional fallback if other models are added
+                    break;
+            }
         }
     }
 }
+

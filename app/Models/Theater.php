@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Scopes\TheaterManagerScope;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
+#[ScopedBy([TheaterManagerScope::class])]
 class Theater extends Model
 {
     use SoftDeletes;

@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Scopes\TheaterManagerScope;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
+#[ScopedBy([TheaterManagerScope::class])]
 class Seat extends Model
 {
     protected $fillable = [
