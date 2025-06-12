@@ -4,6 +4,7 @@ namespace App\Filament\Pages;
 
 use App\Models\Movie;
 use Filament\Pages\Page;
+use Livewire\Attributes\Url;
 
 class BookMovieNow extends Page
 {
@@ -15,8 +16,39 @@ class BookMovieNow extends Page
 
     public $movies;
 
+    #[Url]
+    public $search = '';
+
+    #[Url]
+    public $genre = '';
+
     public function mount(): void
     {
-        $this->movies = Movie::get();
+        $this->loadMovies();
+    }
+
+    public function updatedSearch(): void
+    {
+        $this->loadMovies();
+    }
+
+    public function updatedGenre(): void
+    {
+        $this->loadMovies();
+    }
+
+    protected function loadMovies(): void
+    {
+        $query = Movie::query();
+
+        if ($this->search) {
+            $query->where('title', 'like', '%'.$this->search.'%');
+        }
+
+        if ($this->genre) {
+            $query->where('genre', 'like', '%'.$this->genre.'%');
+        }
+
+        $this->movies = $query->get();
     }
 }
