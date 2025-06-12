@@ -5,16 +5,17 @@ namespace App\Filament\Pages;
 use App\Models\Movie;
 use Filament\Pages\Page;
 use Livewire\Attributes\Url;
+use Livewire\WithPagination;
 
 class BookMovieNow extends Page
 {
+    use WithPagination;
+
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static string $view = 'filament.pages.book-movie-now';
 
     protected static ?string $title = 'Book a Movie';
-
-    public $movies;
 
     #[Url]
     public $search = '';
@@ -24,27 +25,27 @@ class BookMovieNow extends Page
 
     public function mount(): void
     {
-        $this->loadMovies();
+        // No need to call loadMovies here as it will be handled by the view
     }
 
     public function updatedSearch(): void
     {
-        $this->loadMovies();
+        $this->resetPage();
     }
 
     public function updatedGenre(): void
     {
-        $this->loadMovies();
+        $this->resetPage();
     }
 
     public function clearFilters(): void
     {
         $this->search = '';
         $this->genre = '';
-        $this->loadMovies();
+        $this->resetPage();
     }
 
-    protected function loadMovies(): void
+    public function getMoviesProperty()
     {
         $query = Movie::query();
 
@@ -56,6 +57,6 @@ class BookMovieNow extends Page
             $query->where('genre', 'like', '%'.$this->genre.'%');
         }
 
-        $this->movies = $query->get();
+        return $query->paginate(5);
     }
 }

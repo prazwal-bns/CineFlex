@@ -22,7 +22,7 @@
                                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </div>
-                        <input type="text" id="search" wire:model.live.debounce.300ms="search"
+                        <input type="text" id="search" wire:model.live.debounce.200ms="search"
                             placeholder="Search by movie title..."
                             class="block w-full pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400 transition-colors duration-200">
                     </div>
@@ -269,7 +269,7 @@
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Available Movies</p>
                             <p class="text-2xl font-semibold">
-                                {{ $this->movies->count() }}</p>
+                                {{ $this->movies->total() }}</p>
                         </div>
                     </div>
                 </div>
@@ -314,6 +314,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-6">
+                {{ $this->movies->links() }}
             </div>
         @endif
     </div>
