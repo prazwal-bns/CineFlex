@@ -74,6 +74,7 @@ class AdminPanelProvider extends PanelProvider
                 CustomAccountWidget::class,
                 \App\Filament\Widgets\StatsOverview::class,
                 \App\Filament\Widgets\LatestActivities::class,
+                \App\Filament\Widgets\QuickActions::class,
             ])
             ->middleware([
                 EncryptCookies::class,
