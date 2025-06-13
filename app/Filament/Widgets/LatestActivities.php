@@ -11,6 +11,8 @@ class LatestActivities extends BaseWidget
 {
     protected static ?string $heading = 'Latest Activities';
 
+    protected static ?int $sort = 3;
+
     protected int|string|array $columnSpan = 'full';
 
     public function table(\Filament\Tables\Table $table): \Filament\Tables\Table

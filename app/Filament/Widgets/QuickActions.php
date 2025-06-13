@@ -14,6 +14,8 @@ class QuickActions extends Widget implements HasActions
 
     protected static string $view = 'filament.widgets.quick-actions';
 
+    protected static ?int $sort = 2;
+
     protected int|string|array $columnSpan = 'full';
 
     public function makeFilamentTranslatableContentDriver(): ?TranslatableContentDriver
@@ -29,6 +31,12 @@ class QuickActions extends Widget implements HasActions
                 ->icon('heroicon-m-film')
                 ->url(route('filament.admin.resources.movies.create'))
                 ->color('success'),
+
+            Action::make('bookNewMovie')
+                ->label('Book a Movie')
+                ->icon('heroicon-m-users')
+                ->url(route('filament.admin.pages.book-movie-now'))
+                ->color('info'),
 
             Action::make('viewBookings')
                 ->label('View Bookings')
