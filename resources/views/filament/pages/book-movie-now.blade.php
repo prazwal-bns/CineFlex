@@ -199,7 +199,6 @@
                                 </td>
 
                                 <!-- Showtimes -->
-                                <!-- Showtimes -->
                                 <td class="px-6 py-4 w-[18rem] align-top">
                                     <div class="space-y-2 max-h-40 overflow-y-auto showtime-container">
                                         @forelse ($movie->showtimes as $showtime)
