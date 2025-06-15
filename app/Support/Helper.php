@@ -22,4 +22,11 @@ final class Helper
             $q->where('name', 'theater_manager');
         });
     }
+
+    public static function getButtonStyles(): array
+    {
+        return [
+            'class' => 'px-6 py-4 text-lg',
+        ];
+    }
 }
