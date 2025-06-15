@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Models\Movie;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages\Page;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
@@ -62,6 +63,25 @@ class BookMovieNow extends Page
 
     public function selectShowtime($showtimeId)
     {
-        return redirect()->route('filament.admin.pages.select-seats', ['showtimeId' => $showtimeId]);
+        return $this->redirectRoute(
+            name: 'filament.admin.pages.select-seats',
+            parameters: ['showtimeId' => $showtimeId],
+            navigate: true
+        );
+    }
+
+    public static function getNavigationItems(): array
+    {
+        return [
+            NavigationItem::make(static::getNavigationLabel())
+                ->icon(static::getNavigationIcon())
+                ->url(static::getUrl())
+                ->isActiveWhen(fn (): bool =>
+                    request()->routeIs([
+                        'filament.admin.pages.book-movie-now',
+                        'filament.admin.pages.select-seats',
+                    ])
+                )
+        ];
     }
 }
