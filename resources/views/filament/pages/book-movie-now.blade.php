@@ -213,8 +213,7 @@
                                                         {{ $showtime->start_time->format('H:i A') }}
                                                     </div>
                                                 </div>
-                                                <button
-                                                    wire:click="selectShowtime({{ $movie->id }}, {{ $showtime->id }})"
+                                                <button wire:click="selectShowtime({{ $showtime->id }})"
                                                     class="book-now-btn">
                                                     Book Now
                                                 </button>

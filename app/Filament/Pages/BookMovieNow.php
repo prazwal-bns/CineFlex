@@ -59,4 +59,9 @@ class BookMovieNow extends Page
 
         return $query->paginate(5);
     }
+
+    public function selectShowtime($showtimeId)
+    {
+        return redirect()->route('filament.admin.pages.select-seats', ['showtimeId' => $showtimeId]);
+    }
 }
