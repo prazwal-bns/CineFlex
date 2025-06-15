@@ -36,7 +36,7 @@ class QuickActions extends Widget implements HasActions
 
             Action::make('bookNewMovie')
                 ->label('Book a Movie')
-                ->icon('heroicon-m-users')
+                ->icon('heroicon-m-tv')
                 ->url(route('filament.admin.pages.book-movie-now'))
                 ->extraAttributes(Helper::getButtonStyles())
                 ->color('info'),
@@ -53,7 +53,21 @@ class QuickActions extends Widget implements HasActions
                 ->icon('heroicon-m-users')
                 ->url(route('filament.admin.resources.users.index'))
                 ->extraAttributes(Helper::getButtonStyles())
-                ->color('cyan'),
+                ->color('accent'),
+
+            Action::make('managePayments')
+                ->label('Manage Payments')
+                ->icon('heroicon-m-currency-dollar')
+                ->url(route('filament.admin.resources.payments.index'))
+                ->extraAttributes(Helper::getButtonStyles())
+                ->color('pink'),
+
+            Action::make('manageCoupons')
+                ->label('Manage Coupons')
+                ->icon('heroicon-m-credit-card')
+                ->url(route('filament.admin.resources.coupons.index'))
+                ->extraAttributes(Helper::getButtonStyles())
+                ->color('rose'),
         ];
     }
 }
