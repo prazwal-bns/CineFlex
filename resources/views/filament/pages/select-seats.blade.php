@@ -36,8 +36,15 @@
 
 
                 {{-- Seat Grid --}}
+                @php
+                    $sortedSeats = $this->seats->sortBy([
+                        fn ($a, $b) => $a->row <=> $b->row,
+                        fn ($a, $b) => (int) $a->number <=> (int) $b->number,
+                    ]);
+                @endphp
+
                 <div class="grid grid-cols-8 gap-2 mb-6">
-                    @foreach ($this->seats as $seat)
+                    @foreach ($sortedSeats as $seat)
                         @php
                             $isSelected = in_array($seat->id, $this->selectedSeats);
                             $isBooked = in_array($seat->id, $this->bookedSeats);
@@ -47,12 +54,18 @@
                             'bg-gray-200 hover:bg-gray-300' => !$isSelected && !$isBooked,
                             'bg-primary-500 text-white hover:bg-primary-600' => $isSelected,
                             'bg-gray-400 cursor-not-allowed' => $isBooked,
-                        ])
-                            @disabled($isBooked)>
-                            {{ $seat->row_number }}{{ $seat->seat_number }}
+                        ]) @disabled($isBooked)>
+                            <span @class([
+                                'text-gray-600' => !$isSelected && !$isBooked,
+                                'text-white' => $isSelected,
+                                'text-gray-800' => $isBooked,
+                            ])>
+                                {{ $seat->row }}{{ $seat->number }}
+                            </span>
                         </button>
                     @endforeach
                 </div>
+
 
                 {{-- Legend --}}
                 <div class="flex items-center space-x-4 text-sm">

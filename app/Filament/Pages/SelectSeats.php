@@ -13,6 +13,8 @@ class SelectSeats extends Page
 
     protected static string $view = 'filament.pages.select-seats';
 
+    protected static bool $shouldRegisterNavigation = false;
+
     protected static ?string $title = 'Select Seats';
 
     protected static ?string $slug = 'select-seats';
