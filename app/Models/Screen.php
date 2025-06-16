@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Scopes\TheaterManagerScope;
+use App\Traits\SortsByLatest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 
 #[ScopedBy([TheaterManagerScope::class])]
 class Screen extends Model
 {
+    use SortsByLatest;
     protected $fillable = [
         'theater_id',
         'name',

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\MovieGenres;
+use App\Traits\SortsByLatest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
@@ -10,7 +11,7 @@ use Illuminate\Support\Str;
 
 class Movie extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, SortsByLatest;
 
     protected $fillable = [
         'title',
