@@ -62,7 +62,7 @@ class AdminPanelProvider extends PanelProvider
                 'violet' => '#7c3aed',
                 'cyan' => '#06b6d4',
             ])
-
+            ->maxContentWidth('full')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
