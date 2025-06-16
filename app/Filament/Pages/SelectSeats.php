@@ -84,8 +84,8 @@ class SelectSeats extends Page
         }
 
         return Seat::where('screen_id', $this->screen->id)
-            ->orderBy('row_number')
-            ->orderBy('seat_number')
+            ->orderBy('row')
+            ->orderBy('number')
             ->get();
     }
 
