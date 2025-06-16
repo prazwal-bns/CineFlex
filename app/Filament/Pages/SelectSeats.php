@@ -36,7 +36,6 @@ class SelectSeats extends Page
 
     public function mount($showtimeId = null): void
     {
-        // Get showtimeId from URL if not provided as parameter
         if (! $showtimeId && request()->has('showtimeId')) {
             $showtimeId = request()->get('showtimeId');
         }

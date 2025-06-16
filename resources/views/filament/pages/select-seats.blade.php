@@ -256,10 +256,12 @@
                         <p class="text-gray-600">Selected Seats: {{ count($selectedSeats) }}</p>
                         <p class="text-primary-600 text-xl font-bold">Total: ${{ number_format($totalPrice, 2) }}</p>
                     </div>
-                    <button wire:click="proceedToPayment"
-                        class="px-6 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors">
-                        Proceed to Payment
-                    </button>
+                    @if (count($selectedSeats) > 0)
+                        <button wire:click="proceedToPayment"
+                            class="px-6 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors">
+                            Proceed to Payment
+                        </button>
+                    @endif
                 </div>
             </div>
         </div>
