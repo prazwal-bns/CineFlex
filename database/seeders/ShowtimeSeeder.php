@@ -67,7 +67,7 @@ class ShowtimeSeeder extends Seeder
 
     private function calculateTicketPrice(Screen $screen, Movie $movie): float
     {
-        $basePrice = 500.00; // Base price in NPR
+        $basePrice = 200.00; // Base price in NPR
 
         // Adjust price based on screen type
         if (str_contains($screen->name, 'IMAX')) {
