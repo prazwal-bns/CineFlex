@@ -73,7 +73,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-600">Selected Seats: {{ count($selectedSeats) }}</p>
-                        <p class="text-primary-600 text-xl font-bold">Total: ${{ number_format($totalPrice, 2) }}</p>
+                        <p class="text-primary-600 text-xl font-bold">Total: NPR {{ number_format($totalPrice, 2) }}</p>
                     </div>
                     @if (count($selectedSeats) > 0)
                         <button wire:click="proceedToPayment"
