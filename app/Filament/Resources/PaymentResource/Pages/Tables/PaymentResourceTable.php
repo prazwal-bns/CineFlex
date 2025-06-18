@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PaymentResource\Pages\Tables;
 
+use App\Enums\PaymentStatus;
 use App\Filament\Contracts\ResourceFieldContract;
 use Filament\Tables;
 
@@ -22,9 +23,15 @@ final class PaymentResourceTable implements ResourceFieldContract
                 ->searchable(),
             Tables\Columns\TextColumn::make('transaction_id')
                 ->searchable(),
-            Tables\Columns\TextColumn::make('status')
-                ->badge()
-                ->searchable(),
+            Tables\Columns\SelectColumn::make('status')
+                ->options(PaymentStatus::labels())
+                ->searchable()
+                ->selectablePlaceholder(false)
+                ->width('100px')
+                ->afterStateUpdated(function ($state, $record) {
+                    $record->status = PaymentStatus::from($state);
+                    $record->save();
+                }),
             Tables\Columns\TextColumn::make('created_at')
                 ->dateTime()
                 ->sortable()

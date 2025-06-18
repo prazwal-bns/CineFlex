@@ -5,18 +5,17 @@ namespace App\Enums;
 enum PaymentStatus: string
 {
     case PENDING = 'pending';
-    case SUCCESS = 'success';
+    case COMPLETED = 'completed';
     case FAILED = 'failed';
 
     public function getLabels(): string
     {
         return match ($this) {
             self::PENDING => 'Pending',
-            self::SUCCESS => 'Success',
+            self::COMPLETED => 'Completed',
             self::FAILED => 'Failed',
         };
     }
-
 
     public static function labels(): array
     {
@@ -29,7 +28,7 @@ enum PaymentStatus: string
     {
         return match ($this) {
             self::PENDING => 'warning',
-            self::SUCCESS => 'success',
+            self::COMPLETED => 'success',
             self::FAILED => 'danger',
         };
     }
@@ -38,7 +37,7 @@ enum PaymentStatus: string
     {
         return match ($this) {
             self::PENDING => 'heroicon-o-check',
-            self::SUCCESS => 'heroicon-o-arrow-path',
+            self::COMPLETED => 'heroicon-o-arrow-path',
             self::FAILED => 'heroicon-o-circle',
         };
     }
