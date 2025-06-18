@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PaymentStatus;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
@@ -16,6 +17,7 @@ class Payment extends Model
 
     protected $casts = [
         'amount' => 'decimal:2',
+        'status' => PaymentStatus::class
     ];
 
     public function booking()
