@@ -8,13 +8,21 @@ enum PaymentStatus: string
     case SUCCESS = 'success';
     case FAILED = 'failed';
 
-    public function getLabel(): string
+    public function getLabels(): string
     {
         return match ($this) {
             self::PENDING => 'Pending',
             self::SUCCESS => 'Success',
             self::FAILED => 'Failed',
         };
+    }
+
+
+    public static function labels(): array
+    {
+        return collect(self::cases())
+            ->mapWithKeys(fn ($case) => [$case->value => $case->getLabels()])
+            ->toArray();
     }
 
     public function getColor(): string
