@@ -14,7 +14,8 @@
         "laravel/framework": "^12.0",
         "laravel/octane": "^2.9",
         "laravel/tinker": "^2.10.1",
-        "stechstudio/filament-impersonate": "^3.15"
+        "stechstudio/filament-impersonate": "^3.15",
+        "xentixar/esewa-sdk": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

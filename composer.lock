@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5c985de3455dccc4d16cc437016d1edf",
+    "content-hash": "bb6df7443894a9a1b78413425219ba40",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -8064,6 +8064,42 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "xentixar/esewa-sdk",
+            "version": "v1.0.03",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xentixar/esewa-sdk.git",
+                "reference": "26e80bc100a827280b86e5c619ea47ffb5b56a3b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xentixar/esewa-sdk/zipball/26e80bc100a827280b86e5c619ea47ffb5b56a3b",
+                "reference": "26e80bc100a827280b86e5c619ea47ffb5b56a3b",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Xentixar\\EsewaSdk\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "xentixar",
+                    "email": "xentixar@gmail.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/xentixar/esewa-sdk/issues",
+                "source": "https://github.com/xentixar/esewa-sdk/tree/v1.0.03"
+            },
+            "time": "2024-09-15T03:54:46+00:00"
         }
     ],
     "packages-dev": [

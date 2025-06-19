@@ -117,6 +117,7 @@ class SelectSeats extends Page
         session(['total_price' => $this->totalPrice]);
 
         // Redirect to payment page
-        $this->redirect('/payment');
+        // dd($this->showtimeId);
+        $this->redirectRoute('payViaEsewa', ['showtimeId' => $this->showtimeId]);
     }
 }
