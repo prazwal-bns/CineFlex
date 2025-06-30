@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PaymentStatus;
+use App\Models\Booking;
 use App\Models\Payment;
 use App\Models\Showtime;
 use Filament\Notifications\Notification;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Xentixar\EsewaSdk\Esewa;
 
 class PaymentController extends Controller
@@ -13,24 +16,16 @@ class PaymentController extends Controller
     public function payViaEsewa($showtimeId)
     {
         $showtime = Showtime::findOrFail($showtimeId);
-        $transaction_id = 'TXN-' . uniqid();
+        $transaction_id = 'TXN-'.uniqid();
 
-        $booking = $showtime->bookings()->latest()->first();
-        if ($booking) {
-            $payment = $booking->payments()->latest()->first();
+        // Store transaction ID in session for later use
+        session(['transaction_id' => $transaction_id]);
 
-            if ($payment) {
-                $payment->update([
-                    'transaction_id' => $transaction_id
-                ]);
-            }
-        }
-
-        $esewa = new Esewa();
+        $esewa = new Esewa;
         $esewa->config(
             route('payment.success'), // Success URL
             route('payment.failure'), // Failure URL
-            5000,
+            session('total_price', 5000), // Use actual total price from session
             $transaction_id
         );
 
@@ -39,35 +34,86 @@ class PaymentController extends Controller
 
     public function esewaPaySuccess()
     {
-        $esewa = new Esewa();
+        $esewa = new Esewa;
         $response = $esewa->decode();
 
-        if ($response) {
-            if (isset($response['transaction_uuid'])) {
-                $transactionUuid = $response['transaction_uuid'];
+        if ($response && isset($response['transaction_uuid'])) {
+            $transactionUuid = $response['transaction_uuid'];
 
-                // Filament notification for success
+            // Verify this is a valid transaction
+            if ($transactionUuid !== session('transaction_id')) {
                 Notification::make()
-                    ->title('Payment Successful')
-                    ->body('The payment has been successfully completed.')
-                    ->success()
+                    ->title('Invalid Transaction')
+                    ->body('Transaction verification failed.')
+                    ->danger()
                     ->send();
 
                 return redirect()->route('filament.admin.pages.dashboard');
             }
 
-            Notification::make()
-                ->title('Payment Record Not Found')
-                ->body('The transaction record could not be located.')
-                ->danger()
-                ->send();
+            try {
+                DB::beginTransaction();
 
-            return redirect()->route('filament.admin.pages.dashboard');
+                // Get session data
+                $showtimeId = session('showtime_id');
+                $selectedSeats = session('selected_seats', []);
+                $totalPrice = session('total_price', 0);
+                $userId = Auth::id();
+
+                if (! $showtimeId || empty($selectedSeats) || ! $userId || ! is_numeric($userId)) {
+                    throw new \Exception('Missing required booking information or user not authenticated');
+                }
+
+                $showtime = Showtime::findOrFail($showtimeId);
+
+                // Create the booking
+                $booking = Booking::create([
+                    'user_id' => $userId,
+                    'showtime_id' => $showtimeId,
+                    'coupon_id' => null, // Can be enhanced later to support coupons
+                    'status' => 'confirmed', // Set to confirmed since payment is successful
+                    'total_price' => $totalPrice,
+                    'discounted_price' => $totalPrice, // Same as total for now
+                ]);
+
+                $booking->seats()->attach($selectedSeats);
+
+                $payment = Payment::create([
+                    'booking_id' => $booking->id,
+                    'amount' => $totalPrice,
+                    'payment_method' => 'esewa',
+                    'transaction_id' => $transactionUuid,
+                    'status' => PaymentStatus::COMPLETED,
+                ]);
+
+                DB::commit();
+
+                session()->forget(['selected_seats', 'showtime_id', 'total_price', 'transaction_id']);
+
+                Notification::make()
+                    ->title('Booking Successful!')
+                    ->body("Your booking has been confirmed. Booking ID: {$booking->id}")
+                    ->success()
+                    ->send();
+
+                return redirect()->route('filament.admin.pages.dashboard');
+
+            } catch (\Exception $e) {
+                DB::rollBack();
+
+                Notification::make()
+                    ->title('Booking Failed')
+                    ->body('There was an error processing your booking. Please try again.')
+                    ->danger()
+                    ->send();
+
+                return redirect()->route('filament.admin.pages.dashboard');
+            }
         }
 
         Notification::make()
-            ->title('Invalid Response')
-            ->body('Received an invalid response from eSewa.')
+            ->title('Payment Verification Failed')
+            ->body('Unable to verify payment with eSewa. Please contact support.')
             ->danger()
             ->send();
 
@@ -76,7 +122,8 @@ class PaymentController extends Controller
 
     public function esewaPayFailure()
     {
-        // Filament notification for failure
+        session()->forget(['selected_seats', 'showtime_id', 'total_price', 'transaction_id']);
+
         Notification::make()
             ->title('Payment Failed')
             ->body('The payment process has failed. Please try again.')
