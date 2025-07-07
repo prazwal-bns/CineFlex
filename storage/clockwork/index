@@ -1,0 +1,14 @@
+1751890220-6017-638470581,1751890220.5985,GET,/admin,Filament\Pages\Dashboard,200,656.05282783508,request
+1751890221-7177-1248447074,1751890221.7108,POST,/livewire/update,Livewire\Mechanisms\HandleRequests\HandleRequests@handleUpdate,200,608.98399353027,request
+1751890222-3339-2108775377,1751890222.3256,POST,/livewire/update,Livewire\Mechanisms\HandleRequests\HandleRequests@handleUpdate,200,606.56499862671,request
+1751890222-9393-2136134733,1751890222.9356,POST,/livewire/update,Livewire\Mechanisms\HandleRequests\HandleRequests@handleUpdate,200,356.11701011658,request
+1751890223-2992-1662339545,1751890223.2949,POST,/livewire/update,Livewire\Mechanisms\HandleRequests\HandleRequests@handleUpdate,200,660.20917892456,request
+1751890224-1566-2080441202,1751890224.14,GET,/.well-known/appspecific/com.chrome.devtools.json,,404,633.95190238953,request
+1751890228-3102-840056153,1751890228.3059,POST,/livewire/update,Livewire\Mechanisms\HandleRequests\HandleRequests@handleUpdate,200,390.49696922302,request
+1751890230-4255-441268346,1751890230.4053,GET,/admin/bookings,App\Filament\Resources\BookingResource\Pages\ListBookings,200,1214.7960662842,request
+1751890234-6011-1606133509,1751890234.5879,GET,/admin/book-movie-now,App\Filament\Pages\BookMovieNow,200,497.96795845032,request
+1751890245-1091-863468041,1751890245.1021,GET,/admin/bookings,App\Filament\Resources\BookingResource\Pages\ListBookings,200,516.45684242249,request
+1751890249-3160-1832898338,1751890249.3107,GET,/admin/booking-seats,App\Filament\Resources\BookingSeatResource\Pages\ListBookingSeats,200,573.74691963196,request
+1751890252-3539-2036678892,1751890252.3437,POST,/livewire/update,Livewire\Mechanisms\HandleRequests\HandleRequests@handleUpdate,200,612.80107498169,request
+1751890254-9102-798358737,1751890254.9045,GET,/admin/coupons,App\Filament\Resources\CouponResource\Pages\ListCoupons,200,439.88585472107,request
+1751890257-9375-385083287,1751890257.9336,GET,/admin/movies,App\Filament\Resources\MovieResource\Pages\ListMovies,200,634.91201400757,request
