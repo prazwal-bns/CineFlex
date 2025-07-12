@@ -12,3 +12,16 @@
 1751890252-3539-2036678892,1751890252.3437,POST,/livewire/update,Livewire\Mechanisms\HandleRequests\HandleRequests@handleUpdate,200,612.80107498169,request
 1751890254-9102-798358737,1751890254.9045,GET,/admin/coupons,App\Filament\Resources\CouponResource\Pages\ListCoupons,200,439.88585472107,request
 1751890257-9375-385083287,1751890257.9336,GET,/admin/movies,App\Filament\Resources\MovieResource\Pages\ListMovies,200,634.91201400757,request
+1752338092-1452-1244448060,1752338092.1384,GET,/admin/coupons/create,App\Filament\Resources\CouponResource\Pages\CreateCoupon,200,406.29482269287,request
+1752338092-8635-1924098530,1752338092.8536,POST,/livewire/update,Livewire\Mechanisms\HandleRequests\HandleRequests@handleUpdate,200,503.50904464722,request
+1752338123-3838-1331093851,1752338123.3772,POST,/livewire/update,Livewire\Mechanisms\HandleRequests\HandleRequests@handleUpdate,419,348.93012046814,request
+1752338134-1313-1156635063,1752338134.1234,GET,/admin/coupons/create,App\Filament\Resources\CouponResource\Pages\CreateCoupon,302,392.30394363403,request
+1752338134-5242-147946677,1752338134.5201,GET,/admin/login,Filament\Pages\Auth\Login,200,303.57813835144,request
+1752338136-6414-355982493,1752338136.637,POST,/livewire/update,Livewire\Mechanisms\HandleRequests\HandleRequests@handleUpdate,200,844.35987472534,request
+1752338137-5101-1744241513,1752338137.502,GET,/admin/coupons/create,App\Filament\Resources\CouponResource\Pages\CreateCoupon,200,465.04807472229,request
+1752338138-2283-1327504164,1752338138.2221,POST,/livewire/update,Livewire\Mechanisms\HandleRequests\HandleRequests@handleUpdate,200,500.6058216095,request
+1752338168-7703-155341150,1752338168.7637,POST,/livewire/update,Livewire\Mechanisms\HandleRequests\HandleRequests@handleUpdate,200,419.23499107361,request
+1752338172-6642-2132582205,1752338172.6576,POST,/livewire/update,Livewire\Mechanisms\HandleRequests\HandleRequests@handleUpdate,200,386.31010055542,request
+1752338173-0567-1939881401,1752338173.0519,GET,/admin/coupons/1/edit,App\Filament\Resources\CouponResource\Pages\EditCoupon,200,486.40489578247,request
+1752338175-1593-1635779226,1752338175.1544,GET,/admin/coupons,App\Filament\Resources\CouponResource\Pages\ListCoupons,200,438.70401382446,request
+1752338179-9765-315646767,1752338179.9685,POST,/livewire/update,Livewire\Mechanisms\HandleRequests\HandleRequests@handleUpdate,200,424.03101921082,request

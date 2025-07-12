@@ -38,9 +38,15 @@ final class CouponResourceTable implements ResourceFieldContract
                 ->numeric()
                 ->sortable()
                 ->label('Discount Value')
-                ->formatStateUsing(fn ($state, $record) => $record->discount_type === 'percentage' ? "{$state} %" : "\$ {$state}")
+                ->formatStateUsing(function ($record) {
+                    if ($record->discount_type === 'percentage') {
+                        return $record->percentage_discount . '%';
+                    } else {
+                        return '$' . number_format($record->fixed_discount, 2);
+                    }
+                })
                 ->badge()
-                ->color(fn ($state, $record) => $record->discount_type === 'percentage' ? 'success' : 'primary'),
+                ->color(fn ($record) => $record->discount_type === 'percentage' ? 'success' : 'primary'),
 
             Tables\Columns\TextColumn::make('valid_until')
                 ->date('M d, Y')

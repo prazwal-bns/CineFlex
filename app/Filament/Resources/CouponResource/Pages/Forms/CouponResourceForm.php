@@ -8,6 +8,7 @@ use Filament\Forms;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Get;
 
 final class CouponResourceForm implements ResourceFieldContract
 {
@@ -61,16 +62,32 @@ final class CouponResourceForm implements ResourceFieldContract
                                         ])
                                         ->default('percentage')
                                         ->label('Discount Type')
+                                        ->live()
                                         ->columnSpanFull(),
 
-                                    Forms\Components\TextInput::make('discount_value')
+                                    Forms\Components\TextInput::make('percentage_discount')
                                         ->required()
                                         ->numeric()
                                         ->minValue(0)
-                                        ->label('Discount Value')
-                                        ->placeholder('Enter discount value')
+                                        ->maxValue(100)
+                                        ->step(0.01)
+                                        ->label('Percentage Discount')
+                                        ->placeholder('Enter percentage (0-100)')
+                                        ->suffix('%')
+                                        ->prefixIcon('heroicon-o-percent-badge')
+                                        ->columnSpanFull()
+                                        ->visible(fn (Get $get) => $get('discount_type') === 'percentage'),
+
+                                    Forms\Components\TextInput::make('fixed_discount')
+                                        ->required()
+                                        ->numeric()
+                                        ->minValue(0)
+                                        ->step(0.01)
+                                        ->label('Fixed Amount Discount')
+                                        ->placeholder('Enter fixed amount')
                                         ->prefixIcon('heroicon-o-currency-dollar')
-                                        ->columnSpanFull(),
+                                        ->columnSpanFull()
+                                        ->visible(fn (Get $get) => $get('discount_type') === 'fixed'),
 
                                 ]),
                         ])
