@@ -66,14 +66,13 @@ class PaymentController extends Controller
 
                 $showtime = Showtime::findOrFail($showtimeId);
 
-                // Create the booking
                 $booking = Booking::create([
                     'user_id' => $userId,
                     'showtime_id' => $showtimeId,
-                    'coupon_id' => null, // Can be enhanced later to support coupons
-                    'status' => 'confirmed', // Set to confirmed since payment is successful
+                    'coupon_id' => null,
+                    'status' => 'confirmed',
                     'total_price' => $totalPrice,
-                    'discounted_price' => $totalPrice, // Same as total for now
+                    'discounted_price' => $totalPrice,
                 ]);
 
                 $booking->seats()->attach($selectedSeats);
