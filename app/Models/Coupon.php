@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
 
 class Coupon extends Model
 {
@@ -53,6 +54,84 @@ class Coupon extends Model
         } else {
             return min($this->fixed_discount, $total);
         }
+    }
+
+    /**
+     * Check if coupon is valid for use
+     */
+    public function isValidForUse()
+    {
+        // Check if coupon is active
+        if (!$this->is_active) {
+            return false;
+        }
+
+        // Check date validity
+        $now = Carbon::now();
+        if ($now->lt($this->valid_from) || $now->gt($this->valid_until)) {
+            return false;
+        }
+
+        // Check usage limit
+        if ($this->usage_limit && $this->times_used >= $this->usage_limit) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Get validation error message for invalid coupon
+     */
+    public function getValidationErrorMessage()
+    {
+        if (!$this->is_active) {
+            return 'This coupon is not active.';
+        }
+
+        $now = Carbon::now();
+        if ($now->lt($this->valid_from)) {
+            return 'This coupon is not yet valid.';
+        }
+
+        if ($now->gt($this->valid_until)) {
+            return 'This coupon has expired.';
+        }
+
+        if ($this->usage_limit && $this->times_used >= $this->usage_limit) {
+            return 'This coupon has reached its usage limit.';
+        }
+
+        return 'This coupon is invalid.';
+    }
+
+    /**
+     * Scope for active coupons
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    /**
+     * Scope for valid coupons (within date range)
+     */
+    public function scopeValid($query)
+    {
+        $now = Carbon::now();
+        return $query->where('valid_from', '<=', $now)
+                    ->where('valid_until', '>=', $now);
+    }
+
+    /**
+     * Scope for available coupons (not reached usage limit)
+     */
+    public function scopeAvailable($query)
+    {
+        return $query->where(function ($query) {
+            $query->whereNull('usage_limit')
+                  ->orWhereRaw('times_used < usage_limit');
+        });
     }
 
     /**

@@ -4,8 +4,11 @@ namespace App\Filament\Pages;
 
 use App\Models\Seat;
 use App\Models\Showtime;
+use App\Models\Coupon;
 use Filament\Pages\Page;
 use Livewire\Attributes\Url;
+use Carbon\Carbon;
+use Filament\Notifications\Notification;
 
 class SelectSeats extends Page
 {
@@ -32,7 +35,22 @@ class SelectSeats extends Page
 
     public $totalPrice = 0;
 
+    public $originalPrice = 0;
+
+    public $discountAmount = 0;
+
+    public $finalPrice = 0;
+
     public $seatPrice = 0;
+
+    // Coupon related properties
+    public $couponCode = '';
+
+    public $appliedCoupon = null;
+
+    public $couponApplied = false;
+
+    public $couponMessage = '';
 
     public function mount($showtimeId = null): void
     {
@@ -74,7 +92,86 @@ class SelectSeats extends Page
 
     public function calculateTotal(): void
     {
-        $this->totalPrice = count($this->selectedSeats) * $this->seatPrice;
+        $this->originalPrice = count($this->selectedSeats) * $this->seatPrice;
+        $this->totalPrice = $this->originalPrice;
+
+        // Recalculate discount if coupon is applied
+        if ($this->couponApplied && $this->appliedCoupon) {
+            $this->applyDiscount();
+        } else {
+            $this->discountAmount = 0;
+            $this->finalPrice = $this->totalPrice;
+        }
+    }
+
+    public function applyCoupon(): void
+    {
+        if (empty($this->couponCode)) {
+            $this->addError('couponCode', 'Please enter a coupon code.');
+            return;
+        }
+
+        if (empty($this->selectedSeats)) {
+            $this->addError('couponCode', 'Please select seats first before applying a coupon.');
+            return;
+        }
+
+        $coupon = Coupon::where('code', strtoupper($this->couponCode))->first();
+
+        if (!$coupon) {
+            $this->addError('couponCode', 'Invalid coupon code.');
+            return;
+        }
+
+        // Use the model's validation method
+        if (!$coupon->isValidForUse()) {
+            $this->addError('couponCode', $coupon->getValidationErrorMessage());
+            return;
+        }
+
+        // Apply the coupon
+        $this->appliedCoupon = $coupon;
+        $this->couponApplied = true;
+        $this->applyDiscount();
+
+        $this->couponMessage = "Coupon '{$coupon->code}' applied successfully!";
+
+        Notification::make()
+            ->title('Coupon Applied!')
+            ->body("You saved NPR " . number_format($this->discountAmount, 2) . " with coupon '{$coupon->code}'")
+            ->success()
+            ->send();
+    }
+
+    public function removeCoupon(): void
+    {
+        $this->appliedCoupon = null;
+        $this->couponApplied = false;
+        $this->couponCode = '';
+        $this->couponMessage = '';
+        $this->discountAmount = 0;
+        $this->finalPrice = $this->totalPrice;
+
+        Notification::make()
+            ->title('Coupon Removed')
+            ->body('Coupon has been removed from your booking.')
+            ->warning()
+            ->send();
+    }
+
+    protected function applyDiscount(): void
+    {
+        if (!$this->appliedCoupon) {
+            return;
+        }
+
+        $this->discountAmount = $this->appliedCoupon->calculateDiscountAmount($this->totalPrice);
+        $this->finalPrice = $this->totalPrice - $this->discountAmount;
+
+        // Ensure final price is not negative
+        if ($this->finalPrice < 0) {
+            $this->finalPrice = 0;
+        }
     }
 
     public function getSeatsProperty()
@@ -107,17 +204,25 @@ class SelectSeats extends Page
     {
         if (empty($this->selectedSeats)) {
             $this->addError('seats', 'Please select at least one seat.');
-
             return;
         }
 
-        // Store the selected seats in the session
+        // Store the selected seats and pricing information in the session
         session(['selected_seats' => $this->selectedSeats]);
         session(['showtime_id' => $this->showtimeId]);
-        session(['total_price' => $this->totalPrice]);
+        session(['total_price' => $this->finalPrice]); // Use final price after discount
+        session(['original_price' => $this->originalPrice]);
+        session(['discount_amount' => $this->discountAmount]);
+
+        // Store coupon information if applied
+        if ($this->couponApplied && $this->appliedCoupon) {
+            session(['coupon_id' => $this->appliedCoupon->id]);
+            session(['coupon_code' => $this->appliedCoupon->code]);
+        } else {
+            session()->forget(['coupon_id', 'coupon_code']);
+        }
 
         // Redirect to payment page
-        // dd($this->showtimeId);
         $this->redirectRoute('payViaEsewa', ['showtimeId' => $this->showtimeId]);
     }
 }
