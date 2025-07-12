@@ -3,6 +3,7 @@
 /public/build
 /public/hot
 /public/storage
+storage/clockwork/
 /storage/*.key
 /storage/pail
 /vendor
