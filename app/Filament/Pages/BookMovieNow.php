@@ -7,14 +7,15 @@ use Filament\Navigation\NavigationItem;
 use Filament\Pages\Page;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
+use BackedEnum;
 
 class BookMovieNow extends Page
 {
     use WithPagination;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-document-text';
 
-    protected static string $view = 'filament.pages.book-movie-now';
+    protected string $view = 'filament.pages.book-movie-now';
 
     protected static ?string $title = 'Book a Movie';
 

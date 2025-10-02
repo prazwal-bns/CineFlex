@@ -5,27 +5,28 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\Pages\Forms\UserResourceForm;
 use App\Models\User;
-use Filament\Forms\Form;
-use Filament\Infolists\Infolist;
+use BackedEnum;
+use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
+use UnitEnum;
+
 
 class UserResource extends Resource
 {
-    protected static ?string $navigationGroup = 'User Management';
+    protected static string|UnitEnum|null $navigationGroup = 'User Management';
 
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-users';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-s-users';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema(UserResourceForm::getFields());
+        return $schema->schema(UserResourceForm::getFields());
     }
 
-    public static function infolist(Infolist $infolist): Infolist
+    public static function infolist(Schema $schema): Schema
     {
-        return $infolist
+        return $schema
             ->schema([
             ]);
     }

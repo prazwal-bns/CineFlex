@@ -5,20 +5,21 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PaymentResource\Pages;
 use App\Filament\Resources\PaymentResource\Pages\Forms\PaymentResourceForm;
 use App\Models\Payment;
-use Filament\Forms\Form;
+use BackedEnum;
+use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
+use UnitEnum;
 class PaymentResource extends Resource
 {
     protected static ?string $model = Payment::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-credit-card';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-s-credit-card';
 
-    protected static ?string $navigationGroup = 'Finance';
+    protected static string|UnitEnum|null $navigationGroup = 'Finance';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema(PaymentResourceForm::getFields());
+        return $schema->schema(PaymentResourceForm::getFields());
     }
 
 

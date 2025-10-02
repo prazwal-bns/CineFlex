@@ -6,23 +6,24 @@ use App\Filament\Resources\CouponResource\Pages;
 use App\Filament\Resources\CouponResource\Pages\Forms\CouponResourceForm;
 use App\Filament\Resources\CouponResource\Tables\CouponResourceTable;
 use App\Models\Coupon;
-use Filament\Forms\Form;
+use BackedEnum;
+use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class CouponResource extends Resource
 {
     protected static ?string $model = Coupon::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-receipt-percent';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-s-receipt-percent';
 
-    protected static ?string $navigationGroup = 'Sales & Bookings';
+    protected static string|UnitEnum|null $navigationGroup = 'Sales & Bookings';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema(CouponResourceForm::getFields());
+        return $schema->schema(CouponResourceForm::getFields());
     }
 
     public static function table(Table $table): Table

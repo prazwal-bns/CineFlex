@@ -5,23 +5,24 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ScreenResource\Pages;
 use App\Filament\Resources\ScreenResource\Pages\Forms\ScreenResourceForm;
 use App\Models\Screen;
-use Filament\Forms\Form;
+use BackedEnum;
+use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use UnitEnum;
 
 class ScreenResource extends Resource
 {
     protected static ?string $model = Screen::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-film';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-film';
 
-    protected static ?string $navigationGroup = 'Venue Management';
+    protected static string|UnitEnum|null $navigationGroup = 'Venue Management';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema(ScreenResourceForm::getFields());
+        return $schema->schema(ScreenResourceForm::getFields());
     }
 
 

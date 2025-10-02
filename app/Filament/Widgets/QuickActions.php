@@ -13,7 +13,7 @@ class QuickActions extends Widget implements HasActions
 {
     use InteractsWithActions;
 
-    protected static string $view = 'filament.widgets.quick-actions';
+    protected string $view = 'filament.widgets.quick-actions';
 
     protected static ?int $sort = 2;
 
