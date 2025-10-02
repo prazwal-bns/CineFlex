@@ -5,8 +5,10 @@ namespace App\Filament\Resources\BookingResource\Pages;
 use App\Filament\Resources\BookingResource;
 use App\Filament\Resources\BookingResource\Table\BookingResourceTable;
 use Filament\Actions;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Tables;
 use Filament\Tables\Table;
 
 class ListBookings extends ListRecords
@@ -18,13 +20,13 @@ class ListBookings extends ListRecords
         return $table
             ->columns(BookingResourceTable::getFields())
             ->filters([])
-            ->actions([
-                // Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make(),
+            ->recordActions([
+                // EditAction::make(),
+                ViewAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make()
                         ->requiresConfirmation(),
                 ]),
             ]);

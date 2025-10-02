@@ -3,7 +3,8 @@
 namespace App\Filament\Resources\BookingResource\Table;
 
 use App\Filament\Contracts\ResourceFieldContract;
-use Filament\Tables\Actions\Action;
+use Filament\Support\Enums\TextSize;
+use Filament\Actions\Action;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 
@@ -29,7 +30,7 @@ final class BookingResourceTable implements ResourceFieldContract
                 ->searchable()
                 ->sortable()
                 ->weight('bold')
-                ->size(TextColumn\TextColumnSize::Large)
+                ->size(TextSize::Large)
                 ->wrap(),
 
             TextColumn::make('showtime.start_time')
