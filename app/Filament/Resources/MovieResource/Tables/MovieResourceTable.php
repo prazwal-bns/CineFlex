@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\MovieResource\Tables;
 
 use App\Filament\Contracts\ResourceFieldContract;
+use Filament\Support\Enums\TextSize;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Str;
@@ -24,7 +25,7 @@ final class MovieResourceTable implements ResourceFieldContract
                 ->searchable()
                 ->sortable()
                 ->weight('bold')
-                ->size(TextColumn\TextColumnSize::Large)
+                ->size(TextSize::Large)
                 ->wrap(),
 
             TextColumn::make('genre')
