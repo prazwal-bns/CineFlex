@@ -9,10 +9,9 @@ use App\Models\User;
 use Filament\Actions;
 use Filament\Actions\ImportAction;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use STS\FilamentImpersonate\Tables\Actions\Impersonate;
+use STS\FilamentImpersonate\Actions\Impersonate;
 
 class ListUsers extends ListRecords
 {
@@ -37,6 +36,8 @@ class ListUsers extends ListRecords
                 Impersonate::make()
                     ->icon('fluentui-person-sync-28-o')
                     ->color('secondary')
+                    ->hiddenLabel()
+                    ->tooltip('Impersonate User')
                     ->redirectTo(route('filament.admin.pages.dashboard'))
                     ->visible(function () {
                         return auth()->user()->isSuperAdmin();
