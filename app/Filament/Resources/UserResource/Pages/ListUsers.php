@@ -33,7 +33,7 @@ class ListUsers extends ListRecords
                     ->label('Name'),
 
             ])
-            ->actions([
+            ->recordActions([
                 Impersonate::make()
                     ->icon('fluentui-person-sync-28-o')
                     ->color('secondary')
@@ -41,12 +41,12 @@ class ListUsers extends ListRecords
                     ->visible(function () {
                         return auth()->user()->isSuperAdmin();
                     }),
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Actions\ViewAction::make(),
+                Actions\EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -58,7 +58,7 @@ class ListUsers extends ListRecords
                 ->label('Add New User')
                 ->icon('heroicon-s-user-plus'),
 
-            Tables\Actions\ActionGroup::make([
+            Actions\ActionGroup::make([
                 ImportAction::make('Import User')
                     ->modalHeading('Import User')
                     ->tooltip('Import New Users')
