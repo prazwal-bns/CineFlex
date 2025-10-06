@@ -108,7 +108,7 @@ class AdminPanelProvider extends PanelProvider
         // Add custom CSS for the admin panel
         FilamentView::registerRenderHook(
             'panels::head.end',
-            fn (): string => Blade::render("@vite('resources/css/admin.css')")
+            fn (): string => Blade::render("@vite('resources/css/app.css')")
         );
     }
 }
