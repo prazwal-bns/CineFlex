@@ -6,9 +6,9 @@ use App\Enums\OrganizationType;
 use App\Filament\Contracts\ResourceFieldContract;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Split;
 use Spatie\Permission\Contracts\Role;
+use Filament\Schemas\Components\Section;
+use Filament\Tables\Columns\Layout\Split;
 
 final class UserResourceForm implements ResourceFieldContract
 {

@@ -5,16 +5,21 @@ namespace App\Filament\Resources\BookingResource\Pages\Forms;
 use App\Filament\Contracts\ResourceFieldContract;
 use App\Filament\Resources\UserResource\Pages\Forms\UserResourceForm;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 
 final class BookingResourceForm implements ResourceFieldContract
 {
     public static function getFields(): array
     {
         return [
-            Forms\Components\Section::make('Booking Details')
+            Section::make('Booking Details')
                 ->description('Enter the booking information')
                 ->schema([
-                    Forms\Components\Select::make('user_id')
+                    Select::make('user_id')
                         ->relationship('user', 'name')
                         ->searchable()
                         ->preload()
@@ -23,7 +28,7 @@ final class BookingResourceForm implements ResourceFieldContract
                         ->placeholder('Select a customer')
                         ->createOptionForm(UserResourceForm::getFields()),
 
-                    Forms\Components\Select::make('showtime_id')
+                    Select::make('showtime_id')
                         ->relationship('showtime', 'id')
                         ->searchable()
                         ->preload()
@@ -43,7 +48,7 @@ final class BookingResourceForm implements ResourceFieldContract
                                 });
                         }),
 
-                    Forms\Components\Select::make('coupon_id')
+                    Select::make('coupon_id')
                         ->relationship('coupon', 'code')
                         ->searchable()
                         ->preload()
@@ -51,7 +56,7 @@ final class BookingResourceForm implements ResourceFieldContract
                         ->placeholder('Select a coupon (optional)')
                         ->helperText('Apply a discount coupon if available'),
 
-                    Forms\Components\Select::make('status')
+                    Select::make('status')
                         ->options([
                             'pending' => 'Pending',
                             'confirmed' => 'Confirmed',
@@ -62,36 +67,36 @@ final class BookingResourceForm implements ResourceFieldContract
                         ->label('Booking Status')
                         ->helperText('Current status of the booking'),
 
-                    Forms\Components\Grid::make(2)
+                    Grid::make(2)
                         ->schema([
-                            Forms\Components\TextInput::make('total_price')
+                            TextInput::make('total_price')
                                 ->required()
                                 ->numeric()
                                 ->prefix('NPR')
                                 ->label('Total Price')
                                 ->helperText('Total amount before discount'),
 
-                            Forms\Components\TextInput::make('discounted_price')
+                            TextInput::make('discounted_price')
                                 ->numeric()
                                 ->prefix('NPR')
                                 ->label('Discounted Price')
                                 ->helperText('Final amount after discount')
-                                ->visible(fn (Forms\Get $get) => filled($get('coupon_id'))),
+                                ->visible(fn (Get $get) => filled($get('coupon_id'))),
                         ]),
                 ])
                 ->columns(2),
 
-            Forms\Components\Section::make('Seat Selection')
+            Section::make('Seat Selection')
                 ->description('Select seats for this booking')
                 ->schema([
-                    Forms\Components\Select::make('seats')
+                    Select::make('seats')
                         ->relationship('seats', 'id')
                         ->multiple()
                         ->preload()
                         ->searchable()
                         ->label('Select Seats')
                         ->placeholder('Choose seats')
-                        ->options(function (Forms\Get $get) {
+                        ->options(function (Get $get) {
                             if (! $get('showtime_id')) {
                                 return [];
                             }
