@@ -4,6 +4,7 @@ namespace App\Filament\Resources\BookingResource\Pages\Forms;
 
 use App\Filament\Contracts\ResourceFieldContract;
 use App\Filament\Resources\UserResource\Pages\Forms\UserResourceForm;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -20,7 +21,7 @@ final class BookingResourceForm implements ResourceFieldContract
                 ->description('Enter the booking information')
                 ->schema([
                     Select::make('user_id')
-                        ->relationship('user', 'name')
+                        ->options(User::getCustomers()->pluck('name', 'id'))
                         ->searchable()
                         ->preload()
                         ->required()
