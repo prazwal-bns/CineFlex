@@ -1,108 +1,70 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use App\Models\User;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\Payment;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PaymentPolicy
 {
     use HandlesAuthorization;
-
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        return $user->can('view_any_payment');
+        return $authUser->can('ViewAny:Payment');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Payment $payment): bool
+    public function view(AuthUser $authUser, Payment $payment): bool
     {
-        return $user->can('view_payment');
+        return $authUser->can('View:Payment');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        return $user->can('create_payment');
+        return $authUser->can('Create:Payment');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Payment $payment): bool
+    public function update(AuthUser $authUser, Payment $payment): bool
     {
-        return $user->can('update_payment');
+        return $authUser->can('Update:Payment');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Payment $payment): bool
+    public function delete(AuthUser $authUser, Payment $payment): bool
     {
-        return $user->can('delete_payment');
+        return $authUser->can('Delete:Payment');
     }
 
-    /**
-     * Determine whether the user can bulk delete.
-     */
-    public function deleteAny(User $user): bool
+    public function restore(AuthUser $authUser, Payment $payment): bool
     {
-        return $user->can('delete_any_payment');
+        return $authUser->can('Restore:Payment');
     }
 
-    /**
-     * Determine whether the user can permanently delete.
-     */
-    public function forceDelete(User $user, Payment $payment): bool
+    public function forceDelete(AuthUser $authUser, Payment $payment): bool
     {
-        return $user->can('force_delete_payment');
+        return $authUser->can('ForceDelete:Payment');
     }
 
-    /**
-     * Determine whether the user can permanently bulk delete.
-     */
-    public function forceDeleteAny(User $user): bool
+    public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $user->can('force_delete_any_payment');
+        return $authUser->can('ForceDeleteAny:Payment');
     }
 
-    /**
-     * Determine whether the user can restore.
-     */
-    public function restore(User $user, Payment $payment): bool
+    public function restoreAny(AuthUser $authUser): bool
     {
-        return $user->can('restore_payment');
+        return $authUser->can('RestoreAny:Payment');
     }
 
-    /**
-     * Determine whether the user can bulk restore.
-     */
-    public function restoreAny(User $user): bool
+    public function replicate(AuthUser $authUser, Payment $payment): bool
     {
-        return $user->can('restore_any_payment');
+        return $authUser->can('Replicate:Payment');
     }
 
-    /**
-     * Determine whether the user can replicate.
-     */
-    public function replicate(User $user, Payment $payment): bool
+    public function reorder(AuthUser $authUser): bool
     {
-        return $user->can('replicate_payment');
+        return $authUser->can('Reorder:Payment');
     }
 
-    /**
-     * Determine whether the user can reorder.
-     */
-    public function reorder(User $user): bool
-    {
-        return $user->can('reorder_payment');
-    }
 }

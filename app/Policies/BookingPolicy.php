@@ -1,108 +1,70 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use App\Models\User;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\Booking;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class BookingPolicy
 {
     use HandlesAuthorization;
-
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        return $user->can('view_any_booking');
+        return $authUser->can('ViewAny:Booking');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Booking $booking): bool
+    public function view(AuthUser $authUser, Booking $booking): bool
     {
-        return $user->can('view_booking');
+        return $authUser->can('View:Booking');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        return $user->can('create_booking');
+        return $authUser->can('Create:Booking');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Booking $booking): bool
+    public function update(AuthUser $authUser, Booking $booking): bool
     {
-        return $user->can('update_booking');
+        return $authUser->can('Update:Booking');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Booking $booking): bool
+    public function delete(AuthUser $authUser, Booking $booking): bool
     {
-        return $user->can('delete_booking');
+        return $authUser->can('Delete:Booking');
     }
 
-    /**
-     * Determine whether the user can bulk delete.
-     */
-    public function deleteAny(User $user): bool
+    public function restore(AuthUser $authUser, Booking $booking): bool
     {
-        return $user->can('delete_any_booking');
+        return $authUser->can('Restore:Booking');
     }
 
-    /**
-     * Determine whether the user can permanently delete.
-     */
-    public function forceDelete(User $user, Booking $booking): bool
+    public function forceDelete(AuthUser $authUser, Booking $booking): bool
     {
-        return $user->can('force_delete_booking');
+        return $authUser->can('ForceDelete:Booking');
     }
 
-    /**
-     * Determine whether the user can permanently bulk delete.
-     */
-    public function forceDeleteAny(User $user): bool
+    public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $user->can('force_delete_any_booking');
+        return $authUser->can('ForceDeleteAny:Booking');
     }
 
-    /**
-     * Determine whether the user can restore.
-     */
-    public function restore(User $user, Booking $booking): bool
+    public function restoreAny(AuthUser $authUser): bool
     {
-        return $user->can('restore_booking');
+        return $authUser->can('RestoreAny:Booking');
     }
 
-    /**
-     * Determine whether the user can bulk restore.
-     */
-    public function restoreAny(User $user): bool
+    public function replicate(AuthUser $authUser, Booking $booking): bool
     {
-        return $user->can('restore_any_booking');
+        return $authUser->can('Replicate:Booking');
     }
 
-    /**
-     * Determine whether the user can replicate.
-     */
-    public function replicate(User $user, Booking $booking): bool
+    public function reorder(AuthUser $authUser): bool
     {
-        return $user->can('replicate_booking');
+        return $authUser->can('Reorder:Booking');
     }
 
-    /**
-     * Determine whether the user can reorder.
-     */
-    public function reorder(User $user): bool
-    {
-        return $user->can('reorder_booking');
-    }
 }
