@@ -14,8 +14,8 @@ jobs:
     steps:
     - uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.2'  # Changed from 8.0 to 8.2
-        extensions: mbstring, xml, ctype, iconv, intl, sqlite, pdo_sqlite, bcmath
+        php-version: '8.3'  # Changed to 8.3
+        extensions: mbstring, xml, ctype, iconv, intl, sqlite, pdo_sqlite, bcmath, curl, dom, fileinfo, filter, hash, libxml, openssl, pcntl, pcre, phar, posix, readline, reflection, session, simplexml, sodium, spl, standard, tokenizer, xmlreader, xmlwriter, zip, zlib
         coverage: none
 
     - uses: actions/checkout@v4
@@ -25,9 +25,9 @@ jobs:
       uses: actions/cache@v3
       with:
         path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        key: ${{ runner.os }}-php-8.3-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          ${{ runner.os }}-php-
+          ${{ runner.os }}-php-8.3-
 
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
