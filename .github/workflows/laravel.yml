@@ -14,8 +14,8 @@ jobs:
     steps:
     - uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.0'
-        extensions: mbstring, xml, ctype, iconv, intl, sqlite, pdo_sqlite
+        php-version: '8.2'  # Changed from 8.0 to 8.2
+        extensions: mbstring, xml, ctype, iconv, intl, sqlite, pdo_sqlite, bcmath
         coverage: none
 
     - uses: actions/checkout@v4
@@ -33,12 +33,7 @@ jobs:
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
     - name: Install Dependencies
-      run: |
-        composer install --no-ansi --no-interaction --no-progress --prefer-dist
-        # If composer install fails, try composer update
-        if [ $? -ne 0 ]; then
-          composer update --no-ansi --no-interaction --no-progress --prefer-dist
-        fi
+      run: composer install --no-ansi --no-interaction --no-progress --prefer-dist
 
     - name: Generate key
       run: php artisan key:generate
