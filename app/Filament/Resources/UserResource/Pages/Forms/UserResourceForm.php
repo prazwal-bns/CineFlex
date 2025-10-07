@@ -6,17 +6,16 @@ use App\Enums\OrganizationType;
 use App\Filament\Contracts\ResourceFieldContract;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
-use Spatie\Permission\Contracts\Role;
 use Filament\Schemas\Components\Section;
-use Filament\Tables\Columns\Layout\Split;
+use Filament\Schemas\Components\Split;
+use Spatie\Permission\Contracts\Role;
 
 final class UserResourceForm implements ResourceFieldContract
 {
     public static function getFields(): array
     {
         return [
-            Split::make([
-                Section::make('Personal Information')
+            Section::make('Personal Information')
                     ->schema([
                         FileUpload::make('avatar')
                             ->image()
@@ -33,10 +32,9 @@ final class UserResourceForm implements ResourceFieldContract
                         Forms\Components\TextInput::make('phone')
                             ->label('Phone Number'),
                     ])
+                    ->columnSpan(1)
                     ->collapsible(),
-            ])->from('md'),
 
-            Split::make([
                 Section::make('Account Information')
                     ->schema([
                         Forms\Components\TextInput::make('email')
@@ -70,9 +68,9 @@ final class UserResourceForm implements ResourceFieldContract
                             ->options(OrganizationType::labels())
                             ->selectablePlaceholder(false)
                             ->required(),
-                    ])
+                        ])
+                    ->columnSpan(1)
                     ->collapsible(),
-            ])->from('md'),
         ];
     }
 }
