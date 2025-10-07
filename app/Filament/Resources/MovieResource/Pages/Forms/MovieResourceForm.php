@@ -8,9 +8,9 @@ use App\Models\Country;
 use Filament\Forms\Components\BaseFileUpload;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
+use Filament\Schemas\Components\Grid;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Section;
+use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Support\Facades\Storage;
@@ -24,7 +24,7 @@ final class MovieResourceForm implements ResourceFieldContract
             Section::make('Movie Poster')
                 ->description('Upload the movie poster image')
                 ->schema([
-                    Grid::make(2)
+                    Grid::make()
                         ->schema([
                             FileUpload::make('poster_url')
                                 ->label('Movie Poster Image')

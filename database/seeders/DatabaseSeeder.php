@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             MovieSeeder::class,
             ShowtimeSeeder::class,
             CouponSeeder::class,
+            CountrySeeder::class,
         ]);
     }
 }
