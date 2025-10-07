@@ -1,108 +1,70 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use App\Models\User;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\Seat;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SeatPolicy
 {
     use HandlesAuthorization;
-
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        return $user->can('view_any_seat');
+        return $authUser->can('ViewAny:Seat');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Seat $seat): bool
+    public function view(AuthUser $authUser, Seat $seat): bool
     {
-        return $user->can('view_seat');
+        return $authUser->can('View:Seat');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        return $user->can('create_seat');
+        return $authUser->can('Create:Seat');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Seat $seat): bool
+    public function update(AuthUser $authUser, Seat $seat): bool
     {
-        return $user->can('update_seat');
+        return $authUser->can('Update:Seat');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Seat $seat): bool
+    public function delete(AuthUser $authUser, Seat $seat): bool
     {
-        return $user->can('delete_seat');
+        return $authUser->can('Delete:Seat');
     }
 
-    /**
-     * Determine whether the user can bulk delete.
-     */
-    public function deleteAny(User $user): bool
+    public function restore(AuthUser $authUser, Seat $seat): bool
     {
-        return $user->can('delete_any_seat');
+        return $authUser->can('Restore:Seat');
     }
 
-    /**
-     * Determine whether the user can permanently delete.
-     */
-    public function forceDelete(User $user, Seat $seat): bool
+    public function forceDelete(AuthUser $authUser, Seat $seat): bool
     {
-        return $user->can('force_delete_seat');
+        return $authUser->can('ForceDelete:Seat');
     }
 
-    /**
-     * Determine whether the user can permanently bulk delete.
-     */
-    public function forceDeleteAny(User $user): bool
+    public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $user->can('force_delete_any_seat');
+        return $authUser->can('ForceDeleteAny:Seat');
     }
 
-    /**
-     * Determine whether the user can restore.
-     */
-    public function restore(User $user, Seat $seat): bool
+    public function restoreAny(AuthUser $authUser): bool
     {
-        return $user->can('restore_seat');
+        return $authUser->can('RestoreAny:Seat');
     }
 
-    /**
-     * Determine whether the user can bulk restore.
-     */
-    public function restoreAny(User $user): bool
+    public function replicate(AuthUser $authUser, Seat $seat): bool
     {
-        return $user->can('restore_any_seat');
+        return $authUser->can('Replicate:Seat');
     }
 
-    /**
-     * Determine whether the user can replicate.
-     */
-    public function replicate(User $user, Seat $seat): bool
+    public function reorder(AuthUser $authUser): bool
     {
-        return $user->can('replicate_seat');
+        return $authUser->can('Reorder:Seat');
     }
 
-    /**
-     * Determine whether the user can reorder.
-     */
-    public function reorder(User $user): bool
-    {
-        return $user->can('reorder_seat');
-    }
 }

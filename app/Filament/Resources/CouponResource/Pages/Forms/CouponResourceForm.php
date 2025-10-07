@@ -5,10 +5,12 @@ namespace App\Filament\Resources\CouponResource\Pages\Forms;
 use App\Filament\Contracts\ResourceFieldContract;
 use App\Support\Helper;
 use Filament\Forms;
-use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Get;
+use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 
 final class CouponResourceForm implements ResourceFieldContract
 {
@@ -123,21 +125,21 @@ final class CouponResourceForm implements ResourceFieldContract
                                 ->icon('heroicon-o-calendar')
                                 ->collapsible()
                                 ->schema([
-                                    Forms\Components\DatePicker::make('valid_from')
+                                    DatePicker::make('valid_from')
                                         ->required()
                                         ->label('Valid From')
                                         ->minDate(now())
                                         ->native(false)
                                         ->prefixIcon('heroicon-o-calendar')
                                         ->columnSpanFull(),
-                                    Forms\Components\DatePicker::make('valid_until')
+                                    DatePicker::make('valid_until')
                                         ->required()
                                         ->label('Valid Until')
-                                        ->minDate(fn (Forms\Get $get) => $get('valid_from') ?? now())
+                                        ->minDate(fn (Get $get) => $get('valid_from') ?? now())
                                         ->native(false)
                                         ->prefixIcon('heroicon-o-calendar')
                                         ->columnSpanFull(),
-                                    Forms\Components\Toggle::make('is_active')
+                                    Toggle::make('is_active')
                                         ->required()
                                         ->label('Active Status')
                                         ->default(true)
@@ -147,7 +149,8 @@ final class CouponResourceForm implements ResourceFieldContract
                                 ]),
                         ])
                         ->columnSpan(4),
-                ]),
+                ])
+                ->columnSpanFull(),
         ];
     }
 }

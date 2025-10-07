@@ -1,108 +1,70 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use App\Models\User;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\Movie;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class MoviePolicy
 {
     use HandlesAuthorization;
-
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        return $user->can('view_any_movie');
+        return $authUser->can('ViewAny:Movie');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Movie $movie): bool
+    public function view(AuthUser $authUser, Movie $movie): bool
     {
-        return $user->can('view_movie');
+        return $authUser->can('View:Movie');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        return $user->can('create_movie');
+        return $authUser->can('Create:Movie');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Movie $movie): bool
+    public function update(AuthUser $authUser, Movie $movie): bool
     {
-        return $user->can('update_movie');
+        return $authUser->can('Update:Movie');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Movie $movie): bool
+    public function delete(AuthUser $authUser, Movie $movie): bool
     {
-        return $user->can('delete_movie');
+        return $authUser->can('Delete:Movie');
     }
 
-    /**
-     * Determine whether the user can bulk delete.
-     */
-    public function deleteAny(User $user): bool
+    public function restore(AuthUser $authUser, Movie $movie): bool
     {
-        return $user->can('delete_any_movie');
+        return $authUser->can('Restore:Movie');
     }
 
-    /**
-     * Determine whether the user can permanently delete.
-     */
-    public function forceDelete(User $user, Movie $movie): bool
+    public function forceDelete(AuthUser $authUser, Movie $movie): bool
     {
-        return $user->can('force_delete_movie');
+        return $authUser->can('ForceDelete:Movie');
     }
 
-    /**
-     * Determine whether the user can permanently bulk delete.
-     */
-    public function forceDeleteAny(User $user): bool
+    public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $user->can('force_delete_any_movie');
+        return $authUser->can('ForceDeleteAny:Movie');
     }
 
-    /**
-     * Determine whether the user can restore.
-     */
-    public function restore(User $user, Movie $movie): bool
+    public function restoreAny(AuthUser $authUser): bool
     {
-        return $user->can('restore_movie');
+        return $authUser->can('RestoreAny:Movie');
     }
 
-    /**
-     * Determine whether the user can bulk restore.
-     */
-    public function restoreAny(User $user): bool
+    public function replicate(AuthUser $authUser, Movie $movie): bool
     {
-        return $user->can('restore_any_movie');
+        return $authUser->can('Replicate:Movie');
     }
 
-    /**
-     * Determine whether the user can replicate.
-     */
-    public function replicate(User $user, Movie $movie): bool
+    public function reorder(AuthUser $authUser): bool
     {
-        return $user->can('replicate_movie');
+        return $authUser->can('Reorder:Movie');
     }
 
-    /**
-     * Determine whether the user can reorder.
-     */
-    public function reorder(User $user): bool
-    {
-        return $user->can('reorder_movie');
-    }
 }

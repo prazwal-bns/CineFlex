@@ -5,21 +5,22 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\SeatResource\Pages;
 use App\Filament\Resources\SeatResource\Pages\Forms\SeatResourceForm;
 use App\Models\Seat;
-use Filament\Forms\Form;
+use BackedEnum;
+use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
+use UnitEnum;
 
 class SeatResource extends Resource
 {
     protected static ?string $model = Seat::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-ticket';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-s-ticket';
 
-    protected static ?string $navigationGroup = 'Venue Management';
+    protected static string|UnitEnum|null $navigationGroup = 'Venue Management';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema(SeatResourceForm::getFields());
+        return $schema->schema(SeatResourceForm::getFields());
     }
 
     public static function getRelations(): array

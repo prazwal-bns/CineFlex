@@ -97,4 +97,14 @@ class User extends Authenticatable implements HasAvatar
             $query->where('name', 'theater_manager');
         })->pluck('name', 'id');
     }
+
+    /**
+     * Get only customers
+     */
+    public static function getCustomers()
+    {
+        return self::whereHas('roles', function ($query) {
+            $query->where('name', 'customer');
+        });
+    }
 }

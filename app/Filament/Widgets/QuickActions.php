@@ -6,23 +6,17 @@ use App\Support\Helper;
 use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
-use Filament\Support\Contracts\TranslatableContentDriver;
 use Filament\Widgets\Widget;
 
 class QuickActions extends Widget implements HasActions
 {
     use InteractsWithActions;
 
-    protected static string $view = 'filament.widgets.quick-actions';
+    protected string $view = 'filament.widgets.quick-actions';
 
     protected static ?int $sort = 2;
 
     protected int|string|array $columnSpan = 'full';
-
-    public function makeFilamentTranslatableContentDriver(): ?TranslatableContentDriver
-    {
-        return null;
-    }
 
     protected function getActions(): array
     {

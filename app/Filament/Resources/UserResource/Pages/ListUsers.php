@@ -9,10 +9,9 @@ use App\Models\User;
 use Filament\Actions;
 use Filament\Actions\ImportAction;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use STS\FilamentImpersonate\Tables\Actions\Impersonate;
+use STS\FilamentImpersonate\Actions\Impersonate;
 
 class ListUsers extends ListRecords
 {
@@ -33,20 +32,22 @@ class ListUsers extends ListRecords
                     ->label('Name'),
 
             ])
-            ->actions([
+            ->recordActions([
                 Impersonate::make()
                     ->icon('fluentui-person-sync-28-o')
                     ->color('secondary')
+                    ->hiddenLabel()
+                    ->tooltip('Impersonate User')
                     ->redirectTo(route('filament.admin.pages.dashboard'))
                     ->visible(function () {
                         return auth()->user()->isSuperAdmin();
                     }),
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Actions\ViewAction::make(),
+                Actions\EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -58,7 +59,7 @@ class ListUsers extends ListRecords
                 ->label('Add New User')
                 ->icon('heroicon-s-user-plus'),
 
-            Tables\Actions\ActionGroup::make([
+            Actions\ActionGroup::make([
                 ImportAction::make('Import User')
                     ->modalHeading('Import User')
                     ->tooltip('Import New Users')

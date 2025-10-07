@@ -4,13 +4,15 @@ namespace App\Filament\Resources\ShowtimeResource\Pages\Forms;
 
 use App\Filament\Contracts\ResourceFieldContract;
 use Filament\Forms;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 
 final class ShowTimeResourceForm implements ResourceFieldContract
 {
     public static function getFields(): array
     {
         return [
-            Forms\Components\Card::make()
+            Section::make()
                 ->schema([
                     Forms\Components\Select::make('movie_id')
                         ->relationship('movie', 'title')
@@ -26,7 +28,7 @@ final class ShowTimeResourceForm implements ResourceFieldContract
                         ->preload()
                         ->label('Select Screen'),
 
-                    Forms\Components\Grid::make(2)
+                    Grid::make(2)
                         ->schema([
                             Forms\Components\DateTimePicker::make('start_time')
                                 ->required()

@@ -4,7 +4,7 @@ namespace App\Filament\Tables\Columns;
 
 use Closure;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\TextColumn\TextColumnSize;
+use Filament\Support\Enums\TextSize;
 use Illuminate\Database\Eloquent\Model;
 
 class LinkColumn extends TextColumn
@@ -15,7 +15,7 @@ class LinkColumn extends TextColumn
 
     public string $target = '_blank';
 
-    protected TextColumnSize|string|Closure|null $size = 'xs';
+    protected TextSize|string|Closure|null $size = 'xs';
 
     public function target(string $target): static
     {
@@ -46,12 +46,12 @@ class LinkColumn extends TextColumn
      * By default the column apply it URL on whole cell, and we replace it with recordURL now it apply record url to whole cell
      * But we apply url on text of column explicitly on blade file.
      */
-    public function getUrl(): ?string
+    public function getUrl($record = null): ?string
     {
         /**
          * @var Model $model
          */
-        $model = $this->getRecord();
+        $model = $record ?? $this->getRecord();
 
         return $this->getTable()->getRecordUrl($model);
     }

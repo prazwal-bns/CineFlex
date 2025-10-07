@@ -5,21 +5,22 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ShowtimeResource\Pages;
 use App\Filament\Resources\ShowtimeResource\Pages\Forms\ShowTimeResourceForm;
 use App\Models\Showtime;
-use Filament\Forms\Form;
+use BackedEnum;
+use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
+use UnitEnum;
 
 class ShowtimeResource extends Resource
 {
     protected static ?string $model = Showtime::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-clock';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-s-clock';
 
-    protected static ?string $navigationGroup = 'Scheduling';
+    protected static string|UnitEnum|null $navigationGroup = 'Scheduling';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema(ShowTimeResourceForm::getFields());
+        return $schema->schema(ShowTimeResourceForm::getFields());
     }
 
     public static function getRelations(): array

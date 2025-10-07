@@ -27,5 +27,8 @@ class AppServiceProvider extends ServiceProvider
         Livewire::component('edit-profile-form', EditProfileForm::class);
         Livewire::component('edit-password-form', EditPasswordForm::class);
         Screen::observe(ScreenObserver::class);
+
+        // Configure global component settings
+        ComponentGlobalConfiguration::configure();
     }
 }

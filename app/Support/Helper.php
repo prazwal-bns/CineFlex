@@ -26,7 +26,7 @@ final class Helper
     public static function getButtonStyles(): array
     {
         return [
-            'class' => 'px-6 py-4 text-lg',
+            'class' => 'px-4 py-3 text-base font-medium',
         ];
     }
 }

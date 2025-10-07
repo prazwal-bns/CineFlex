@@ -4,11 +4,11 @@ namespace App\Livewire;
 
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Form;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Filament\Notifications\Notification;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -27,9 +27,9 @@ class EditProfileForm extends Component implements HasForms
         );
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->schema([
                 Section::make('Profile Information')
                     ->description('Update your account\'s profile information.')

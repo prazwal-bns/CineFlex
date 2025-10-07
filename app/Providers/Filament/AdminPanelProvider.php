@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use App\Filament\Pages\Profile;
 use App\Filament\Widgets\CustomAccountWidget;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use Filament\Actions\Action;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -34,7 +35,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->spa()
             ->userMenuItems([
-                MenuItem::make()
+                Action::make('profile')
                     ->label('Profile')
                     ->url(fn (): string => Profile::getUrl())
                     ->icon('heroicon-o-user'),
@@ -107,7 +108,7 @@ class AdminPanelProvider extends PanelProvider
         // Add custom CSS for the admin panel
         FilamentView::registerRenderHook(
             'panels::head.end',
-            fn (): string => Blade::render("@vite('resources/css/admin.css')")
+            fn (): string => Blade::render("@vite('resources/css/app.css')")
         );
     }
 }

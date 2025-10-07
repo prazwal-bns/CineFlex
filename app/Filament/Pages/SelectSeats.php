@@ -9,12 +9,13 @@ use Filament\Pages\Page;
 use Livewire\Attributes\Url;
 use Carbon\Carbon;
 use Filament\Notifications\Notification;
+use BackedEnum;
 
 class SelectSeats extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-cursor-arrow-rays';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cursor-arrow-rays';
 
-    protected static string $view = 'filament.pages.select-seats';
+    protected string $view = 'filament.pages.select-seats';
 
     protected static bool $shouldRegisterNavigation = false;
 

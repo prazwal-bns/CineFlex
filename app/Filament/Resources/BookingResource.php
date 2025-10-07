@@ -5,20 +5,22 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BookingResource\Pages;
 use App\Filament\Resources\BookingResource\Pages\Forms\BookingResourceForm;
 use App\Models\Booking;
-use Filament\Forms\Form;
+use BackedEnum;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use UnitEnum;
 
 class BookingResource extends Resource
 {
     protected static ?string $model = Booking::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-clipboard-document-check';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-s-clipboard-document-check';
 
-    protected static ?string $navigationGroup = 'Sales & Bookings';
+    protected static string|UnitEnum|null $navigationGroup = 'Sales & Bookings';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->schema(BookingResourceForm::getFields());
     }
 

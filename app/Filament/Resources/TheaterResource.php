@@ -5,21 +5,22 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TheaterResource\Pages;
 use App\Filament\Resources\TheaterResource\Pages\Forms\TheaterResourceForm;
 use App\Models\Theater;
-use Filament\Forms\Form;
+use BackedEnum;
+use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
+use UnitEnum;
 
 class TheaterResource extends Resource
 {
     protected static ?string $model = Theater::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-building-storefront';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-s-building-storefront';
 
-    protected static ?string $navigationGroup = 'Venue Management';
+    protected static string|UnitEnum|null $navigationGroup = 'Venue Management';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema(TheaterResourceForm::getFields());
+        return $schema->schema(TheaterResourceForm::getFields());
     }
 
     public static function getRelations(): array

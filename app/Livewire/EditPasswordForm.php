@@ -3,16 +3,16 @@
 namespace App\Livewire;
 
 use Filament\Actions\Action;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 
 class EditPasswordForm extends Component implements HasForms
 {
@@ -53,9 +53,9 @@ class EditPasswordForm extends Component implements HasForms
         ];
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->schema($this->getFormSchema())
             ->statePath('data');
     }

@@ -6,6 +6,11 @@ use App\Filament\Resources\MovieResource;
 use App\Filament\Resources\MovieResource\Tables\MovieResourceTable;
 use App\Models\Movie;
 use Filament\Actions;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
@@ -42,21 +47,21 @@ class ListMovies extends ListRecords
                         };
                     }),
             ])
-            ->actions([
-                Tables\Actions\ViewAction::make()
+            ->recordActions([
+                ViewAction::make()
                     ->icon('heroicon-o-eye')
                     ->color('success'),
-                Tables\Actions\EditAction::make()
+                EditAction::make()
                     ->icon('heroicon-o-pencil')
                     ->color('warning'),
-                Tables\Actions\DeleteAction::make()
+                DeleteAction::make()
                     ->icon('heroicon-o-trash')
                     ->color('danger')
                     ->requiresConfirmation(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make()
                         ->requiresConfirmation(),
                 ]),
             ])

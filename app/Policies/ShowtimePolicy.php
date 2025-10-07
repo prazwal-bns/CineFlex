@@ -1,108 +1,70 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use App\Models\User;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\Showtime;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ShowtimePolicy
 {
     use HandlesAuthorization;
-
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        return $user->can('view_any_showtime');
+        return $authUser->can('ViewAny:Showtime');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Showtime $showtime): bool
+    public function view(AuthUser $authUser, Showtime $showtime): bool
     {
-        return $user->can('view_showtime');
+        return $authUser->can('View:Showtime');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        return $user->can('create_showtime');
+        return $authUser->can('Create:Showtime');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Showtime $showtime): bool
+    public function update(AuthUser $authUser, Showtime $showtime): bool
     {
-        return $user->can('update_showtime');
+        return $authUser->can('Update:Showtime');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Showtime $showtime): bool
+    public function delete(AuthUser $authUser, Showtime $showtime): bool
     {
-        return $user->can('delete_showtime');
+        return $authUser->can('Delete:Showtime');
     }
 
-    /**
-     * Determine whether the user can bulk delete.
-     */
-    public function deleteAny(User $user): bool
+    public function restore(AuthUser $authUser, Showtime $showtime): bool
     {
-        return $user->can('delete_any_showtime');
+        return $authUser->can('Restore:Showtime');
     }
 
-    /**
-     * Determine whether the user can permanently delete.
-     */
-    public function forceDelete(User $user, Showtime $showtime): bool
+    public function forceDelete(AuthUser $authUser, Showtime $showtime): bool
     {
-        return $user->can('force_delete_showtime');
+        return $authUser->can('ForceDelete:Showtime');
     }
 
-    /**
-     * Determine whether the user can permanently bulk delete.
-     */
-    public function forceDeleteAny(User $user): bool
+    public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $user->can('force_delete_any_showtime');
+        return $authUser->can('ForceDeleteAny:Showtime');
     }
 
-    /**
-     * Determine whether the user can restore.
-     */
-    public function restore(User $user, Showtime $showtime): bool
+    public function restoreAny(AuthUser $authUser): bool
     {
-        return $user->can('restore_showtime');
+        return $authUser->can('RestoreAny:Showtime');
     }
 
-    /**
-     * Determine whether the user can bulk restore.
-     */
-    public function restoreAny(User $user): bool
+    public function replicate(AuthUser $authUser, Showtime $showtime): bool
     {
-        return $user->can('restore_any_showtime');
+        return $authUser->can('Replicate:Showtime');
     }
 
-    /**
-     * Determine whether the user can replicate.
-     */
-    public function replicate(User $user, Showtime $showtime): bool
+    public function reorder(AuthUser $authUser): bool
     {
-        return $user->can('replicate_showtime');
+        return $authUser->can('Reorder:Showtime');
     }
 
-    /**
-     * Determine whether the user can reorder.
-     */
-    public function reorder(User $user): bool
-    {
-        return $user->can('reorder_showtime');
-    }
 }
