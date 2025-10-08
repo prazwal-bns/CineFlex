@@ -114,11 +114,12 @@ class PaymentController extends Controller
                     'transaction_id'
                 ]);
 
-                // Success notification with booking details
-                $successMessage = "Your booking has been confirmed. Booking ID: {$booking->id}";
+                // Success notification with booking details and display showtime details
+                $successMessage = "Congratulations! Your booking has been confirmed. Booking ID: {$booking->id}";
                 if ($discountAmount > 0) {
                     $successMessage .= " | You saved NPR " . number_format($discountAmount, 2) . " with your coupon!";
                 }
+                $successMessage .= " | Showtime: {$showtime->movie->title} at {$showtime->start_time}";
 
                 Notification::make()
                     ->title('Booking Successful!')
