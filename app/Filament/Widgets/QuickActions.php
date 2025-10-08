@@ -7,6 +7,7 @@ use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Widgets\Widget;
+use Illuminate\Support\Facades\Auth;
 
 class QuickActions extends Widget implements HasActions
 {
@@ -26,6 +27,7 @@ class QuickActions extends Widget implements HasActions
                 ->icon('heroicon-m-film')
                 ->url(route('filament.admin.resources.movies.create'))
                 ->extraAttributes(Helper::getButtonStyles())
+                ->visible(fn() => Auth::user()->can('create_movie'))
                 ->color('success'),
 
             Action::make('bookNewMovie')
