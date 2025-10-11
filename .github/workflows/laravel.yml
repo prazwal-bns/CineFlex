@@ -55,11 +55,6 @@ jobs:
     - name: Install NPM Dependencies
       run: npm ci
 
-    - name: Install Playwright
-      run: |
-        npm install playwright
-        npx playwright install --with-deps
-
     - name: Build Assets
       run: npm run build
 
