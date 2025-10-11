@@ -35,7 +35,7 @@ class QuickActions extends Widget implements HasActions
                 ->icon('heroicon-m-tv')
                 ->url(route('filament.admin.pages.book-movie-now'))
                 ->extraAttributes(Helper::getButtonStyles())
-                ->visible(fn() => Auth::user()->can('book_movie') || Auth::user()->isCustomer())
+                ->visible(fn() => Auth::user()->can('create_booking'))
                 ->color('info'),
 
             Action::make('viewBookings')
@@ -43,7 +43,7 @@ class QuickActions extends Widget implements HasActions
                 ->icon('heroicon-m-ticket')
                 ->url(route('filament.admin.resources.bookings.index'))
                 ->extraAttributes(Helper::getButtonStyles())
-                ->visible(fn() => Auth::user()->can('view_bookings'))
+                ->visible(fn() => Auth::user()->can('view_booking'))
                 ->color('primary'),
 
             Action::make('manageUsers')
@@ -51,7 +51,7 @@ class QuickActions extends Widget implements HasActions
                 ->icon('heroicon-m-users')
                 ->url(route('filament.admin.resources.users.index'))
                 ->extraAttributes(Helper::getButtonStyles())
-                ->visible(fn() => Auth::user()->can('view_users'))
+                ->visible(fn() => Auth::user()->can('view_user'))
                 ->color('accent'),
 
             Action::make('managePayments')
@@ -59,7 +59,7 @@ class QuickActions extends Widget implements HasActions
                 ->icon('heroicon-m-currency-dollar')
                 ->url(route('filament.admin.resources.payments.index'))
                 ->extraAttributes(Helper::getButtonStyles())
-                ->visible(fn() => Auth::user()->can('view_payments'))
+                ->visible(fn() => Auth::user()->can('view_payment'))
                 ->color('pink'),
 
             Action::make('manageCoupons')
@@ -67,7 +67,7 @@ class QuickActions extends Widget implements HasActions
                 ->icon('heroicon-m-credit-card')
                 ->url(route('filament.admin.resources.coupons.index'))
                 ->extraAttributes(Helper::getButtonStyles())
-                ->visible(fn() => Auth::user()->can('view_coupons'))
+                ->visible(fn() => Auth::user()->can('view_coupon'))
                 ->color('rose'),
         ];
     }
