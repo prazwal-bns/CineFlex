@@ -1,8 +1,10 @@
 <?php
 
-
 it('can display login page', function () {
-    $page = visit(url('http://localhost:8000/admin/login'));
+    // Use APP_URL from environment (set in phpunit.xml or workflow)
+    $loginUrl = config('app.url') . '/admin/login';
+    dd($loginUrl);
+    $page = visit($loginUrl);
 
     $page->assertSee('Sign in');
 });
@@ -15,7 +17,8 @@ it('can login user with valid credentials', function(){
         'password' => $plainPassword
     ];
 
-    $page = visit(url('http://localhost:8000/admin/login'));
+    $loginUrl = config('app.url') . '/admin/login';
+    $page = visit($loginUrl);
 
     $page->assertSee('Sign in')
         ->fill('Email address*', $user['email'])
