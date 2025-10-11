@@ -4,7 +4,9 @@
             <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Quick Actions</h2>
             <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 @foreach ($this->getActions() as $action)
-                    {{ $action }}
+                    @if ($action->isVisible())
+                        {{ $action }}
+                    @endif
                 @endforeach
             </div>
         </div>
