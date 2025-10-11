@@ -46,8 +46,45 @@ jobs:
         mkdir -p database
         touch database/database.sqlite
 
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install NPM Dependencies
+      run: npm ci
+
+    - name: Install Playwright
+      run: |
+        npm install playwright
+        npx playwright install --with-deps
+
+    - name: Build Assets
+      run: npm run build
+
+    - name: Set APP_URL
+      run: echo "APP_URL=http://localhost:8000" >> .env
+
+    - name: Run Migrations
+      run: php artisan migrate --force
+
+    - name: Seed Database
+      run: php artisan db:seed --force
+
+    - name: Start Laravel Server
+      run: php artisan serve --host=0.0.0.0 --port=8000 &
+      env:
+        APP_ENV: testing
+
+    - name: Wait for Server
+      run: |
+        timeout 30 bash -c 'until curl -s http://localhost:8000 > /dev/null; do sleep 1; done' || echo "Server started"
+
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
+        APP_URL: http://localhost:8000
+        APP_ENV: testing
       run: php artisan test

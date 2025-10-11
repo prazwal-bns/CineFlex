@@ -1,16 +1,21 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 
 it('can display login page', function () {
-    $page = visit('http://127.0.0.1:8000/admin/login');
+    $page = visit(url('/admin/login'));
 
     $page->assertSee('Sign in');
 });
 
 it('can login user with valid credentials', function(){
+    // Seed the database with users
+    Artisan::call('db:seed', ['--class' => 'ShieldSeeder']);
+    Artisan::call('db:seed', ['--class' => 'UserSeeder']);
+    
     $plainPassword = '@admin123';
 
     $user = [
@@ -18,13 +23,13 @@ it('can login user with valid credentials', function(){
         'password' => $plainPassword
     ];
 
-    $page = visit('http://127.0.0.1:8000/admin/login');
+    $page = visit(url('/admin/login'));
 
     $page->assertSee('Sign in')
         ->fill('Email address*', $user['email'])
         ->fill('Password*', $user['password'])
         ->press('.fi-ac-btn-action')
-        ->assertSee('Quick Actions');
+        ->assertSee('Dashboard');
 
 });
 

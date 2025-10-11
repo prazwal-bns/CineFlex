@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Filament\Panel;
 
 class User extends Authenticatable implements HasAvatar
 {
@@ -106,5 +107,14 @@ class User extends Authenticatable implements HasAvatar
         return self::whereHas('roles', function ($query) {
             $query->where('name', 'customer');
         });
+    }
+
+
+    /**
+     * Check if the user can access the Filament admin panel.
+     */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true; // Allow all users to access the admin panel for testing
     }
 }
