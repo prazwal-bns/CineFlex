@@ -7,15 +7,32 @@ use App\Models\User;
 use Filament\Notifications\Events\DatabaseNotificationsSent;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
-use Illuminate\Database\Eloquent\Model;
 
 class CreateUser extends CreateRecord
 {
     protected static string $resource = UserResource::class;
 
-    public function handleRecordCreation(array $data): Model
+    protected ?array $rolesToSync = null;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $record = parent::handleRecordCreation($data);
+        // Store roles before removing from data
+        if (isset($data['roles'])) {
+            $this->rolesToSync = is_array($data['roles']) ? $data['roles'] : [$data['roles']];
+        }
+
+        // Remove fields that shouldn't be saved directly
+        unset($data['roles'], $data['password_confirmation']);
+
+        return $data;
+    }
+
+    protected function afterCreate(): void
+    {
+        // Sync roles after user is created
+        if (!empty($this->rolesToSync)) {
+            $this->record->syncRoles($this->rolesToSync);
+        }
 
         // $admin = User::where('email', 'admin@gmail.com')->first();
         $admin = User::whereHas('roles', function ($query) {
@@ -32,7 +49,5 @@ class CreateUser extends CreateRecord
 
             event(new DatabaseNotificationsSent($admin));
         }
-
-        return $record;
     }
 }
