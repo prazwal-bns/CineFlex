@@ -16,7 +16,7 @@ final class PaymentResourceTable implements ResourceFieldContract
                 ->numeric()
                 ->sortable(),
             Tables\Columns\TextColumn::make('amount')
-                ->numeric()
+                ->money('INR', true)
                 ->sortable(),
             Tables\Columns\TextColumn::make('payment_method')
                 ->badge()
