@@ -9,6 +9,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Split;
 use Spatie\Permission\Contracts\Role;
+use Spatie\Permission\Models\Role as RoleModel;
 
 final class UserResourceForm implements ResourceFieldContract
 {
@@ -56,13 +57,16 @@ final class UserResourceForm implements ResourceFieldContract
                                 'same' => 'The passwords do not match.',
                             ]),
                         Forms\Components\Select::make('roles')
-                            ->relationship('roles', 'name')
+                            ->label('Role')
+                            ->options(function () {
+                                return RoleModel::all()->mapWithKeys(function ($role) {
+                                    return [$role->id => str($role->name)->headline()];
+                                });
+                            })
                             ->preload()
                             ->required()
                             ->searchable()
-                            ->getOptionLabelFromRecordUsing(function (?Role $record): string {
-                                return $record?->name ? str($record->name)->headline() : '';
-                            }),
+                            ->dehydrated(false),
                         Forms\Components\Select::make('organization')
                             ->label('Organization Role')
                             ->options(OrganizationType::labels())
