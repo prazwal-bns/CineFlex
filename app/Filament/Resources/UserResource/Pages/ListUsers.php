@@ -11,6 +11,7 @@ use Filament\Actions\ImportAction;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use STS\FilamentImpersonate\Actions\Impersonate;
 
 class ListUsers extends ListRecords
@@ -21,6 +22,7 @@ class ListUsers extends ListRecords
     {
         return $table
             ->columns(UserResourceTable::getFields())
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 SelectFilter::make('id')
                     ->options(
