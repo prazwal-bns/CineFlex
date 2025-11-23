@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\UserResource\Table;
 
+use App\Enums\OrganizationType;
 use App\Filament\Contracts\ResourceFieldContract;
 use App\Filament\Tables\Columns\LinkColumn;
 use Filament\Forms\Form;
@@ -42,6 +43,9 @@ final class UserResourceTable implements ResourceFieldContract
                 ->searchable(),
             Tables\Columns\TextColumn::make('organization')
                 ->searchable()
+                ->formatStateUsing(function ($state) {
+                    return $state->label();
+                })
                 ->badge()
                 ->color('secondary'),
             Tables\Columns\TextColumn::make('created_at')

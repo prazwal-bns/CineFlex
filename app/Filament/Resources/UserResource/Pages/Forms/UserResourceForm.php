@@ -65,8 +65,7 @@ final class UserResourceForm implements ResourceFieldContract
                             })
                             ->preload()
                             ->required()
-                            ->searchable()
-                            ->dehydrated(false),
+                            ->searchable(),
                         Forms\Components\Select::make('organization')
                             ->label('Organization Role')
                             ->options(OrganizationType::labels())
