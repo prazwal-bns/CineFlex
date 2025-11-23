@@ -13,8 +13,6 @@ class EditUser extends EditRecord
 
     protected static string $resource = UserResource::class;
 
-    protected ?array $rolesToSync = null;
-
     protected function getHeaderActions(): array
     {
         return [
@@ -35,22 +33,19 @@ class EditUser extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        // Store roles before removing from data
-        if (isset($data['roles'])) {
-            $this->rolesToSync = is_array($data['roles']) ? $data['roles'] : [$data['roles']];
-        }
-
         // Remove fields that shouldn't be saved directly
-        unset($data['roles'], $data['password_confirmation']);
+        unset($data['password_confirmation']);
 
         return $data;
     }
 
     protected function afterSave(): void
     {
-        // Sync roles after user is updated
-        if (!empty($this->rolesToSync)) {
-            $this->record->syncRoles($this->rolesToSync);
+        // Get roles from form state (since field is dehydrated=false, it's not in $data)
+        $formData = $this->form->getState();
+        if (isset($formData['roles']) && !empty($formData['roles'])) {
+            $roles = is_array($formData['roles']) ? $formData['roles'] : [$formData['roles']];
+            $this->record->syncRoles($roles);
         }
     }
 }
